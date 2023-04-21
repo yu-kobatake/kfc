@@ -70,7 +70,7 @@ $pagetitle = "里親募集ページ"
         $animal_area = '';
       }
       if (!empty($_POST['keyword'])) {
-        $keyword = $_POST['keyword'];
+        $keyword = "%".$_POST['keyword']."%";
         echo "{$keyword}<br>";
       } else {
         $keyword = '';
@@ -84,58 +84,57 @@ $pagetitle = "里親募集ページ"
         echo "データベース{$dbName}に接続しました", "<br>";
         //検索条件に合わせてsql文を作成
 
-        //3項目(kind,area,animal_area)
-        // if (!empty($area) && !empty($animal_area)) {
-        //   $sql = "SELECT*FROM animal 
-        //     WHERE kind = :kind AND (area_1 = :area OR area_2 = :area OR area_3 = :area) AND animal_area = :animal_area";
-        //   echo "kind,area,animal_area<br>";
-        // } else {
-        //   if (!empty($area) || !empty($animal_area)) {
-        //     //2項目(kind,area)
-        //     if (!empty($area)) {
-        //       $sql = "SELECT*FROM animal 
-        //         WHERE kind = :kind AND (area_1 = :area OR area_2 = :area OR area_3 = :area)";
-        //       echo "kind,area<br>";
-        //     }
-        //     //2項目(kind,animal_area)
-        //     if (!empty($animal_area)) {
-        //       $sql = "SELECT*FROM animal 
-        //         WHERE kind = :kind AND animal_area = :animal_area";
-        //       echo "kind,animal_area<br>";
-        //     }
-        //   }
-        //   //1項目(kind) 
-        //   else {
-        //     $sql = "SELECT*FROM animal 
-        //       WHERE kind = :kind";
-        //     echo "kind<br>";
-        //   }
-        // }
-        //keywordあれば追記
-        // if (!empty($keyword)) {
-        //   $sql .= " title LIKE '%{$keyword}%'";
-        // }
+        // 3項目(kind,area,animal_area)
+        if (!empty($area) && !empty($animal_area)) {
+          $sql = "SELECT*FROM animal 
+          WHERE kind = :kind AND 
+          (area_1 = :area_1 OR area_2 = :area_2 OR area_3 = :area_3) AND
+          animal_area = :animal_area";
+           echo "kind,area,animal_area<br>";
+        } else {
+          if (!empty($area) || !empty($animal_area)) {
+            //2項目(kind,area)
+            if (!empty($area)) {
+              $sql = "SELECT*FROM animal 
+              WHERE kind = :kind AND 
+              (area_1 = :area_1 OR area_2 = :area_2 OR area_3 = :area_3)";
+                   echo "kind,area<br>";
+            }
+            //2項目(kind,animal_area)
+            if (!empty($animal_area)) {
+              $sql = "SELECT*FROM animal 
+              WHERE kind = :kind AND 
+              animal_area = :animal_area";
+                   echo "kind,animal_area<br>";
+            }
+          }
+          //1項目(kind) 
+          else {
+            $sql = "SELECT*FROM animal 
+              WHERE kind = :kind";
+            echo "kind<br>";
+          }
+        }
+        // keywordあれば追記
+        if (!empty($keyword)) {
+          $sql .= " AND concat(animal_id, title, gender ,age ,other) LIKE :keyword";
+        }
 
-        $sql = "SELECT*FROM animal 
-       WHERE kind = :kind AND area_1 = :area AND animal_area = :animal_area" ;
-      //   $sql = "SELECT*FROM animal 
-      //  WHERE area_1 = :area";
-      //   $sql = "SELECT*FROM animal 
-      //  WHERE animal_area = :animal_area";
-      //   $sql = "SELECT*FROM animal 
-      //  WHERE kind = :kind AND area_1 = :area AND animal_area = :animal_area";
-
+        // $sql = "SELECT*FROM animal 
+        //  WHERE kind = :kind AND 
+        //  (area_1 = :area_1 OR area_2 = :area_2 OR area_3 = :area_3) AND
+        //  animal_area = :animal_area AND
+        //  concat(animal_id, title, gender ,age ,other) LIKE :keyword";
         echo $sql;
+
         $stm = $pdo->prepare($sql);
         //プレースホルダーを作る
         $stm->bindValue(':kind', $kind, PDO::PARAM_STR);
-        // echo 1;
-        $stm->bindValue(':area', $area, PDO::PARAM_STR);
-        // echo 2;
-        $stm->bindValue(':animal_area', $animal_area, PDO::PARAM_STR);
-        // echo 3;
-        // $stm->bindValue(':keyword', $keyword, PDO::PARAM_STR);
-        // echo 4;
+        // $stm->bindValue(':area_1', $area, PDO::PARAM_STR);
+        // $stm->bindValue(':area_2', $area, PDO::PARAM_STR);
+        // $stm->bindValue(':area_3', $area, PDO::PARAM_STR);
+        // $stm->bindValue(':animal_area', $animal_area, PDO::PARAM_STR);
+        $stm->bindValue(':keyword', $keyword, PDO::PARAM_STR);
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         var_dump($result);
