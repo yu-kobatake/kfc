@@ -142,27 +142,27 @@ $pagetitle = "里親募集ページ"
 
         // 2項目(area,animal_area)
         if (!empty($area) && !empty($animal_area)) {
-          $sql = "SELECT animal_id,age,animal_area,gender,age,title 
+          $sql = "SELECT animal_id,age,animal_area,gender,age,title,image_1,image_2,image_3,kind
           FROM animal 
           WHERE (area_1 = :area_1 OR area_2 = :area_2 OR area_3 = :area_3) AND
           animal_area = :animal_area ";
         } elseif (!empty($area) || !empty($animal_area)) {
           //1項目(area)
           if (!empty($area)) {
-            $sql = "SELECT animal_id,age,animal_area,gender,age,title 
+            $sql = "SELECT animal_id,age,animal_area,gender,age,title,image_1,image_2,image_3,kind
             FROM animal 
               WHERE (area_1 = :area_1 OR area_2 = :area_2 OR area_3 = :area_3) ";
           }
           //1項目(animal_area)
           if (!empty($animal_area)) {
-            $sql = "SELECT animal_id,age,animal_area,gender,age,title 
+            $sql = "SELECT animal_id,age,animal_area,gender,age,title,image_1,image_2,image_3,kind
             FROM animal 
               WHERE animal_area = :animal_area ";
           }
           //(項目無し)
         } else {
           if ($kind === '全て') {
-            $sql = "SELECT animal_id,age,animal_area,gender,age,title
+            $sql = "SELECT animal_id,age,animal_area,gender,age,title,image_1,image_2,image_3,kind
             FROM animal ";
           }
         }
@@ -185,7 +185,7 @@ $pagetitle = "里親募集ページ"
           empty($area) &&
           empty($animal_area)
         ) {
-          $sql = "SELECT animal_id,age,animal_area,gender,age,title 
+          $sql = "SELECT animal_id,age,animal_area,gender,age,title,image_1,image_2,image_3,kind 
           FROM animal 
           WHERE kind = :kind ";
         } elseif ($kind === '犬' || $kind === '猫') {
@@ -236,9 +236,9 @@ $pagetitle = "里親募集ページ"
     if (isset($result)) {
       foreach ($result as $row) {
         echo <<<"EOL"
-        <a href="recruit_detail.php?animal_name={$row['animal_id']}">
-  <div>
-
+  <a href="recruit_detail.php?animal_id={$row['animal_id']}">
+  <div> 
+  <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
   <p>{$row['title']}</p>
   <p>年齢：{$row['age']}&nbsp;{$row['gender']}</p>
   <p>{$row['animal_area']}</p>
@@ -249,11 +249,7 @@ $pagetitle = "里親募集ページ"
       }
     }
     ?>
-    <!-- イメージ画像 -->
-    <!-- <p>{$row['image_1']}</p>
-  <p>{$row['image_2']}</p>
-  <p>{$row['image_3']}</p> -->
   </main>
 </div>
-
+<img src="./images/animal_photo/" alt="">
 <?php include('parts/footer.php'); ?>
