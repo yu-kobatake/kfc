@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <?php echo "<title>$pagetitle</title>"; ?>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ここにサイト説明を入れます">
+  <meta name="robots" content="noindex, nofollow" />
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -14,7 +14,10 @@
   <header>
     <h1 id="logo"><a href="index.html"><img src="images/logo.png" alt="Sample Recipe Site"></a></h1>
     <ul>
-      <li><a href="about.html">当サイトについて</a></li>
-      <li><a href="contact.html">お問い合わせ</a></li>
+      <li><a href="./index.php">ホーム</a></li>
+      <li><a href="./recruit.php">里親募集</a></li>
+      <li><a href="./event.php">イベント</a></li>
+      <li><a href="./about.php">当サイトについて</a></li>
+      <li><a href="./login.php">マイページ</a></li>
     </ul>
   </header>
