@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once("./lib/util.php");
+
 $user = 'username';
 $password = 'kfc';
 $dbName = 'shotohlcd31_ kfc';
@@ -27,7 +28,8 @@ $pagetitle = "里親募集詳細"
       $animal_id = $_GET['animal_id'];
     } else {
       echo "<p>無効な掲載IDです。</p>";
-      echo "<a href='recruit.php'><button>前ページに戻る</button></a><br>";
+      echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
+      exit();
     }
 
     // animalテーブルへの接続

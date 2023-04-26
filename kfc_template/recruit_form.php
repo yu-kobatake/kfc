@@ -27,9 +27,6 @@ $pagetitle = "申し込みフォーム"
 <?php include('parts/header.php'); ?>
 
 <?php
-$user_id = 8;
-$animal_id = 2;
-
 // if (!empty($_SESSION['user_id'])) {
 //   $user_id = $_SESSION['user_id'];
 // } else {
@@ -38,9 +35,12 @@ $animal_id = 2;
 
 if (!empty($_POST['animal_id'])) {
   $animal_id = $_POST['animal_id'];
+} elseif (!empty($_SESSION['animal_id'])) {
+  $animal_id = $_SESSION['animal_id'];
 } else {
   echo "<p>無効な掲載IDです。</p>";
-  echo "<a href='recruit_detail.php'><button>前ページに戻る</button></a><br>";
+  echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
+  exit();
 }
 ?>
 
@@ -121,15 +121,15 @@ if (!empty($_POST['animal_id'])) {
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         // var_dump($result);
-      }
 
-      echo "<h3>里親申し込みフォーム</h3>";
-      echo "<p>下記の里親募集に応募します。</p>";
 
-      // animal表示
-      if (isset($result)) {
-        foreach ($result as $row) {
-          echo <<<"EOL"
+        echo "<h3>里親申し込みフォーム</h3>";
+        echo "<p>下記の里親募集に応募します。</p>";
+
+        // animal表示
+        if (isset($result)) {
+          foreach ($result as $row) {
+            echo <<<"EOL"
             <div>
             <h3>動物情報</h3>
             <p>掲載ID：{$row['animal_id']}</p>
@@ -142,6 +142,7 @@ if (!empty($_POST['animal_id'])) {
             </table>
             </div>
             EOL;
+          }
         }
       }
     } catch (Exception $e) {
@@ -152,6 +153,7 @@ if (!empty($_POST['animal_id'])) {
 
 
     // userテーブルへの接続
+    $user_id = 4;
     try {
       $pdo = new PDO($dsn, $user, $password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -165,11 +167,11 @@ if (!empty($_POST['animal_id'])) {
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
         // var_dump($result);
-      }
-      // user表示
-      if (isset($result)) {
-        foreach ($result as $row) {
-          echo <<<"EOL"
+
+        // user表示
+        if (isset($result)) {
+          foreach ($result as $row) {
+            echo <<<"EOL"
       <div>
       <h3>ユーザー情報</h3>
       <table class='ta1'>
@@ -186,6 +188,7 @@ if (!empty($_POST['animal_id'])) {
       </table>
       </div>
       EOL;
+          }
         }
       }
     } catch (Exception $e) {
@@ -194,78 +197,157 @@ if (!empty($_POST['animal_id'])) {
       exit();
     }
     ?>
-    <!-- 確認事項フォーム -->
+
     <form action="./recruit_confirm.php" method="POST">
+      <!-- 確認事項フォーム(初期値) -->
+      <?php
+      if (!empty($_SESSION['question_1'])) {
+        $question_1 = $_SESSION['question_1'];
+      } else {
+        $question_1 = "";
+      }
+
+      if (!empty($_SESSION['question_2'])) {
+        $question_2 = $_SESSION['question_2'];
+      } else {
+        $question_2 = "";
+      }
+
+      if (!empty($_SESSION['question_3'])) {
+        $question_3 = $_SESSION['question_3'];
+      } else {
+        $question_3 = "";
+      }
+
+      if (!empty($_SESSION['question_4'])) {
+        $question_4 = $_SESSION['question_4'];
+      } else {
+        $question_4 = "";
+      }
+
+      if (!empty($_SESSION['question_5'])) {
+        $question_5 = $_SESSION['question_5'];
+      } else {
+        $question_5 = "";
+      }
+
+      if (!empty($_SESSION['question_6'])) {
+        $question_6 = $_SESSION['question_6'];
+      } else {
+        $question_6 = "";
+      }
+
+      if (!empty($_SESSION['question_7'])) {
+        $question_7 = $_SESSION['question_7'];
+      } else {
+        $question_7 = "";
+      }
+      ?>
+
       <table>
         <tr>
           <th>
-            動物の飼育経験について（種類、飼っていた時期など）
+            1.動物の飼育経験について（種類、飼っていた時期など）
           </th>
         </tr>
         <tr>
           <td>
-            <textarea name="question_1"></textarea>
+            <textarea name="question_1"><?php echo es($question_1); ?></textarea>
           </td>
         </tr>
         <tr>
           <th>
-            動物と一緒に暮らすご家族、恋人、同居人の構成と年齢層（例：父（応募者・30歳）　母（31歳）娘（10歳））
+            2.動物と一緒に暮らすご家族、恋人、同居人の構成と年齢層（例：父（応募者・30歳）　母（31歳）娘（10歳））
           </th>
         </tr>
         <tr>
           <td>
-            <textarea name="question_2"></textarea>
+            <textarea name="question_2"><?php echo es($question_2); ?></textarea>
           </td>
         </tr>
         <tr>
           <th>
-            現在、動物のために用意しているもの（ケージ、トイレなど）
+            3.現在、動物のために用意しているもの（ケージ、トイレなど）
           </th>
         </tr>
         <tr>
           <td>
-            <textarea name="question_3"></textarea>
+            <textarea name="question_3"><?php echo es($question_3); ?></textarea>
           </td>
         </tr>
         <tr>
           <th>
-            もしも自分や同居人が新たにアレルギーに発症したり、結婚や出産などで増えた家族がアレルギーだった場合はどうしますか
+            4.もしも自分や同居人が新たにアレルギーに発症したり、結婚や出産などで増えた家族がアレルギーだった場合はどうしますか
           </th>
         </tr>
         <tr>
           <td>
-            <textarea name="question_4"></textarea>
+            <textarea name="question_4"><?php echo es($question_4); ?></textarea>
           </td>
         </tr>
         <tr>
           <th>
-            長期にわたって家を留守にする場合、動物をどうしますか
+            5. 長期にわたって家を留守にする場合、動物をどうしますか
           </th>
         </tr>
         <tr>
           <td>
-            <textarea name="question_5"></textarea>
+            <textarea name="question_5"><?php echo es($question_5); ?></textarea>
           </td>
         </tr>
         <tr>
           <th>
-            最寄りの動物病院について把握していますか
+            6. 最寄りの動物病院について把握していますか
           </th>
         </tr>
         <tr>
           <td>
-            <textarea name="question_6"></textarea>
+            <textarea name="question_6"><?php echo es($question_6); ?></textarea>
           </td>
         </tr>
         <th>
-          里親を希望する具体的な理由と、どのように動物と生活をする予定なのかをなるべく詳しく書いてください。
+          7.里親を希望する具体的な理由と、どのように動物と生活をする予定なのかをなるべく詳しく書いてください。
         </th>
         </tr>
         <tr>
           <td>
-            <textarea name="question_7"></textarea>
+            <textarea name="question_7"><?php echo es($question_7); ?></textarea>
           </td>
         </tr>
+      </table>
+      <!-- 同意事項(初期値) -->
+      <?php
+      if (!empty($_SESSION['agree_1'])) {
+        $agree_1 = "checked";
+      } else {
+        $agree_1 = "";
+      }
+      if (!empty($_SESSION['agree_2'])) {
+        $agree_2 = "checked";
+      } else {
+        $agree_2 = "";
+      }
+      if (!empty($_SESSION['agree_3'])) {
+        $agree_3 = "checked";
+      } else {
+        $agree_3 = "";
+      }
+
+      ?>
+      <!-- 入力エラー表示 -->
+      <?php
+      if (!empty($_SESSION['errors'])) {
+        $errors = $_SESSION['errors'];
+        if (count($errors) > 0) {
+          foreach ($errors as $e) {
+            echo "<span style='color:red'>$e</span><br>";
+          }
+        }
+      }
+      // var_dump($_SESSION);
+      ?>
+
+      <table>
         <tr>
           <th>
             同意事項
@@ -274,34 +356,47 @@ if (!empty($_POST['animal_id'])) {
         <tr>
           <td>
             <label>
-              <input type="checkbox" neme='agree_1'>
-              動物に必要な獣医療を受けさせます。
+              <input type="checkbox" name='agree_1' value="agree" <?php echo es($agree_1); ?>>
+              1.動物に必要な獣医療を受けさせます。
             </label>
           </td>
         </tr>
         <tr>
           <td>
             <label>
-              <input type="checkbox" neme='agree_2'>
-              犬の場合、ノーリード禁止の場所ではリードをつけること。猫の場合、完全室内飼育（通院など必要な場合を除いて外に出さない。リードの有無にかかわらずお散歩をさせない）を厳守します
+              <input type="checkbox" name='agree_2' value="agree" <?php echo es($agree_2); ?>>
+              2.犬の場合、ノーリード禁止の場所ではリードをつけること。猫の場合、完全室内飼育（通院など必要な場合を除いて外に出さない。リードの有無にかかわらずお散歩をさせない）を厳守します
             </label>
           </td>
         </tr>
         <tr>
           <td>
             <label>
-              <input type="checkbox" neme='agree_3'>
-              同意事項を全て確認し、同意します。
+              <input type="checkbox" name='agree_3' value="agree" <?php echo es($agree_3); ?>>
+              3.同意事項を全て確認し、同意します。
             </label>
           </td>
         </tr>
       </table>
+      <!-- 入力エラー表示 -->
+      <?php
+      if (!empty($_SESSION['errors_agree'])) {
+        $errors_agree = $_SESSION['errors_agree'];
+        if (count($errors_agree) > 0) {
+          foreach ($errors_agree as $e) {
+            echo "<span style='color:red'>$e</span><br>";
+          }
+        }
+      }
+      ?>
+<??>
       <!-- token -->
       <input type='hidden' name='token' value='<?php echo $token; ?>'>
       <!-- animal_id -->
       <input type='hidden' name='animal_id' value='<?php echo $animal_id; ?>'>
       <button name="submit" name="submit">入力内容を確認する</button>
     </form>
+    
   </main>
 </div>
 
