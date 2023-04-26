@@ -4,6 +4,14 @@ require_once("./lib/util.php");
 /* セッション開始 */
 session_start();
 
+var_dump($_SESSION['user_id']);
+
+/* 未ログイン状態のアクセスは、トップへリダイレクトする */
+if (!isset($_SESSION['user_id'])) {
+  header('Location: ./index.php');
+  exit;
+}
+
 // 文字エンコードの検証
 if (!cken($_POST)) {
   $encoding = mb_internal_encoding();
@@ -11,19 +19,6 @@ if (!cken($_POST)) {
   // エラーメッセージを出して、以下のコードをすべてキャンセルする
   exit($err);
 }
-
-/* 未ログイン状態ならトップへ飛ばす？ */
-// if (!isset($_SESSION['username'])) {
-//   header('Location: ./index.php');
-//   exit;
-// }
-
-// POSTされた値をセッション変数に受け渡す
-if (isset($_POST['user_id'])) {
-  $_SESSION['user_id'] = $_POST['user_id'];
-}
-
-var_dump($_SESSION['user_id']);
 
 /* 退会処理 */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -67,9 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit($err);
       //exit;
     }
-
     // セッションを破壊
     killSession();
+  } else {
+    echo "不正なアクセスです。";
   }
 }
 ?>
@@ -79,14 +75,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pagetitle = "退会完了"
 ?>
 <?php include('parts/header.php'); ?>
-<div id="container">
+<div id="container" class="c1">
   <main>
     <h2><?php echo $pagetitle ?></h2>
-    <p>
-      退会完了しました。<br>
-      ご利用ありがとうございました。
-    </p>
-    <p><a href="./index.php">トップに戻る</a></p>
+    <div class="c">
+      <p>
+        退会完了しました。<br>
+        ご利用ありがとうございました。
+      </p>
+      <p><a href="./index.php">トップに戻る</a></p>
+    </div>
   </main>
 </div>
 <?php include('parts/footer.php'); ?>

@@ -23,7 +23,6 @@ if ($_SESSION['token'] !== $_POST['token']) :
   echo <<< EOL
     <p>不正なアクセスです。</p>
     EOL;
-
 else :
 
   /*---------- DB読み込み ----------*/
@@ -54,6 +53,7 @@ else :
 
     // 結果の取得（連想配列で受け取る）
     $userdata = $stm->fetchAll(PDO::FETCH_ASSOC);
+    
   } catch (PDOException $e) {
     $err =  '<span class="error">エラーがありました。</span><br>';
     $err .= $e->getMessage();
@@ -64,7 +64,6 @@ else :
   $_POST = es($_POST); // POST情報をエスケープ
 
   // 値があれば、trimで前後空白を取り除く。なければ、nullを入れる。
-  $_SESSION['kind'] = isset($_POST['kind']) ? trim($_POST['kind'], '\x20\t\r\0\v') : null;
   $_SESSION['user_name'] = isset($_POST['user_name']) ? trim($_POST['user_name'], '\x20\t\r\0\v') : null;
   $_SESSION['name'] = isset($_POST['name']) ? trim($_POST['name'], '\x20\t\r\0\v') : null;
   $_SESSION['furigana'] = isset($_POST['furigana']) ? trim($_POST['furigana'], '\x20\t\r\0\v') : null;
@@ -72,11 +71,10 @@ else :
   $_SESSION['password'] = isset($_POST['password']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['password']) : null;
   $_SESSION['zip'] = isset($_POST['zip']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['zip']) : null;
   $_SESSION['address'] = isset($_POST['address']) ? trim($_POST['address'], '\x20\t\r\0\v') : null;
-  $_SESSION['birth']  = isset($_POST['birth']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['birth']) : null;
+  $_SESSION['birth']  = isset($_POST['birth']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '' , $_POST['birth']) : null;
   $_SESSION['gender'] = isset($_POST['gender']) ? trim($_POST['gender'], '\x20\t\r\0\v') : null;
   $_SESSION['job'] = isset($_POST['job']) ? trim($_POST['job'], '\x20\t\r\0\v') : null;
-  $_SESSION['agreement'] = isset($_POST['agreement']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['agreement']) : null;
-
+  
   // セッションを変数へ
   $kind = $_SESSION['kind'];
   $user_name = $_SESSION['user_name'];
@@ -89,17 +87,11 @@ else :
   $birth = $_SESSION['birth'];
   $gender = $_SESSION['gender'];
   $job = $_SESSION['job'];
-  $agreement = $_SESSION['agreement'];
 
   // 必須が空になっていないか or バリデーションチェック
   $error = [];
   $_SESSION['error'] = [];
 
-  if ($kind == "") {
-    $error[] = "【里親orブリーダー】は必須です";
-  } else {
-    $_SESSION['kind'] = $kind;
-  }
   if (empty($user_name)) {
     $error[] = "【ユーザー名】は必須です";
   } else {
@@ -121,7 +113,7 @@ else :
     // メールアドレスの形式チェック
     if (!preg_match("/^[a-z0-9._+^~-]+@[a-z0-9.-]+$/i", $email)) {
       $error[] = "【メールアドレス】の形式を正しく入力してください。";
-    } elseif (array_search($_SESSION['email'], array_column($userdata, 'email'))) {
+    } elseif(array_search($_SESSION['email'], array_column($userdata, 'email'))){
       // メールアドレスの重複チェック
       $error[] = "【メールアドレス】入力頂いたメールアドレスは既に登録されています。";
     } else {
@@ -148,11 +140,6 @@ else :
   } else {
     $_SESSION['gender'] = $gender;
   }
-  if ($agreement == '') {
-    $error[] = "【利用規約】へ同意をお願いします";
-  } else {
-    $_SESSION['agreement'] = $agreement;
-  }
 
   // エラー文の表示
   if (count($error) > 0) {
@@ -160,24 +147,24 @@ else :
     header("Location:signup.php");
     exit();
   }
-  
+
 endif;
 ?>
 <?php
 // titleで読み込むページ名
-$pagetitle = "会員登録情報の確認";
+$pagetitle = "会員情報変更の確認";
 ?>
 <?php include('parts/header.php'); ?>
 <div id="container" class="c1">
   <main>
     <h2><?php echo $pagetitle ?></h2>
     <p>以下の情報で登録します。よろしければページ下の「登録」ボタンを押してください。</p>
-    <form action="signup_complet.php" method="POST">
+    <form action="change_complet.php" method="POST">
       <table class="ta1">
         <tr>
           <th>里親希望 or ブリーダー※</th>
           <td>
-            <?php echo $kind; ?>
+            <?php echo $_SESSION['kind']; ?>
           </td>
         </tr>
         <tr>
@@ -243,10 +230,11 @@ $pagetitle = "会員登録情報の確認";
         </tr>
       </table>
       <p class="c"><input type="submit" value="この内容で登録する"></p>
-      <p class="c"><input type="button" value="戻る" onclick="location.href='signup.php'"></p>
-      <input type="hidden" name="is_POSTcheck" value="1">
+      <p class="c"><input type="button" value="戻る" onclick="location.href='mypage_change.php'"></p>
       <input type="hidden" name="token2" value="<?php echo es($token2); ?>">
     </form>
+
   </main>
 </div>
+
 <?php include('parts/footer.php'); ?>

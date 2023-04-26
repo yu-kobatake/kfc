@@ -12,7 +12,66 @@ $_SESSION["token"] = $token;
 // エラー文の取得
 $error = !empty($_SESSION['error']) ? $_SESSION['error'] : "";
 
-// 戻ってきたとき、最初からvalueに値を入れる処理（値を代入するか、空を代入するか）
+// user_idの値があれば受け渡す
+if(isset($_POST['user_id'])){
+  $_POST = es($_POST);
+  $user_id = $_POST['user_id'];
+}
+
+/*---------- DB読み込み ----------*/
+// データベース接続
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
+$host = 'localhost';
+//$host = 'sv14471.xserver.jp';
+$dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+
+//MySQLデータベースに接続する
+try {
+  $pdo = new PDO($dsn, $user, $password);
+  // プリペアドステートメントのエミュレーションを無効にする
+  $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+  // 例外がスローされる設定にする
+  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  // userテーブルの内容を全て抽出
+  $sql = "SELECT * FROM user WHERE user_id = '$user_id'";
+
+  // プリペアドステートメントを作る
+  $stm = $pdo->prepare($sql);
+
+  // SQLクエリを実行する
+  $stm->execute();
+
+  // 結果の取得（連想配列で受け取る）
+  $userdata = $stm->fetchAll(PDO::FETCH_ASSOC);
+  
+} catch (PDOException $e) {
+  $err =  '<span class="error">エラーがありました。</span><br>';
+  $err .= $e->getMessage();
+  exit($err);
+}
+
+// 値を表示するために取得
+foreach ($userdata as $val) {
+  // kindは固定
+  $_SESSION['kind'] = $val["kind"];
+  // DB情報を変数へ
+  $user_name = $val["user_name"];
+  $name = $val["name"];
+  $furigana = $val["furigana"];
+  $email = $val["email"];
+  $password = $val["password"];
+  $zip = $val["zip"];
+  $address = $val["address"];
+  $birth = $val["birth"];
+  $gender = $val["gender"];
+  $job = $val["job"];
+}
+
+
+// 戻ってきたとき、最初からvalueに値を入れる用（値を代入するか、空を代入するか）
 $kind = !empty($_SESSION['kind']) ? $_SESSION['kind'] : "";
 $user_name = !empty($_SESSION['user_name']) ? $_SESSION['user_name'] : "";
 $name = !empty($_SESSION['name']) ? $_SESSION['name'] : "";
@@ -25,6 +84,7 @@ $birth = !empty($_SESSION['birth']) ? $_SESSION['birth'] : "";
 $gender = !empty($_SESSION['gender']) ? $_SESSION['gender'] : "";
 $job = !empty($_SESSION['job']) ? $_SESSION['job'] : "";
 
+// 初期値をチェックする
 // ラジオボタン（種類・性別）
 function checked($value, $select){
   if (is_array($select)) {
@@ -47,26 +107,17 @@ function selected($value, $select){
     echo "selected";
   }
 }
-// チェックボックス（同意）
-function agreeChecked(){
-  if(!empty($_SESSION['agreement'])){
-    if ($_SESSION['agreement'] === 'on') {
-      echo "checked";
-    }
-  }
-}
 
 ?>
 <?php
 // titleで読み込むページ名
-$pagetitle = "新規会員登録";
+$pagetitle = "登録情報の変更";
 ?>
 <?php include('parts/header.php'); ?>
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <div id="container" class="c1">
   <main>
     <h2><?php echo $pagetitle ?></h2>
-    <p>ご利用には会員登録が必要です。（※のついている項目は入力必須）</p>
     <!-- エラー文があれば表示 -->
     <div class="error" style="color:red;">
       <?php
@@ -77,17 +128,13 @@ $pagetitle = "新規会員登録";
       }
       ?>
     </div>
-    <form action="signup_comfirm.php" method="POST">
+    <p>変更したい項目を修正し、確認ページへ進んでください。</p>
+    <form action="change_confirm.php" method="POST">
       <table class="ta1">
         <tr>
           <th>里親希望 or ブリーダー※</th>
           <td>
-            <label>
-              <input type="radio" name="kind" id="" value="里親" <?php checked("里親", $kind); ?>>里親
-            </label>
-            <label>
-              <input type="radio" name="kind" id="" value="ブリーダー" <?php checked("ブリーダー", $kind); ?>>ブリーダー
-            </label>
+            <?php echo $_SESSION['kind']; ?>
           </td>
         </tr>
         <tr>
@@ -148,84 +195,12 @@ $pagetitle = "新規会員登録";
             </select>
           </td>
         </tr>
-        <tr>
-          <th>利用規約※</th>
-          <td>
-            <textarea cols="50" rows="10" class="wl">
-サイト利用規約
-利用規約
-●●●●（以下「本サイト」）は●●●●（以下「当団体」）が運営しています。本サイトご利用の際には以下の利用条件を同意されたものとみなします。
-また利用規約は予告なしに変更することがあります。
-
-禁止事項
-本サイトのご利用に際し、次の行為を禁止します。
-
-当団体等の権利・財産を侵害する行為、及び侵害するおそれのある行為。
-本サイト運営を妨害する行為、及び妨害する恐れのある行為。
-当団体の名誉や信頼を傷つける行為、及び傷つける恐れのある行為。
-法令違反や公序良俗に反する行為、及び反する恐れのある行為。
-当団体が不適切と判断する行為。
-利用制限や削除について
-本規約に反した行為等が発覚した場合は、削除やサービスの停止などを当団体の判断で対応いたします。
-利用者間でのクレーム・損害、また第三者へのクレーム・損害に関しては、当事者間での解決を図り、当団体は関与しないものとします。
-
-著作権及びその他
-本サイトの全てのロゴ、画像、文章、音楽・映像等に関する著作権・商標権などの知的財産権その他一切の権利は、当団体に帰属もしくは当団体ががライセンスにによって使用するものです。これらの使用・複製・転載・変更・送信・頒布・譲渡・貸与・二次的使用は、事前の書面による当団体の了承を除き、禁止します。
-
-免責条項について
-本サイト掲載の情報に関して、その内容についてに当団体は保証するものではありません。 本サイトのご利用の際に生じたいかなる損害においても当団体は責任を負うものではありません。
-ご利用者様には適宜サイトに関連する情報をお送りする場合があります。
-
-情報提供について
-本サイトへ送信されたご意見、ご提案、アイディア等は、一般的な情報として取り扱います。当団体がこれらの情報を自由に使用することがあることをご同意いただいた上で、ご提供下さい。
-
-利用者に関する情報の取扱いについて
-当団体は、本サイトにアクセスした皆様のプライバシーを保護するため、プライバシーポリシーに記載するように、合理的な範囲で必要な措置をとります。なお、このプライバシーポリシーに関する準拠法は、日本法といたします。また、本ウェブサイトの利用に関するすべての紛争については、●●地方裁判所を第一審の専属的合意管轄裁判所とします。
-
-会員規約
-会員とは、本サイトを閲覧および利用している個人または法人のことです。
-会員は利用規約を遵守するものとします。
-            </textarea>
-            <br>
-            <label>
-              <input type="checkbox" name="agreement" id="agreement" <?php agreeChecked(); ?>>&nbsp;利用規約に同意します。
-            </label>
-          </td>
-        </tr>
       </table>
       <p class="c">
-        <input type="submit" value="登録内容を確認する" id="submit-btn">
+        <input type="submit" value="修正内容を確認する" id="submit-btn">
         <input type="hidden" name="token" value="<?php echo es($token); ?>">
       </p>
     </form>
   </main>
 </div>
-<script>
-  'use strict';
-  /*----- 「利用規約に同意」ボタンの挙動  -----*/
-  const submitBtn = document.getElementById('submit-btn'); // ボタン
-  const agree = document.getElementById('agreement'); // 利用規約チェック
-  // １．ページ読み込み時の状態チェック（戻ってきたとき）
-  window.onload = function(){
-    // チェックされている場合
-    if (agree.checked === true) {
-      submitBtn.disabled = false;
-    }
-    // チェックされていない場合
-    else {
-      submitBtn.disabled = true;
-    }
-  }
-  // ２．実際クリックされたときのチェック
-  agree.addEventListener('click', function() {
-    // チェックされている場合
-    if (agree.checked === true) {
-      submitBtn.disabled = false;
-    }
-    // チェックされていない場合
-    else {
-      submitBtn.disabled = true;
-    }
-  });
-</script>
 <?php include('parts/footer.php'); ?>
