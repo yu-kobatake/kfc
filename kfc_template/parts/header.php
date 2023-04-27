@@ -21,3 +21,21 @@
       <li><a href="./login.php">マイページ</a></li>
     </ul>
   </header>
+
+  <!--開閉ボタン（ハンバーガーアイコン）-->
+  <div id="menubar_hdr">
+    <span></span><span></span><span></span>
+  </div>
+  <!--スマホ用の開閉ブロック（メニュー）-->
+  <div id="menubar">
+    <ul>
+      <li><a href="./index.php">ホーム</a></li>
+      <li><a href="./recruit.php">里親募集</a></li>
+      <li><a href="./event.php">イベント</a></li>
+      <li><a href="./about.php">当サイトについて</a></li>
+    </ul>
+    <ul class="submenu btn">
+      <li><a href="./login.php">マイページ</a></li>
+    </ul>
+  </div>
+  <!--/#menubar-->
