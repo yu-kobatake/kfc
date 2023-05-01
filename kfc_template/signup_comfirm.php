@@ -4,6 +4,11 @@ require_once("./lib/util.php");
 // セッション開始
 session_start();
 
+// トークン発行・登録
+$bytes2 = openssl_random_pseudo_bytes(16);
+$token2 = bin2hex($bytes2);
+$_SESSION["token2"] = $token2;
+
 // 文字エンコードの検証
 if (!cken($_POST)) {
   $encoding = mb_internal_encoding();
@@ -17,8 +22,8 @@ if ($_SESSION['token'] !== $_POST['token']) :
   // 正しくない場合は戻るボタンを表示
   echo <<< EOL
     <p>不正なアクセスです。</p>
-    <a href="signup.php"><button>戻る</button></a>
     EOL;
+
 else :
 
   /*---------- DB読み込み ----------*/
@@ -38,8 +43,6 @@ else :
     // 例外がスローされる設定にする
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $emailCheck = $_SESSION['email'];
-
     // 該当のユーザーIDのデータを削除
     $sql = "SELECT email FROM user";
 
@@ -51,7 +54,6 @@ else :
 
     // 結果の取得（連想配列で受け取る）
     $userdata = $stm->fetchAll(PDO::FETCH_ASSOC);
-    
   } catch (PDOException $e) {
     $err =  '<span class="error">エラーがありました。</span><br>';
     $err .= $e->getMessage();
@@ -70,7 +72,7 @@ else :
   $_SESSION['password'] = isset($_POST['password']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['password']) : null;
   $_SESSION['zip'] = isset($_POST['zip']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['zip']) : null;
   $_SESSION['address'] = isset($_POST['address']) ? trim($_POST['address'], '\x20\t\r\0\v') : null;
-  $_SESSION['birth']  = isset($_POST['birth']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '' , $_POST['birth']) : null;
+  $_SESSION['birth']  = isset($_POST['birth']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['birth']) : null;
   $_SESSION['gender'] = isset($_POST['gender']) ? trim($_POST['gender'], '\x20\t\r\0\v') : null;
   $_SESSION['job'] = isset($_POST['job']) ? trim($_POST['job'], '\x20\t\r\0\v') : null;
   $_SESSION['agreement'] = isset($_POST['agreement']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['agreement']) : null;
@@ -119,7 +121,7 @@ else :
     // メールアドレスの形式チェック
     if (!preg_match("/^[a-z0-9._+^~-]+@[a-z0-9.-]+$/i", $email)) {
       $error[] = "【メールアドレス】の形式を正しく入力してください。";
-    } elseif(array_search($_SESSION['email'], array_column($userdata, 'email'))){
+    } elseif (array_search($_SESSION['email'], array_column($userdata, 'email'))) {
       // メールアドレスの重複チェック
       $error[] = "【メールアドレス】入力頂いたメールアドレスは既に登録されています。";
     } else {
@@ -149,7 +151,7 @@ else :
   if ($agreement == '') {
     $error[] = "【利用規約】へ同意をお願いします";
   } else {
-      $_SESSION['agreement'] = $agreement;
+    $_SESSION['agreement'] = $agreement;
   }
 
   // エラー文の表示
@@ -158,23 +160,17 @@ else :
     header("Location:signup.php");
     exit();
   }
-
-
-
-
-
-
-
+  
 endif;
 ?>
 <?php
 // titleで読み込むページ名
-$pagetitle = "新規会員登録";
+$pagetitle = "会員登録情報の確認";
 ?>
 <?php include('parts/header.php'); ?>
 <div id="container" class="c1">
   <main>
-    <h2>会員登録情報の確認</h2>
+    <h2><?php echo $pagetitle ?></h2>
     <p>以下の情報で登録します。よろしければページ下の「登録」ボタンを押してください。</p>
     <form action="signup_complet.php" method="POST">
       <table class="ta1">
@@ -248,9 +244,9 @@ $pagetitle = "新規会員登録";
       </table>
       <p class="c"><input type="submit" value="この内容で登録する"></p>
       <p class="c"><input type="button" value="戻る" onclick="location.href='signup.php'"></p>
+      <input type="hidden" name="is_POSTcheck" value="1">
+      <input type="hidden" name="token2" value="<?php echo es($token2); ?>">
     </form>
-
   </main>
 </div>
-
 <?php include('parts/footer.php'); ?>

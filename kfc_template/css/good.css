@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+.star {
+	width: 20px;
+	height: 10px;
+	background-color: yellow;
+}
+.star_after {
+	background-color: yellowgreen;
+}
+	
+.btn-good:hover{
+	color: #f44336;
+}
+.active{
+	color: #f44336;
+}
+.btn-good .active{
+	color: #f44336;
+}

@@ -12,7 +12,7 @@ $_SESSION["token"] = $token;
 // エラー文の取得
 $error = !empty($_SESSION['error']) ? $_SESSION['error'] : "";
 
-// 戻ってきたとき、最初からvalueに値を入れる用（値を代入するか、空を代入するか）
+// 戻ってきたとき、最初からvalueに値を入れる処理（値を代入するか、空を代入するか）
 $kind = !empty($_SESSION['kind']) ? $_SESSION['kind'] : "";
 $user_name = !empty($_SESSION['user_name']) ? $_SESSION['user_name'] : "";
 $name = !empty($_SESSION['name']) ? $_SESSION['name'] : "";
@@ -25,8 +25,7 @@ $birth = !empty($_SESSION['birth']) ? $_SESSION['birth'] : "";
 $gender = !empty($_SESSION['gender']) ? $_SESSION['gender'] : "";
 $job = !empty($_SESSION['job']) ? $_SESSION['job'] : "";
 
-// 初期値でチェックする
-// ラジオボタン
+// ラジオボタン（種類・性別）
 function checked($value, $select){
   if (is_array($select)) {
     $isChecked = in_array($value, $select);
@@ -37,12 +36,26 @@ function checked($value, $select){
     echo "checked";
   }
 }
-// チェックボックス
-function agreeChecked(){
-  if ($_SESSION['agreement'] === true) {
-    echo "checked";
+// ラジオボタン（職業）
+function selected($value, $select){
+  if (is_array($select)) {
+    $isChecked = in_array($value, $select);
+  } else {
+    $isChecked = ($value === $select);
+  }
+  if ($isChecked) {
+    echo "selected";
   }
 }
+// チェックボックス（同意）
+function agreeChecked(){
+  if(!empty($_SESSION['agreement'])){
+    if ($_SESSION['agreement'] === 'on') {
+      echo "checked";
+    }
+  }
+}
+
 ?>
 <?php
 // titleで読み込むページ名
@@ -52,7 +65,7 @@ $pagetitle = "新規会員登録";
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <div id="container" class="c1">
   <main>
-    <h2>新規会員登録</h2>
+    <h2><?php echo $pagetitle ?></h2>
     <p>ご利用には会員登録が必要です。（※のついている項目は入力必須）</p>
     <!-- エラー文があれば表示 -->
     <div class="error" style="color:red;">
@@ -119,19 +132,19 @@ $pagetitle = "新規会員登録";
               <input type="radio" name="gender" value="女" <?php checked("女", $gender); ?>>女
             </label>
             <label>
-              <input type="radio" name="gender" value="回答しない" <?php checked("回答しない", $kind); ?>>回答しない
+              <input type="radio" name="gender" value="回答しない" <?php checked("回答しない", $gender); ?>>回答しない
             </label>
           </td>
         </tr>
         <tr>
           <th>職業</th>
           <td>
-            <select name="job" id="">
-              <option value="会社員">会社員</option>
-              <option value="パート・アルバイト">パート・アルバイト</option>
-              <option value="経営者・役員">経営者・役員</option>
-              <option value="自営業">自営業</option>
-              <option value="その他">その他</option>
+            <select name="job">
+              <option value="会社員" <?php selected("会社員", $job); ?>>会社員</option>
+              <option value="パート・アルバイト" <?php selected("パート・アルバイト", $job); ?>>パート・アルバイト</option>
+              <option value="経営者・役員" <?php selected("経営者・役員", $job); ?>>経営者・役員</option>
+              <option value="自営業" <?php selected("自営業", $job); ?>>自営業</option>
+              <option value="その他" <?php selected("その他", $job); ?>>その他</option>
             </select>
           </td>
         </tr>
@@ -175,7 +188,7 @@ $pagetitle = "新規会員登録";
             </textarea>
             <br>
             <label>
-              <input type="checkbox" name="agreement" id="terms" <?php agreeChecked(); ?>>&nbsp;利用規約に同意します。
+              <input type="checkbox" name="agreement" id="agreement" <?php agreeChecked(); ?>>&nbsp;利用規約に同意します。
             </label>
           </td>
         </tr>
@@ -185,17 +198,26 @@ $pagetitle = "新規会員登録";
         <input type="hidden" name="token" value="<?php echo es($token); ?>">
       </p>
     </form>
-
   </main>
 </div>
-
 <script>
   'use strict';
-
-  // 「同意する」にチェックしたらボタンが押せるようにする
+  /*----- 「利用規約に同意」ボタンの挙動  -----*/
   const submitBtn = document.getElementById('submit-btn'); // ボタン
-  const agree = document.getElementById('terms'); // 利用規約チェック
-  agree.addEventListener("click", () => {
+  const agree = document.getElementById('agreement'); // 利用規約チェック
+  // １．ページ読み込み時の状態チェック（戻ってきたとき）
+  window.onload = function(){
+    // チェックされている場合
+    if (agree.checked === true) {
+      submitBtn.disabled = false;
+    }
+    // チェックされていない場合
+    else {
+      submitBtn.disabled = true;
+    }
+  }
+  // ２．実際クリックされたときのチェック
+  agree.addEventListener('click', function() {
     // チェックされている場合
     if (agree.checked === true) {
       submitBtn.disabled = false;
@@ -206,5 +228,4 @@ $pagetitle = "新規会員登録";
     }
   });
 </script>
-
 <?php include('parts/footer.php'); ?>

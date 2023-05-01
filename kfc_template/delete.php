@@ -4,6 +4,15 @@ require_once("./lib/util.php");
 // セッション開始
 session_start();
 
+/* 未ログイン状態のアクセスは、トップへリダイレクトする */
+if (!isset($_POST['user_id'])) {
+   header('Location: ./index.php');
+   exit;
+} else {
+  // ログイン済ならば、POSTされた値をセッション変数に受け渡す
+  $_SESSION['user_id'] = $_POST['user_id'];
+}
+
 // 文字エンコードの検証
 if (!cken($_POST)) {
   $encoding = mb_internal_encoding();
@@ -12,20 +21,9 @@ if (!cken($_POST)) {
   exit($err);
 }
 
-// POSTされた値をセッション変数に受け渡す
-if (isset($_POST['user_id'])) {
-  $_SESSION['user_id'] = $_POST['user_id'];
-}
-
-/* 未ログイン状態ならトップへ飛ばす？ */
-// if (!isset($_SESSION['username'])) {
-//   header('Location: ./index.php');
-//   exit;
-// }
-
 /* DB読み込み */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  /* ログイン状態で、かつ退会ボタンを押した */
+  // ユーザーIDがあれば
   if (isset($_SESSION['user_id'])) {
 
     // データベース接続
@@ -38,17 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //MySQLデータベースに接続する
     try {
-
-      // 該当のユーザーIDを取り出す
-      $HIT = intval($_SESSION['user_id']);
-
       $pdo = new PDO($dsn, $user, $password);
       // プリペアドステートメントのエミュレーションを無効にする
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       // 例外がスローされる設定にする
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      // 該当のユーザーIDのデータを削除
+      // 該当のユーザーIDを取り出す
+      $HIT = intval($_SESSION['user_id']);
+
+      // 該当のユーザーIDのデータを抽出
       $sql = "SELECT * FROM user WHERE user_id = $HIT";
 
       // プリペアドステートメントを作る
@@ -59,48 +56,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       // 結果の取得（連想配列で受け取る）
       $userdata = $stm->fetchAll(PDO::FETCH_ASSOC);
+
     } catch (PDOException $e) {
       $err =  '<span class="error">エラーがありました。</span><br>';
       $err .= $e->getMessage();
       exit($err);
     }
+  } else {
+    header('Location: ./index.php');
+    exit;
   }
 }
-?>
 
+// 表示するためにデータの取得
+foreach ($userdata as $val) {
+  $user_name = $val["user_name"];
+  $name = $val["name"];
+  $email = $val["email"];
+}
+
+?>
 <?php
 // titleで読み込むページ名
 $pagetitle = "退会申し込み"
 ?>
 <?php include('parts/header.php'); ?>
-<div id="container">
+<div id="container" class="c1">
   <main>
     <h2><?php echo $pagetitle ?></h2>
-
     <form action="delete_complet.php" method="POST">
-      <?php
-      foreach ($userdata as $val) {
-        echo "ユーザーネーム：" . $val["user_name"] . "<br>";
-        echo "氏名：" . $val["name"] . "<br>";
-        echo "メールアドレス：" . $val["email"] . "<br>";
-      }
-      ?>
-      <dl>
-        <dt>退会理由をお聞かせください。（任意）</dt>
-        <dd><textarea name="delete_reason" cols="30" rows="10"></textarea></dd>
-      </dl>
-      <input type="hidden" name="is_delete" value="1">
-      <input type="submit" value="退会する（退会後は戻せません）">
+      <table class="ta1">
+        <tr>
+          <th>ユーザーID</th>
+          <td>
+            <?php echo $HIT; ?>
+          </td>
+        </tr>
+        <tr>
+          <th>ユーザー名</th>
+          <td>
+            <?php echo $user_name; ?>
+          </td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td>
+            <?php echo $email; ?>
+          </td>
+        </tr>
+        <tr>
+          <th>退会理由をお聞かせください。（任意）</th>
+          <td>
+            <textarea name="delete_reason" cols="70" rows="10"></textarea>
+          </td>
+        </tr>
+      </table>
+      <p class="c">
+        <input type="submit" class="" value="退会する（退会後は戻せません）">
+        <input type="hidden" name="is_delete" value="1">
+      </p>
     </form>
-
-    <p><a href="/">トップに戻る</a></p>
   </main>
 </div>
 <?php include('parts/footer.php'); ?>
-
-
-<!-- JavaScript -->
-<!-- <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script> -->
 </body>
-
 </html>

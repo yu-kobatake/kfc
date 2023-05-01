@@ -174,12 +174,14 @@ main p + p {margin-top: -10px;}
 	padding: 70px 0;	/*上下、左右へのブロック内の余白*/
 	background: rgba(0,0,0,0.9);		/*背景色。0,0,0は黒の事で0.9は色が90%出た状態の事。*/
 	animation: animation1 0.2s both;	/*animation.cssの、animation1を実行する。0.2sは0.2秒の事。*/
-	text-align: center;	/*内容をセンタリング*/
+	text-align: left;
+	/*text-align: center;	/*内容をセンタリング*/
 	color: #fff;		/*文字色*/
 }
 .s #menubar.db a {
 	display: block;
 	color: #fff;	/*リンクテキストの文字色*/
+	text-align: center;
 }
 
 
@@ -505,7 +507,8 @@ ul.slick-dots li.slick-active button {
 }
 .list p.name::before {
 	font-family: "Font Awesome 5 Free";	/*Font Awesomeを使う指定*/
-	content: "\f2bd";	/*Font Awesomeで読み込むアイコンの指定*/
+	content: "\f1b0";	/*Font Awesomeで読み込むアイコンの指定*/
+	font-weight: bold;
 	padding-right: 5px;	/*アイコンと名前の間に空ける余白*/
 	color: #f67777;		/*アイコンの色*/
 }
@@ -518,6 +521,11 @@ ul.slick-dots li.slick-active button {
 	right: 3px;			/*listブロックに対して右からの配置場所の指定*/
 	top: 3px;			/*listブロックに対して上からの配置場所の指定*/
 }
+
+.list a{
+	text-decoration: none;
+}
+
 /*マウスオン時*/
 .list .icon a:hover {
 	opacity: 1;	/*デフォルトで半透明になるのを、しないように*/
@@ -794,7 +802,8 @@ html, body {
 ---------------------------------------------------------------------------*/
 /*ハンバーガーメニューを非表示にする*/
 #menubar_hdr {display: none;}
-
+/*追記：PCだとスマホメニュー内非表示*/
+#menubar.db{display: none;}
 
 /*mainブロック設定
 ---------------------------------------------------------------------------*/
