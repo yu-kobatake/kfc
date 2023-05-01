@@ -82,6 +82,7 @@ include('parts/header.php'); ?>
             <form method="POST" action="#">
             <input type="submit" value="確認" formaction="recruit_detail.php?animal_id={$row['animal_id']}">
             <input type="submit" value="修正" formaction="animal_change.php">
+            <input type="submit" value="削除" formaction="animal_delete.php">
             <input type="hidden" name="animal_id" value="{$row['animal_id']}">
             </form>
           </div>

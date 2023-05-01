@@ -104,7 +104,7 @@ try {
   /* このユーザーが「犬猫登録をしていれば」animalテーブルから「犬猫のレコードを削除する」 */
   
   //SQL文：退会するユーザーのidが登録されている犬猫のレコードを削除する
-  $sql = "DELETE FROM animal WHERE user_id = 4";
+  $sql = "DELETE FROM animal WHERE user_id = $HIT";
    // プリペアドステートメントを作る
    $stm = $pdo->prepare($sql);
   
