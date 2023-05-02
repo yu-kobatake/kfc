@@ -14,7 +14,7 @@ require_once("./lib/util.php");
   $host = 'localhost';
   //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
-var_dump($_SESSION);
+// var_dump($_SESSION);
 ?>
 <?php
 if (!cken($_GET)) {
@@ -97,7 +97,7 @@ $pagetitle = "里親募集詳細"
             <?php
       if (!empty($_GET['animal_id'])) {
         $animal_id = $_GET['animal_id'];
-        var_dump($animal_id);
+        // var_dump($animal_id);      
       } else {
         echo "<p>無効な掲載IDです。</p>";
         echo "<a href='recruit.php'><button>前ページに戻る</button></a><br>";
@@ -115,8 +115,8 @@ $pagetitle = "里親募集詳細"
         // $dbPostData = getPostData($animal_id);
         // DBからいいねの数を取得
         $dbPostGoodNum = count(getGood($animal_id));
-        var_dump($dbPostGoodNum);
-        var_dump(getGood($animal_id));
+        // var_dump($dbPostGoodNum);
+        // var_dump(getGood($animal_id));
       }
 
       // いいね用関数
@@ -130,15 +130,12 @@ $pagetitle = "里親募集詳細"
           global $password;
           global $animal_id;
           $pdo = new PDO($dsn, $user, $password);
-          var_dump($pdo);
           $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
           $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $sql = 'SELECT * FROM good WHERE animal_id = :animal_id';
           // クエリ実行
           $stm = $pdo->prepare($sql);
           $result = $stm->execute(array(':animal_id' => $animal_id));
-          var_dump($stm);
-          var_dump($result);
           if ($stm) {
             return $stm->fetchAll();
           } else {
@@ -195,7 +192,7 @@ $pagetitle = "里親募集詳細"
 
           $stm->execute();
           $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-          var_dump($result);
+          // var_dump($result);
         }
       } catch (Exception $e) {
         echo '<span class ="error">エラーがありました</span><br>';

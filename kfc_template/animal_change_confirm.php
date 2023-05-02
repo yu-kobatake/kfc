@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once("./lib/util.php");
-var_dump($_SESSION);
-var_dump($_POST);
+// var_dump($_SESSION);
+// var_dump($_POST);
 
 // エンコードチェック
 if (!cken($_POST)) {

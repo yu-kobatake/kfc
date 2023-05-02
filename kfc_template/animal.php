@@ -3,8 +3,8 @@ session_start();
 require_once("./lib/util.php");
 // titleで読み込むページ名
 $pagetitle = "ペット情報登録画面";
-var_dump($_SESSION);
-var_dump($_POST);
+// var_dump($_SESSION);
+// var_dump($_POST);
 
 // ユーザーidがセッションに入っていなければログインページに戻す
 if (!empty($_SESSION['user_id'])) {
@@ -88,7 +88,7 @@ $_SESSION['token'] = $token;
         // セッションエラーの削除
         $_SESSION['error'] = [];
         $errors = [];
-        var_dump(isset($_SESSION['area_1']));
+        // var_dump(isset($_SESSION['area_1']));
         ?>
 
         <h2>犬猫の登録</h2>
@@ -167,13 +167,16 @@ $_SESSION['token'] = $token;
                     <tr>
                         <th>画像選択(3枚)※</th>
                         <td>
-                            <div class="preview-area"></div><input type="file" name="image_1" accept="image/png, image/jpeg" onchange="preview(this)">
+                            <div class="preview-area"></div><input type="file" name="image_1"
+                                accept="image/png, image/jpeg" onchange="preview(this)">
                         </td>
                         <td>
-                            <div class="preview-area"></div><input type="file" name="image_2" accept="image/png, image/jpeg" onchange="preview(this)">
+                            <div class="preview-area"></div><input type="file" name="image_2"
+                                accept="image/png, image/jpeg" onchange="preview(this)">
                         </td>
                         <td>
-                            <div class="preview-area"></div><input type="file" name="image_3" accept="image/png, image/jpeg" onchange="preview(this)">
+                            <div class="preview-area"></div><input type="file" name="image_3"
+                                accept="image/png, image/jpeg" onchange="preview(this)">
                         </td>
                         <input type="hidden" name="MAX_FILE_SIZE" value="4194304">
 
@@ -227,9 +230,8 @@ $_SESSION['token'] = $token;
                         【体重】 8.6㎏
                         【状態】ワクチン接種済、狂犬病予防接種済、ノミ・ダニ駆除済、歯石除去済、一般血液検査済、マイクロチップ装着済
                         【人馴】 問題なし
-                        【性格・その他】 穏やかな男の子です。" 
-                        ><?= $animal_character;?></textarea>
-                        </td>                    
+                        【性格・その他】 穏やかな男の子です。"><?= $animal_character;?></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <th>特記事項</th>
@@ -250,10 +252,10 @@ $_SESSION['token'] = $token;
 </div>
 <!-- 画像をプレビュー表示させる -->
 <script>
-    function preview(elem) {
-        const blobUrl = window.URL.createObjectURL(elem.files[0])
-        elem.previousElementSibling.innerHTML = `<img src=${blobUrl} width="30%">`
-    }
+function preview(elem) {
+    const blobUrl = window.URL.createObjectURL(elem.files[0])
+    elem.previousElementSibling.innerHTML = `<img src=${blobUrl} width="30%">`
+}
 </script>
 <?php include('parts/footer.php'); ?>
 <?php
