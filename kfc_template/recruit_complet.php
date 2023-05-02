@@ -38,7 +38,6 @@ try {
     $stm->bindValue(':animal_id', $animal_id, PDO::PARAM_STR);
     $stm->execute();
     $result = $stm->fetch(PDO::FETCH_ASSOC);
-    var_dump($result);
   }
 } catch (Exception $e) {
   echo '<span class ="error">エラーがありました</span><br>';
