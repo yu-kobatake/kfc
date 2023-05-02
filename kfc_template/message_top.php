@@ -13,7 +13,7 @@ $pagetitle = "トークルーム一覧"
       <a href="message_top.php"><button>＜マイページに戻る</button></a>
     </div>
     <?php
-    $_SESSION['user_id'] = 2;
+    // $_SESSION['user_id'] = 1;
     $current_user = get_user($_SESSION['user_id']);
     $message_relations = get_message_relations($current_user['user_id']);
 
