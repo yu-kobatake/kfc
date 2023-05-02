@@ -18,13 +18,13 @@ $errors = [];
 /*************************************************************
  DB接続 基本情報
  ************************************************************/
-// $user = "shotohlcd31_kfc";
-$user = "testuser";
-$password = "pw4testuser";
-$dbName = "shotohlcd31_kfc";
-// $host = "sv14471.xserver.jp";
-$host = "localhost";
-$dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+// データベース接続
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
+$host = 'localhost';
+//$host = 'sv14471.xserver.jp';
+$dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
 /*************************************************************
 不正アクセスチェック
@@ -84,7 +84,7 @@ if (!empty($_POST['login_send'])) {
         $stm->execute();
         //userテーブルに該当するユーザーがいなかった時$resultにfalseが入る 
         $result = $stm->fetch(PDO::FETCH_NUM);
-        var_dump($result);
+        // var_dump($result);
 
         //userテーブルに該当するユーザーがいなかった場合$errorsにエラーメッセージを追加
         if (!$result[0]) {
@@ -111,17 +111,21 @@ $pagetitle = "里親マイページ";
 <div id="container">
     <main>
         <?php
-/*************************************************************
+        /*************************************************************
 DB接続 userテーブルから会員情報を取り出して表示
-************************************************************/
+         ************************************************************/
 
         // ログイン済み（$_SESSION['user_id']がある）ユーザーがログインしてきた場合、$user_idに$_SESSION['user_id']を代入する
         if (!empty($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
-
+        // var_dump($user_id);
         // DB接続
         try {
             // sql文：userテーブルから$user_idに該当するユーザー情報を取得
-            $sql = "SELECT * FROM user WHERE kind = '里親' user_id = :user_id";
+
+            $pdo = new PDO($dsn, $user, $password);
+            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT * FROM user WHERE kind = '里親' AND user_id = :user_id";
             $stm = $pdo->prepare($sql);
             $stm->bindValue(":user_id", $user_id, PDO::PARAM_STR);
             $stm->execute();
@@ -152,7 +156,7 @@ DB接続 userテーブルから会員情報を取り出して表示
             </tbody>
             </table>
 
-            <form method="POST" action="">
+            <form method="POST" action="mypage_change.php">
             <input type="submit" value="会員情報の変更">
             <input type="hidden" name="user_id" value="{$user_id}">
             </form>
@@ -168,9 +172,9 @@ DB接続 userテーブルから会員情報を取り出して表示
 
 
         <?php
-/*************************************************************
+        /*************************************************************
  メッセージエリア
-************************************************************/
+         ************************************************************/
         ?>
         <div>
             <h3>メッセージ</h3>
@@ -179,10 +183,10 @@ DB接続 userテーブルから会員情報を取り出して表示
         </div>
 
         <?php
-/*************************************************************
+        /*************************************************************
 いいね一覧
  DB接続 SELECT
-************************************************************/
+         ************************************************************/
 
         try {
             // goodテーブルからanimalテーブルのIDを抽出する
@@ -201,7 +205,7 @@ DB接続 userテーブルから会員情報を取り出して表示
 
             // エスケープ処理
             $result = es($result);
-            var_dump($result);
+            // var_dump($result);
         } catch (Exception $e) {
             $e->getMessage();
             echo "エラーが発生しました。2";
@@ -226,9 +230,9 @@ DB接続 userテーブルから会員情報を取り出して表示
           EOL;
             }
         }
-/*************************************************************
+        /*************************************************************
  退会ページ
-************************************************************/
+         ************************************************************/
         ?>
         <button><a href="delete.php">退会</a></button>
     </main>

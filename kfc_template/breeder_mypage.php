@@ -44,14 +44,13 @@ if (empty($_SESSION['user_id'])) {
 /*************************************************************
  DB接続 基本情報
  ************************************************************/
-// $user = "shotohlcd31_kfc";
-$user = "testuser";
-$password = "pw4testuser";
-$dbName = "shotohlcd31_kfc";
-// $host = "sv14471.xserver.jp";
-$host = "localhost";
-$dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
-
+  // データベース接続
+  $user = 'shotohlcd31_kfc';
+  $password = 'KFCpassword';
+  $dbName = 'shotohlcd31_kfc';
+  $host = 'localhost';
+  //$host = 'sv14471.xserver.jp';
+  $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
 /*************************************************************
 DB接続
@@ -170,7 +169,7 @@ $pagetitle = "ブリーダーマイページ";
             </tbody>
             </table>
     
-            <form method="POST" action="">
+            <form method="POST" action="mypage_change.php">
             <input type="submit" value="会員情報の変更">
             <input type="hidden" name="user_id" value="{$user_id}">
             </form>
@@ -186,7 +185,7 @@ $pagetitle = "ブリーダーマイページ";
             echo "<a class ='error' href='login.php'>戻る</a>";
         }
         ?>
-<?php
+        <?php
         /*************************************************************
  メッセージエリア
          ************************************************************/
