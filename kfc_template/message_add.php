@@ -21,11 +21,11 @@ $pagetitle = "message_add.php"
 
       $message_text = htmlspecialchars($message_text, ENT_QUOTES, 'UTF-8');
       $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
-      $user = 'username';
-      $password = 'kfc';
-      $dbName = 'shotohlcd31_ kfc';
+      $user = 'shotohlcd31_kfc';
+      $password = 'KFCpassword';
+      $dbName = 'shotohlcd31_kfc';
       $host = 'localhost';
-      $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+      $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
       $dbh = new PDO($dsn, $user, $password);
       echo "データベース{$dbName}に接続しました", "<br>"; //確認用
       echo "$user_id<br>";
@@ -65,11 +65,11 @@ $pagetitle = "message_add.php"
     function insert_message($user_id, $destination_user_ID)
     {
       try {
-        $user = 'username';
-        $password = 'kfc';
-        $dbName = 'shotohlcd31_ kfc';
+        $user = 'shotohlcd31_kfc';
+        $password = 'KFCpassword';
+        $dbName = 'shotohlcd31_kfc';
         $host = 'localhost';
-        $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
         $dbh = new PDO($dsn, $user, $password);
         $sql = "INSERT INTO message_relation(user_id,destination_user_id) VALUES (:user_id,:destination_user_ID)";
         $stmt = $dbh->prepare($sql);
@@ -85,11 +85,11 @@ $pagetitle = "message_add.php"
     function check_relation_message($user_id, $destination_user_ID)
     {
       try {
-        $user = 'username';
-        $password = 'kfc';
-        $dbName = 'shotohlcd31_ kfc';
+        $user = 'shotohlcd31_kfc';
+        $password = 'KFCpassword';
+        $dbName = 'shotohlcd31_kfc';
         $host = 'localhost';
-        $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
         $dbh = new PDO($dsn, $user, $password);
         $sql = "SELECT user_id,destination_user_id
             FROM message_relation

@@ -35,7 +35,9 @@ $pagetitle = "メッセージ"
             <h2><?= $destination_user['user_name'] ?></h2>
           </div>
           <div class="textarea_btn">
-          <a href="#text4"><div class="arrow"></div></a>
+            <a href="#text4">
+              <div class="arrow"></div>
+            </a>
           </div>
         </div>
         <?php foreach ($messages as $message) : ?>
@@ -48,7 +50,7 @@ $pagetitle = "メッセージ"
             <?php else : ?>
               <div class="left"><img src="./images/足跡アイコン.png" class="icon_image">
                 <div class="says">
-                <p><?= $message['text'] ?></p>
+                  <p><?= $message['text'] ?></p>
                 </div>
                 <span class="message_created_at"><?= convert_to_fuzzy_time($message['created_at']) ?>
                 </span>
@@ -98,11 +100,11 @@ $pagetitle = "メッセージ"
     function get_user($user_id)
     {
       try {
-        $user = 'username';
-        $password = 'kfc';
-        $dbName = 'shotohlcd31_ kfc';
+        $user = 'shotohlcd31_kfc';
+        $password = 'KFCpassword';
+        $dbName = 'shotohlcd31_kfc';
         $host = 'localhost';
-        $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
         $dbh = new PDO($dsn, $user, $password);
         $sql = "SELECT user_id,user_name,password 
         FROM user 
@@ -121,11 +123,11 @@ $pagetitle = "メッセージ"
     function get_messages($user_id, $destination_user_id)
     {
       try {
-        $user = 'username';
-        $password = 'kfc';
-        $dbName = 'shotohlcd31_ kfc';
+        $user = 'shotohlcd31_kfc';
+        $password = 'KFCpassword';
+        $dbName = 'shotohlcd31_kfc';
         $host = 'localhost';
-        $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
         $dbh = new PDO($dsn, $user, $password);
         $sql = "SELECT *
                       FROM message

@@ -7,8 +7,6 @@ if (!cken($_POST)) {
   exit("不正な文字コードです。");
 }
 $_POST = es($_POST);
-// var_dump($_POST);
-// var_dump($_SESSION);
 
 //token確認 
 if (isset($_SESSION['token']) && isset($_POST['token'])) {

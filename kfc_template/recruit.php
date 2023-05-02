@@ -2,11 +2,11 @@
 session_start();
 $_SESSION=[];
 require_once("./lib/util.php");
-$user = 'username';
-$password = 'kfc';
-$dbName = 'shotohlcd31_ kfc';
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
 $host = 'localhost';
-$dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+$dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 ?>
 <?php
 if (!cken($_POST)) {
@@ -47,9 +47,6 @@ $pagetitle = "里親募集ページ"
     <!--検索フォーム-->
     <form method="post" action="<?php echo es($_SERVER['SCRIPT_NAME']) ?>">
       <p>種別
-        <!-- <input type="radio" name="kind" value="全て" checked>全て
-        <input type="radio" name="kind" value="犬">犬
-        <input type="radio" name="kind" value="猫">猫 -->
         <?php
         if ($kind === '全て') {
           echo "<input type='radio' name='kind' value='全て' checked>全て";
@@ -87,7 +84,6 @@ $pagetitle = "里親募集ページ"
           ?>
         </select>
         <?php
-        // var_dump($area);
         ?>
       </p>
       <p>動物のいる地域
@@ -103,7 +99,6 @@ $pagetitle = "里親募集ページ"
           ?>
         </select>
         <?php
-        // var_dump($animal_area);
         ?>
       </p>
       <p>キーワード
@@ -112,7 +107,6 @@ $pagetitle = "里親募集ページ"
       <p><input type="submit" name="submit" value="検索"></p>
     </form>
     <?php
-    // var_dump($_POST);//確認用
     if (isset($_POST['submit'])) {
       //全てが選択された時の処理
       $kind = $_POST['kind'];
@@ -195,11 +189,7 @@ $pagetitle = "里親募集ページ"
         }
 
 
-        // echo "{$sql}<br>"; //確認用
         $stm = $pdo->prepare($sql);
-        // echo "{$kind}<br>"; //確認用
-        // echo "{$area}<br>"; //確認用
-        // echo "{$animal_area}<br>"; //確認用
 
 
         //プレースホルダーを作成
@@ -223,7 +213,6 @@ $pagetitle = "里親募集ページ"
         //該当件数
         $hit = count($result);
         echo "<p>該当{$hit}件です。</p>";
-        // var_dump($result); //確認用
 
       } catch (Exception $e) {
         echo '<span class ="error">エラーがありました</span><br>';

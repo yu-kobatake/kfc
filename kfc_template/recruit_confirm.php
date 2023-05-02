@@ -2,18 +2,17 @@
 session_start();
 require_once("./lib/util.php");
 
-$user = 'username';
-$password = 'kfc';
-$dbName = 'shotohlcd31_ kfc';
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
 $host = 'localhost';
-$dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+$dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 ?>
 <?php
 if (!cken($_POST)) {
   exit("不正な文字コードです。");
 }
 $_POST = es($_POST);
-// var_dump($_POST);
 
 //token確認 
 if (isset($_SESSION['token']) && isset($_POST['token'])) {
@@ -57,7 +56,6 @@ $pagetitle = "里親申し込み確認"
       $pdo = new PDO($dsn, $user, $password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      // echo "データベース{$dbName}に接続しました", "<br>"; //確認用
       if (!empty($animal_id)) {
         $sql = "SELECT * FROM animal WHERE animal_id = :animal_id ";
         $stm = $pdo->prepare($sql);
@@ -65,7 +63,6 @@ $pagetitle = "里親申し込み確認"
 
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($result);
       }
 
       // animal表示
@@ -98,7 +95,6 @@ $pagetitle = "里親申し込み確認"
       $pdo = new PDO($dsn, $user, $password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      // echo "データベース{$dbName}に接続しました", "<br>"; //確認用
       if (!empty($user_id)) {
         $sql = "SELECT * FROM user WHERE user_id = :user_id ";
         $stm = $pdo->prepare($sql);
@@ -106,7 +102,6 @@ $pagetitle = "里親申し込み確認"
 
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($result);
       }
       // user表示
       if (isset($result)) {
@@ -218,8 +213,6 @@ $pagetitle = "里親申し込み確認"
       $_SESSION['errors'] = $errors;
       header("Location:recruit_form.php");
     }
-    // var_dump($_SESSION);
-    // var_dump($_POST);
     ?>
 
     <form action="recruit_complet.php" method="POST">

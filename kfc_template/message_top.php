@@ -52,11 +52,11 @@ $pagetitle = "トークルーム一覧"
       function get_bottom_message($user_id, $destination_user_id)
       {
         try {
-          $user = 'username';
-          $password = 'kfc';
-          $dbName = 'shotohlcd31_ kfc';
+          $user = 'shotohlcd31_kfc';
+          $password = 'KFCpassword';
+          $dbName = 'shotohlcd31_kfc';
           $host = 'localhost';
-          $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
           $dbh = new PDO($dsn, $user, $password);
           $sql = "SELECT *
                     FROM message
@@ -114,11 +114,11 @@ $pagetitle = "トークルーム一覧"
       function get_user($user_id)
       {
         try {
-          $user = 'username';
-          $password = 'kfc';
-          $dbName = 'shotohlcd31_ kfc';
+          $user = 'shotohlcd31_kfc';
+          $password = 'KFCpassword';
+          $dbName = 'shotohlcd31_kfc';
           $host = 'localhost';
-          $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
           $dbh = new PDO($dsn, $user, $password);
           $sql = "SELECT user_id,user_name,password FROM user
                             WHERE user_id = :id";
@@ -135,11 +135,11 @@ $pagetitle = "トークルーム一覧"
       function get_message_relations($user_id)
       {
         try {
-          $user = 'username';
-          $password = 'kfc';
-          $dbName = 'shotohlcd31_ kfc';
+          $user = 'shotohlcd31_kfc';
+          $password = 'KFCpassword';
+          $dbName = 'shotohlcd31_kfc';
           $host = 'localhost';
-          $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
           $dbh = new PDO($dsn, $user, $password);
           $sql = "SELECT *
                   FROM message_relation

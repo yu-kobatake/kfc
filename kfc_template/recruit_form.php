@@ -7,11 +7,11 @@ $bytes = openssl_random_pseudo_bytes(16);
 $token = bin2hex($bytes);
 $_SESSION['token'] = $token;
 
-$user = 'username';
-$password = 'kfc';
-$dbName = 'shotohlcd31_ kfc';
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
 $host = 'localhost';
-$dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+$dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 ?>
 <?php
 if (!cken($_POST)) {
@@ -27,11 +27,6 @@ $pagetitle = "申し込みフォーム"
 <?php include('parts/header.php'); ?>
 
 <?php
-// if (!empty($_SESSION['user_id'])) {
-//   $user_id = $_SESSION['user_id'];
-// } else {
-//   echo "<p>ログインしてください。</p>";
-// }
 
 if (!empty($_POST['animal_id'])) {
   $animal_id = $_POST['animal_id'];
@@ -112,7 +107,6 @@ if (!empty($_POST['animal_id'])) {
       $pdo = new PDO($dsn, $user, $password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      // echo "データベース{$dbName}に接続しました", "<br>"; //確認用
       if (!empty($animal_id)) {
         $sql = "SELECT * FROM animal WHERE animal_id = :animal_id ";
         $stm = $pdo->prepare($sql);
@@ -120,7 +114,6 @@ if (!empty($_POST['animal_id'])) {
 
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($result);
 
 
         echo "<h3>里親申し込みフォーム</h3>";
@@ -158,7 +151,6 @@ if (!empty($_POST['animal_id'])) {
       $pdo = new PDO($dsn, $user, $password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      // echo "データベース{$dbName}に接続しました", "<br>"; //確認用
       if (!empty($user_id)) {
         $sql = "SELECT * FROM user WHERE user_id = :user_id ";
         $stm = $pdo->prepare($sql);
@@ -166,7 +158,6 @@ if (!empty($_POST['animal_id'])) {
 
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($result);
 
         // user表示
         if (isset($result)) {
@@ -344,7 +335,6 @@ if (!empty($_POST['animal_id'])) {
           }
         }
       }
-      // var_dump($_SESSION);
       ?>
 
       <table>
