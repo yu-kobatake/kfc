@@ -44,7 +44,9 @@ try {
   echo $e->getMessage();
   exit();
 }
+var_dump($result);
 $user_id=$result['user_id'];
+var_dump($user_id);
 ?>
 
 <?php
