@@ -19,8 +19,8 @@ $pagetitle = "メッセージ"
     }
     // 現在ログインしているユーザー情報
     $current_user = get_user($_SESSION['user_id']);
-    // $current_user_id=$_SESSION['user_id'];
-    $current_user_id=1;
+    $current_user_id=$_SESSION['user_id'];
+
 //送信先
     $destination_user = get_user($_GET['user_id']);
     $destination_user_id=$_GET['user_id'];

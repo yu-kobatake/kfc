@@ -48,11 +48,12 @@ var_dump($result);
 $user_id=$result['user_id'];
 var_dump($user_id);
 $_SESSION['user_id']=1;
+
 ?>
 
 <?php
 // セッション破棄
-killSession();
+// killSession();
 ?>
 
 <?php
