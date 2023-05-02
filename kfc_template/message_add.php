@@ -32,6 +32,10 @@ $pagetitle = "message_add.php"
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "INSERT INTO message(text,user_id,destination_user_id,created_at) 
       VALUES (:text,:user_id,:destination_user_ID,:created_at)";
+      var_dump($message_text);
+      var_dump($user_id);
+      var_dump($destination_user_ID);
+      var_dump($date->format('Y-m-d H:i:s'));
       $stmt = $dbh->prepare($sql);
       echo "成功11", "<br>";
 
