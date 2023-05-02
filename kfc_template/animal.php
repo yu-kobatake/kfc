@@ -179,7 +179,7 @@ $_SESSION['token'] = $token;
 
                     <tr>
                         <th>犬種/猫種※</th>
-                        <td><input type="text" name="kind" value="<?= es($kind); ?>"></td>
+                        <td><input type="text" name="kind" placeholder="柴犬" value="<?= es($kind); ?>"></td>
                     </tr>
                     <tr>
                         <th>性別</th>

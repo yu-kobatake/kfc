@@ -22,6 +22,8 @@ require_once("./lib/util.php");
  
 ?>
 <?php
+// animal_id変数の初期化
+$animal_id = "";
 // リロード時に重複してSQL実行されないようにする
 if (!empty($_SESSION['animal'])) {
 
@@ -105,22 +107,22 @@ try {
   $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   // animal_idの取得
-  $sql = "SELECT animal_id FROM animal WHERE title=:title and kind=:kind and gender=:gender and age=:age";
+  $sql = "SELECT animal_id FROM animal WHERE title=:title and kind=:kind and gender=:gender and age=:age and area_1=:area_1 and animal_area=:animal_area";
     
     $stm = $pdo->prepare($sql);
     $stm->bindValue(":title", $title, PDO::PARAM_STR);
     $stm->bindValue(":kind",$kind,PDO::PARAM_STR);
     $stm->bindValue(":gender",$gender,PDO::PARAM_STR);
     $stm->bindValue(":age",$age,PDO::PARAM_STR);
-    // $stm->bindValue(":area_1",$area_1,PDO::PARAM_STR);
+    $stm->bindValue(":area_1",$area_1,PDO::PARAM_STR);
     // $stm->bindValue(":area_2",$area_2,PDO::PARAM_STR);
     // $stm->bindValue(":area_3",$area_3,PDO::PARAM_STR);
-    // $stm->bindValue(":animal_area",$animal_area,PDO::PARAM_STR);
+    $stm->bindValue(":animal_area",$animal_area,PDO::PARAM_STR);
     // $stm->bindValue(":animal_character",$animal_character,PDO::PARAM_STR);
     // $stm->bindValue(":other",$other,PDO::PARAM_STR);    
     $stm->execute();
     $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-    
+    // var_dump($result);
     //$animal_idに入れる 
     $animal_id = $result[0]['animal_id'];
     
@@ -156,6 +158,7 @@ $image_1 = "{$animal_id}_image1.{$mine1}";
 $image_2 = "{$animal_id}_image2.{$mine2}";
 $image_3 = "{$animal_id}_image3.{$mine3}";
 
+// var_dump($image_1);
   // animal_photoフォルダに保存する際に使用する変数に入れる
 $image_data1 = $_SESSION['animal']["image_1"];
 $image_data2 = $_SESSION['animal']["image_2"];
@@ -163,6 +166,7 @@ $image_data3 = $_SESSION['animal']["image_3"];
 
 // セッションの削除
 $_SESSION['animal'] = [];
+
 
 try {
 
@@ -188,14 +192,23 @@ echo "<a class ='error' href='animal.php'>前のページ戻る</a>";
 exit();
 }
 
+// 画像をanimal_photoフォルダに保存
 file_put_contents('./images/animal_photo/'.$image_1,$image_data1);
 file_put_contents('./images/animal_photo/'.$image_2,$image_data2);
 file_put_contents('./images/animal_photo/'.$image_3,$image_data3);
 
+// $animal_idをセッションに保存
+$_SESSION['animal_id'] = $animal_id;
 }
 // titleで読み込むページ名
 $pagetitle = "ペット情報登録完了";
 include('parts/header.php');
+// リロード後に確認ページに飛ぶための$animal_id設定
+$animal_id = $_SESSION['animal_id'];
+// var_dump($_SESSION['animal_id']);
+// var_dump($animal_id);
+$_SESSION['animal_id'] = [];
+
 ?>
 <div id="container">
     <main>
@@ -206,7 +219,7 @@ include('parts/header.php');
 
 
 <form method="POST" action="#">
-    <input type="submit" value="ページを確認する" name="<? $animal_id ;?>"
+    <input type="submit" value="ページを確認する" name="<?= es($animal_id) ;?>"
         formaction="recruit_detail.php?animal_id=<?= es($animal_id) ;?>">
     <input type="submit" value="マイページトップへ" formaction="breeder_mypage.php">
 
