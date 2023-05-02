@@ -33,15 +33,21 @@ $pagetitle = "message_add.php"
       $sql = "INSERT INTO message(text,user_id,destination_user_id,created_at) 
       VALUES (:text,:user_id,:destination_user_ID,:created_at)";
       $stmt = $dbh->prepare($sql);
+      echo "成功11", "<br>";
 
       $stmt->bindValue(':text', $message_text, PDO::PARAM_STR);
-      $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
-      $stmt->bindValue(':destination_user_ID', $destination_user_ID, PDO::PARAM_STR);
-      $stmt->bindValue(':created_at', $date->format('Y-m-d H:i:s'), PDO::PARAM_STR);
+      echo "成功12", "<br>";
+
+      $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);      echo "成功13", "<br>";
+
+      $stmt->bindValue(':destination_user_ID', $destination_user_ID, PDO::PARAM_STR);      echo "成功14", "<br>";
+
+      $stmt->bindValue(':created_at', $date->format('Y-m-d H:i:s'), PDO::PARAM_STR);      echo "成功15", "<br>";
+
 
 
       $stmt->execute();
-      echo "成功", "<br>";
+      echo "成功16", "<br>";
       //データベース内に自分と送信先のIDがあるかチェック
       if (!check_relation_message($user_id, $destination_user_ID)) {
         insert_message($user_id, $destination_user_ID);
