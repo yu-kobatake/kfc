@@ -46,7 +46,6 @@ $pagetitle = "message_add.php"
       $stmt->execute();
       echo "成功", "<br>";
       //データベース内に自分と送信先のIDがあるかチェック
-      var_dump(check_relation_message($user_id, $destination_user_ID));
       if (!check_relation_message($user_id, $destination_user_ID)) {
         insert_message($user_id, $destination_user_ID);
         echo "relation_messageにデータを挿入";

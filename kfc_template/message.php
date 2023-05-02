@@ -23,6 +23,13 @@ $pagetitle = "メッセージ"
     $destination_user = get_user($_GET['user_id']);
     // やり取りされるメッセージ情報
     $messages = get_messages($current_user['user_id'], $destination_user['user_id']);
+
+    $current_id = htmlspecialchars($current_id, ENT_QUOTES, 'UTF-8');
+    if (!check_relation_message($current_id, $destination_user_ID)) {
+      insert_message($current_id, $destination_user_ID);
+      echo "relation_messageにデータを挿入";
+    }
+
     ?>
 
     <body>
@@ -181,6 +188,52 @@ $pagetitle = "メッセージ"
       }
 
       return (int)$time . $unit;
+    }
+    ?>
+    <?php
+    function insert_message($user_id, $destination_user_ID)
+    {
+      try {
+        $user = 'shotohlcd31_kfc';
+        $password = 'KFCpassword';
+        $dbName = 'shotohlcd31_kfc';
+        $host = 'localhost';
+        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+        $dbh = new PDO($dsn, $user, $password);
+        $sql = "INSERT INTO message_relation(user_id,destination_user_id) VALUES (:user_id,:destination_user_ID)";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+        $stmt->bindValue(':destination_user_ID', $destination_user_ID, PDO::PARAM_STR);
+        $stmt->execute();
+      } catch (\Exception $e) {
+        error_log('エラー発生:' . $e->getMessage());
+        echo "ERR_MSG1";
+      }
+    }
+
+    function check_relation_message($user_id, $destination_user_ID)
+    {
+      try {
+        $user = 'shotohlcd31_kfc';
+        $password = 'KFCpassword';
+        $dbName = 'shotohlcd31_kfc';
+        $host = 'localhost';
+        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+        $dbh = new PDO($dsn, $user, $password);
+        $sql = "SELECT user_id,destination_user_id
+            FROM message_relation
+            WHERE (user_id = :user_id and destination_user_id = :destination_user_id)
+                  or (user_id = :destination_user_id and destination_user_id = :user_id)";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(
+          ':user_id' => $user_id,
+          ':destination_user_id' => $destination_user_ID
+        ));
+        return $stmt->fetch();
+      } catch (\Exception $e) {
+        error_log('エラー発生:' . $e->getMessage());
+      }
+      echo "ERR_MSG1";
     }
     ?>
 
