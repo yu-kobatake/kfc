@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION=[];
+// $_SESSION=[];
 require_once("./lib/util.php");
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
