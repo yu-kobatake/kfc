@@ -24,9 +24,9 @@ $pagetitle = "メッセージ"
     // やり取りされるメッセージ情報
     $messages = get_messages($current_user['user_id'], $destination_user['user_id']);
 
-    $current_id = htmlspecialchars($current_id, ENT_QUOTES, 'UTF-8');
-    if (!check_relation_message($current_id, $destination_user_ID)) {
-      insert_message($current_id, $destination_user_ID);
+    $current_user = htmlspecialchars($current_user, ENT_QUOTES, 'UTF-8');
+    if (!check_relation_message($current_user, $destination_user)) {
+      insert_message($current_user, $destination_user);
       echo "relation_messageにデータを挿入";
     }
 
