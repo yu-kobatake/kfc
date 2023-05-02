@@ -161,7 +161,6 @@ $pagetitle = "ブリーダーマイページ";
             <tr><th>フリガナ</th><td>{$result['furigana']}</td></tr>
             <tr><th>性別</th><td>{$result['gender']}</td></tr>
             <tr><th>メールアドレス</th><td>{$result['email']}</td></tr>
-            <tr><th>パスワード</th><td>*******</td></tr>
             <tr><th>郵便番号</th><td>{$result['zip']}</td></tr>
             <tr><th>住所</th><td>{$result['address']}</td></tr>
             <tr><th>生年月日</th><td>{$result['birth']}</td></tr>
