@@ -1,17 +1,13 @@
 <?php
-<<<<<<< HEAD
-// titleで読み込むページ名
-$pagetitle = "ここはタイトル"
-=======
 session_start();
 $_SESSION = [];
 require_once("./lib/util.php");
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
 $dbName = 'shotohlcd31_kfc';
-$host = 'localhost';
+$host = 'sv14471.xserver.jp';
+//$host = 'localhost';
 $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
->>>>>>> f67b0eed7e2deadf0b0ad8b0b5c288cf5d5899d2
 ?>
 <?php
 // animalテーブルへの接続
@@ -41,11 +37,14 @@ $pagetitle = "犬猫里親募集"
 ?>
 
 <?php include('parts/header.php'); ?>
-<<<<<<< HEAD
-<div id="container">
+
+<div id="container" class="c1">
   <main>
-    <!-- message_add.phpにPOSTするフォーム -->
-    　<form method="post" action="./message_add.php">
+
+      <!-- message_add.phpにPOSTするフォーム -->
+      <?php
+      /*
+      <form method="post" action="./message_add.php">
       <textarea class="textarea form-control" placeholder="メッセージを入力ください" name="text"></textarea>
       <input type="hidden" name="destination_user_id" value="<?= $destination_user['user_id'] ?>">
       <div class="message_btn">
@@ -54,9 +53,10 @@ $pagetitle = "犬猫里親募集"
         </div>
         <button class="btn btn-outline-primary" type="submit" name="post" value="post" id="post">投稿</button>
       </div>
-      　
     </form>
-=======
+    */
+    ?>
+
 
 <!-- ---------------------------
   スライドショー（slick）
@@ -120,8 +120,6 @@ $pagetitle = "犬猫里親募集"
         <dd>お知らせのサンプルテキスト。サンプルテキスト。サンプルテキスト。</dd>
       </dl>
     </section>
->>>>>>> f67b0eed7e2deadf0b0ad8b0b5c288cf5d5899d2
-
   </main>
 </div>
 
