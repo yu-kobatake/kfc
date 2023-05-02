@@ -70,8 +70,10 @@ if (!empty($_POST['login_send'])) {
         $pass = preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['password']);
     }
     // DB接続
-    try {
-        $pdo = new PDO($dsn, $user, $password);
+    if(!empty($_POST['user_id']) && !empty($_POST['password'])){
+        
+        try {
+            $pdo = new PDO($dsn, $user, $password);
         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -85,16 +87,19 @@ if (!empty($_POST['login_send'])) {
         //userテーブルに該当するユーザーがいなかった時$resultにfalseが入る 
         $result = $stm->fetch(PDO::FETCH_NUM);
         // var_dump($result);
-
+        
         //userテーブルに該当するユーザーがいなかった場合$errorsにエラーメッセージを追加
         if (!$result[0]) {
             $errors[] = "入力内容が間違っています。";
+        } else{
+            $_SESSION['user_id'] = $user_id;
         }
     } catch (Exception $e) {
         $e->getMessage();
         echo "エラーが発生しました。1";
         echo "<a class ='error' href='login.php'>戻る</a>";
     }
+}
 
     // エラーがあった場合ログインページへ戻る
     // $_SESSION['error']に$errors[]を代入
@@ -148,7 +153,6 @@ DB接続 userテーブルから会員情報を取り出して表示
             <tr><th>フリガナ</th><td>{$result['furigana']}</td></tr>
             <tr><th>性別</th><td>{$result['gender']}</td></tr>
             <tr><th>メールアドレス</th><td>{$result['email']}</td></tr>
-            <tr><th>パスワード</th><td>*******</td></tr>
             <tr><th>郵便番号</th><td>{$result['zip']}</td></tr>
             <tr><th>住所</th><td>{$result['address']}</td></tr>
             <tr><th>生年月日</th><td>{$result['birth']}</td></tr>
@@ -190,22 +194,37 @@ DB接続 userテーブルから会員情報を取り出して表示
 
         try {
             // goodテーブルからanimalテーブルのIDを抽出する
-            $sql = "SELECT * FROM good";
+            $pdo = new PDO($dsn, $user, $password);
+            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT animal_id FROM good WHERE userid = :user_id";
             $stm = $pdo->prepare($sql);
+            $stm->bindValue(":user_id", $user_id, PDO::PARAM_STR);
             $stm->execute();
             // $resultにはanimal_idが入っている
             $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-            // var_dump($result);
+            var_dump($result);
 
-            // animalテーブルから$resultのanimal_idを元に犬猫写真、名前、性別、犬種/猫種、動物がいる地域、（掲載期限）を抽出する
-            $sql = "SELECT image_1,title,gender,age,animal_id,kind,animal_area FROM animal";
-            $stm = $pdo->prepare($sql);
-            $stm->execute();
-            $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+            if($result){
+                foreach($result as $good){
+                    var_dump($good);
+                    $pdo = new PDO($dsn, $user, $password);
+                    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    // animalテーブルから$resultのanimal_idを元に犬猫写真、名前、性別、犬種/猫種、動物がいる地域、（掲載期限）を抽出する
+                    $sql = "SELECT image_1,title,gender,age,animal_id,kind,animal_area FROM animal WHERE animal_id = :good";
+            $stm->bindValue(":good", $good, PDO::PARAM_STR);
 
-            // エスケープ処理
-            $result = es($result);
-            // var_dump($result);
+                    $stm = $pdo->prepare($sql);
+                    $stm->execute();
+                    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+    
+                    // エスケープ処理
+                    $result = es($result);
+                    // var_dump($result);
+                }
+                
+            }
         } catch (Exception $e) {
             $e->getMessage();
             echo "エラーが発生しました。2";
@@ -216,19 +235,27 @@ DB接続 userテーブルから会員情報を取り出して表示
         // いいね一覧表示
         echo "<h3>いいね一覧</h3>";
         if ($result) {
+      echo "<div class='animal list-container'>";
+
             foreach ($result as $row) {
                 echo <<<EOL
+                <div class="list">
                 <a href="recruit_detail.php?animal_id={$row['animal_id']}">
-                <div> 
+                <figure>
                 <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
+                </figure>
+                <div class="text">
                 <p>{$row['title']}</p>
                 <p>年齢：{$row['age']}&nbsp;{$row['gender']}</p>
                 <p>{$row['animal_area']}</p>
                 <p>掲載ID：{$row['animal_id']}</p>
                 </div>
                 </a>
+                </div>
           EOL;
             }
+      echo "</div>";
+
         }
         /*************************************************************
  退会ページ

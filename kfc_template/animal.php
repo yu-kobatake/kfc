@@ -199,7 +199,7 @@ $_SESSION['token'] = $token;
                         <th rowspan="3">募集対象地域<br>3つまで選択可</th>
                         <td>募集対象地域1
                             <select name="area_1">
-                                <?= $area_1_option; ?></select>※
+                                <?= $area_1_option; ?></select><span>&ensp;※</span>
                         </td>
                     </tr>
                     <tr>

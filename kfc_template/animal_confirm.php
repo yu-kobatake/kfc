@@ -47,8 +47,10 @@ $allow_ext = array('jpg','jpeg','png');
 for($i = 1; $i<= 3; $i++){
     $file_ext = pathinfo($_FILES["image_{$i}"]['name'],PATHINFO_EXTENSION);
     // ファイルがアップロードされているか
-    if(!is_uploaded_file($_FILES["image_{$i}"]['tmp_name'])){
-        $errors[] = "【画像{$i}】は必須です";
+    if(!is_uploaded_file($_FILES["image_1"]['tmp_name']) || 
+    !is_uploaded_file($_FILES["image_2"]['tmp_name']) || 
+    !is_uploaded_file($_FILES["image_3"]['tmp_name'])){
+        $errors[] = "【画像】は3枚選択してください。";
         // 拡張子が正しいかの確認
     }elseif(!in_array(strtolower($file_ext),$allow_ext)){
         $errors[] = "【画像{$i}】は画像ファイルを添付してください";
