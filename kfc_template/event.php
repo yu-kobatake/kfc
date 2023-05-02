@@ -60,21 +60,21 @@ $pagetitle = "イベント"
       <p>種別
         <?php
         if ($kind === '全て') {
-          echo "<input type='radio' name='kind' value='全て' checked>全て　";
-          echo "<input type='radio' name='kind' value='犬'>犬　";
-          echo "<input type='radio' name='kind' value='猫'>猫";
+          echo "<label><input type='radio' name='kind' value='全て' checked>全て</label>　";
+          echo "<label><input type='radio' name='kind' value='犬'>犬</label>　";
+          echo "<input type='radio' name='kind' value='猫'>猫</label>";
         } elseif ($kind === '犬') {
-          echo "<input type='radio' name='kind' value='全て'>全て　";
-          echo "<input type='radio' name='kind' value='犬' checked>犬　";
-          echo "<input type='radio' name='kind' value='猫'>猫";
+          echo "<label><input type='radio' name='kind' value='全て'>全て</label>　";
+          echo "<label><input type='radio' name='kind' value='犬' checked>犬</label>　";
+          echo "<label><input type='radio' name='kind' value='猫'>猫</label>";
         } elseif ($kind === '猫') {
-          echo "<input type='radio' name='kind' value='全て'>全て　";
-          echo "<input type='radio' name='kind' value='犬'>犬　";
-          echo "<input type='radio' name='kind' value='猫' checked>猫";
+          echo "<label><input type='radio' name='kind' value='全て'>全て</label>　";
+          echo "<label><input type='radio' name='kind' value='犬'>犬</label>　";
+          echo "<label><input type='radio' name='kind' value='猫' checked>猫</label>";
         } else {
-          echo "<input type='radio' name='kind' value='全て' checked>全て　";
-          echo "<input type='radio' name='kind' value='犬'>犬　";
-          echo "<input type='radio' name='kind' value='猫'>猫";
+          echo "<label><input type='radio' name='kind' value='全て' checked>全て</label>　";
+          echo "<label><input type='radio' name='kind' value='犬'>犬</label>　";
+          echo "<label><input type='radio' name='kind' value='猫'>猫</label>";
         }
         ?>
       </p>
@@ -141,71 +141,55 @@ $pagetitle = "イベント"
         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // 検索条件に合わせてsql文を作成
-
-        if (!empty($area) || !empty($day_start) || !empty($area) || !empty($keyword)) {
-          // 開催地域[area]があるとき
+        // 検索条件に合わせてSQL文作成
+        if (!empty($area) && !empty($day_start)) {
+          if(!empty($day_end)){
+            // ▼ 地域 / 開始日 / 終了日 あり（全て）
+            $sql = "SELECT * FROM event WHERE area = :area AND day BETWEEN :daystart AND :dayend";
+          } else {
+            // ▼ 地域 / 開始日 あり
+            $sql = "SELECT * FROM event WHERE area = :area AND day >= :daystart";
+          }
+        } elseif(!empty($area) || !empty($day_start)){
+          // ▼ 地域あり
           if(!empty($area)){
             $sql = "SELECT * FROM event WHERE area = :area";
           }
-          // 開催日程[day～]のデータがあるときは期間で絞込
-          if (!empty($day_start) && !empty($day_end)) {
+          // ▼ 開始日 / 修了日 あり
+          if(!empty($day_start) && !empty($day_end)){
             $sql = "SELECT * FROM event WHERE day BETWEEN :daystart AND :dayend";
-          } elseif(!empty($day_start)){
-            // 開催日（始めだけ）あるとき
+          } elseif(!empty($day_start)) {
             $sql = "SELECT * FROM event WHERE day >= :daystart";
           }
-
-          // $stm->bindValue(':daystart', $day_start, PDO::PARAM_STR);
-          // $stm->bindValue(':dayend', $day_start, PDO::PARAM_STR);
-
         } else {
-          // (項目無し)
+          // ▼ 検索項目なし
           if ($kind === '全て') {
             $sql = "SELECT * FROM event";
           }
-        }
-
-        // keywordあれば追記
-        if (!empty($keyword)) {
-          $sql = "SELECT * FROM event WHERE concat(event_id, title, information) LIKE :keyword";
-        }
-
-
-        // keywordあれば追記
-        // if (!empty($keyword)) {
-        //   if (
-        //     $kind === '全て' &&
-        //     empty($area) &&
-        //     empty($animal_area)
-        //   ) {
-        //     $sql .= " WHERE concat(animal_id, title, gender ,age ,other) LIKE :keyword ";
-        //   } else {
-        //     $sql .= " AND concat(animal_id, title, gender ,age ,other) LIKE :keyword ";
-        //   }
-        // }
-
-      
-
-        // if($kind === '全て' || empty($area) || empty($day_start)){
-        //   if (!empty($keyword)) {
-        //     $sql .= "WHERE concat(event_id, title, information) LIKE :keyword";
-        //   }
-        // } else {
-        //     $sql .= "SELECT * FROM event WHERE concat(event_id, title, information) LIKE :keyword";
-        // }
-
-
+        } // 検索条件のif閉じ
 
         // kindあれば追記
         if (($kind === '犬' || $kind === '猫') &&
           empty($area) &&
-          empty($animal_area)
+          empty($day_start)
         ) {
           $sql = "SELECT * FROM event 
           WHERE kind = :kind ";
         } elseif ($kind === '犬' || $kind === '猫') {
-          $sql .= "AND kind = :kind ";
+          $sql .= " AND kind = :kind ";
+        }
+
+        // keywordあれば追記
+        if (!empty($keyword)) {
+          if (
+            $kind === '全て' &&
+            empty($area) &&
+            empty($day_start)
+          ) {
+            $sql .= " WHERE concat(event_id, title, information) LIKE :keyword ";
+          } else {
+            $sql .= " AND concat(event_id, title, information) LIKE :keyword ";
+          }
         }
 
         $stm = $pdo->prepare($sql);
@@ -262,8 +246,6 @@ $pagetitle = "イベント"
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-var_dump($result);
-
       } catch (Exception $e) {
         echo '<span class ="error">エラーがありました</span><br>';
         echo $e->getMessage();
@@ -271,6 +253,9 @@ var_dump($result);
       }
     }
     ?>
+
+
+
     <!-- --------------------------------
       ここからイベント一覧
     ---------------------------------- -->
