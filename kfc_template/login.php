@@ -67,7 +67,7 @@ $_SESSION['token'] = $token;
 
 
 ?>
-<?php include('parts/header.php') ;?>;
+<?php include('parts/header.php') ;?>
 <div id="container">
     <main>
         <h2>ログイン</h2>
@@ -83,7 +83,7 @@ $_SESSION['token'] = $token;
             foreach ($errors as $value) {
                 echo "<span class='error'>$value</span>";
             }
-            $_SESSION = [];
+            $_SESSION['error'] = [];
         }
         ?>
 
