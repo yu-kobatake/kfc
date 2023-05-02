@@ -29,7 +29,8 @@ $pagetitle = "メッセージ"
       insert_message($current_user, $destination_user);
       echo "relation_messageにデータを挿入";
     }
-
+    var_dump($current_user);
+    var_dump($destination_user);
     ?>
 
     <body>
