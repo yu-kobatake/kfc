@@ -1,6 +1,9 @@
 /* message.php */
-.message_top_btn{
-
+.message{
+  padding: 50px 0;
+  background-color: #eee;
+  border-radius: 20px;
+  position: relative;
 }
 .message_top_btn a{
   font-weight: bold;
@@ -10,23 +13,99 @@ form{
   text-align: center;
 }
 .textarea{
-  width: 60%;
+  margin-top: 80px;
+  padding: 1rem;
+  width: 80%;
   height: 100px;
+  border-radius: 10px;
+  font-size: 150%;
+  border: none;
+  outline: none;
+  white-space: pre-wrap;
+}
+.user_flex{
+  background-color: #eee;
+   display: flex;
+   align-items: center;
+   position: sticky;
+   top: 0;
+   left: 0;
+   z-index: 10;
+}
+.back_btn{
+  width: 15%;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+.back_btn button{
+  background-color: #eee;
+  color: #555;
+  width: 100px;
+height: 35px;
+font-weight: 500;
+font-size: 150%;
+border: none;
+}
+.back_btn button:hover{
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.user_name{
+  width: 70%;
+  margin-right: 5%;
+  text-align: center;
+}
+.textarea_btn{
+  width: 10%;
+  padding-bottom: 40px;
+}
+.arrow{
+  width: 30px;
+  height: 30px;
+  border: 5px solid;
+  border-color:  transparent transparent #565656 #565656;
+  transform: rotate(-45deg);
+  text-align: right;
 }
 .message_btn{
   padding: 0 10%;
-  text-align: right;
+  text-align: center;
 }
-
+.btn_03 {
+	display: block;
+	text-decoration: none;
+	width: 100px;
+	margin: 10px auto auto auto;
+	padding: 0.5rem 2rem;
+	font-weight: bold;
+	border: 2px solid #000;
+	color: #000;
+  background-color: #fff;
+	border-radius: 100vh;
+	transition: 0.5s;
+}
+.btn_03:hover {
+	color: #fff;
+	background: #000;
+}
 /*以下、②左側のコメント*/
+.left{
+  padding: 10px 0;
+}
+.left .icon_image{
+    width: 80px;
+    border-radius: 50%;
+  }
+
 .says {
   display: inline-block;
   position: relative; 
-  margin: 10px 0 10px 50px;
+  margin: 10px 0 10px 20px;
   padding: 10px;
   max-width: 250px;
   border-radius: 12px;
-  background: hsl(135, 10%, 80%);
+  background: #c7d1c9;
 }
 .says:after {
   content: "";
@@ -35,18 +114,25 @@ form{
   top: 3px; 
   left: -19px;
   border: 8px solid transparent;
-  border-right: 18px solid hsl(135, 10%, 80%);
+  border-right: 18px solid rgb(199, 209, 201);
   -webkit-transform: rotate(35deg);
   transform: rotate(35deg);
 }
 .says p {
   margin: 0;
   padding: 0;
+  white-space: pre-wrap;
 }
 
+/* 背景色 */
+.mycomment,.left{
+  /* background-color: rgb(220, 255, 245); */
+  padding-left:5%;
+  padding-right: 5%;
+}
 /*以下、③右側の緑コメント*/
 .mycomment {
-  margin: 10px 0;
+padding: 10px 5%;
 }
 .mycomment p {
   display: inline-block;
@@ -57,6 +143,8 @@ form{
   border-radius: 12px;
   background: #30e852;
   font-size: 15px;
+  white-space: pre-wrap;
+  text-align: left;
 }
 
 .mycomment p:after {
@@ -76,10 +164,27 @@ form{
   text-align: right;
 }
 /* message_top */
+.mypage_btn{
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+.mypage_btn button{
+height: 35px;
+font-weight: 500;
+font-size: 150%;
+border: none;
+background-color: #fff;
+}
+.mypage_btn button:hover{
+  opacity: 0.7;
+  cursor: pointer;
+}
+
 .col-8{
-  width: 60%;
-  margin: 5px auto;
-  padding: 0 5%;
+  width: 70%;
+  height: 100px;
+  margin: 10px auto;
+  padding: 0 3% 0 3%;
   background-color: #eee;
   border-radius: 20px;
 }
@@ -90,13 +195,27 @@ opacity: 0.7;
 .destination_user_list{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .destination_user_info{
-  width: 80%;
+  width: 65%;
+  white-space: nowrap;
+	overflow: hidden;
+  padding-left: 5px;
 }
 
 .col-8 a{
   text-decoration: none;
+}
+.col-8 .icon{
+  width: 20%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+.col-8 .icon_image{
+  width: 80px;
+  border-radius: 50%;
 }
 .col-8 a .destination_user_name{
   font-size: 120%;
@@ -106,10 +225,6 @@ font-weight: bold;
 .col-8 a .bottom_message_time{
   width: 15%;
   font-size: 80%;
-  width: 20%;
+  width: 15%;
 }
 
-/* .destination_user_list{
-  display: flex;
-  justify-content: space-around;
-} */

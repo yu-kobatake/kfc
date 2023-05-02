@@ -3,7 +3,7 @@ session_start();
 require_once("./lib/util.php");
 
 // titleで読み込むページ名
-$pagetitle = "add"
+$pagetitle = "message_add.php"
 ?>
 <?php include('parts/header_message.php'); ?>
 <div id="container">
@@ -16,27 +16,8 @@ $pagetitle = "add"
       $date->setTimeZone(new DateTimeZone('Asia/Tokyo'));
       $created_at = $date->format('Y-m-d H:i:s');
       $message_text = $_POST['text'];
-      // $message_image = $_FILES['image'];
       $user_id = $_SESSION['user_id'];
       $destination_user_ID = $_POST['destination_user_ID'];
-
-      if ($message_text == '') {
-        // set_flash('danger', 'メッセージ内容が未記入です');
-        // reload();
-        echo "メッセージ内容が未記入です<br>";
-        echo "<a href='message.php?user_id=$destination_user_ID'><button>戻る</button></a>";
-        exit();
-      }
-
-      // if ($message_image['size'] > 0) {
-      //   if ($message_image['size'] > 1000000) {
-      //     // set_flash('danger', '画像が大きすぎます');
-      //     // reload();
-      //     echo "画像が大きすぎます";
-      //   } else {
-      //     move_uploaded_file($message_image['tmp_name'], './image/' . $message_image['name']);
-      //   }
-      // }
 
       $message_text = htmlspecialchars($message_text, ENT_QUOTES, 'UTF-8');
       $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
@@ -64,16 +45,12 @@ $pagetitle = "add"
 
       $stmt->execute();
       echo "成功", "<br>";
-      // $stmt = null;
-      // $dbh = null;
-
       //データベース内に自分と送信先のIDがあるかチェック
       var_dump(check_relation_message($user_id, $destination_user_ID));
       if (!check_relation_message($user_id, $destination_user_ID)) {
         insert_message($user_id, $destination_user_ID);
         echo "relation_messageにデータを挿入";
       }
-      // set_flash('sucsess', 'メッセージを送信しました');
       echo "メッセージを送信しました";
       header('Location:../kfc_template/message.php?user_id=' . $destination_user_ID . '');
     } catch (Exception $e) {
@@ -101,7 +78,6 @@ $pagetitle = "add"
         $stmt->execute();
       } catch (\Exception $e) {
         error_log('エラー発生:' . $e->getMessage());
-        // set_flash('error', ERR_MSG1);
         echo "ERR_MSG1";
       }
     }
@@ -127,7 +103,6 @@ $pagetitle = "add"
         return $stmt->fetch();
       } catch (\Exception $e) {
         error_log('エラー発生:' . $e->getMessage());
-        // set_flash('error', ERR_MSG1);
       }
       echo "ERR_MSG1";
     }
