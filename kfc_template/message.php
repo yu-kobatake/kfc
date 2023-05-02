@@ -19,18 +19,20 @@ $pagetitle = "メッセージ"
     }
     // 現在ログインしているユーザー情報
     $current_user = get_user($_SESSION['user_id']);
+    $current_user_id=$_SESSION['user_id'];
 //送信先
     $destination_user = get_user($_GET['user_id']);
+    $destination_user_id=$_GET['user_id'];
     // やり取りされるメッセージ情報
     $messages = get_messages($current_user['user_id'], $destination_user['user_id']);
 
     $current_user_id = htmlspecialchars($current_user_id, ENT_QUOTES, 'UTF-8');
-    if (!check_relation_message($current_user['user_id'], $destination_user['user_id'])) {
-      insert_message($current_user['user_id'], $destination_user['user_id']);
+    if (!check_relation_message($current_user_id, $destination_user_id)) {
+      insert_message($current_user_id, $destination_user_id);
       echo "relation_messageにデータを挿入";
     }
-    var_dump($current_user);
-    var_dump($destination_user);
+    var_dump($current_user_id);
+    var_dump($destination_user_id);
     ?>
 
     <body>
