@@ -1,6 +1,12 @@
 <?php
 session_start();
 require_once("./lib/util.php");
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
+$host = 'localhost';
+$dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+
 ?>
 <?php
 if (!cken($_POST)) {
@@ -20,9 +26,28 @@ if (isset($_SESSION['token']) && isset($_POST['token'])) {
   echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
   exit();
 }
+$animal_id = $_SESSION['animal_id'];
+// userテーブルへの接続
+try {
+  $pdo = new PDO($dsn, $user, $password);
+  $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  if (!empty($animal_id)) {
+    $sql = "SELECT user_id FROM animal WHERE animal_id = :animal_id ";
+    $stm = $pdo->prepare($sql);
+    $stm->bindValue(':animal_id', $animal_id, PDO::PARAM_STR);
+    $stm->execute();
+    $user_id = $stm->fetch(PDO::FETCH_ASSOC);
+    var_dump($user_id);
+  }
+} catch (Exception $e) {
+  echo '<span class ="error">エラーがありました</span><br>';
+  echo $e->getMessage();
+  exit();
+}
 ?>
 
-<?php 
+<?php
 // セッション破棄
 killSession();
 ?>
@@ -34,8 +59,11 @@ $pagetitle = "里親申し込み完了"
 <?php include('parts/header.php'); ?>
 <div id="container">
   <main>
-<p>申し込みが完了しました。</p>
-<a href='recruit.php'><button>トップページに戻る</button></a>
+    <p>申し込みが完了しました。</p>
+    <form action="./message.php" method="get">
+      <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
+      <input type="submit" value="メッセージを送信する">
+    </form>
   </main>
 </div>
 

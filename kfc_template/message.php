@@ -19,7 +19,7 @@ $pagetitle = "メッセージ"
     }
     // 現在ログインしているユーザー情報
     $current_user = get_user($_SESSION['user_id']);
-
+//送信先
     $destination_user = get_user($_GET['user_id']);
     // やり取りされるメッセージ情報
     $messages = get_messages($current_user['user_id'], $destination_user['user_id']);
