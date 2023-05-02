@@ -44,7 +44,7 @@ try {
   echo $e->getMessage();
   exit();
 }
-
+$user_id=$result['user_id'];
 ?>
 
 <?php
