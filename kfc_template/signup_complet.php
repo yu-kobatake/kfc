@@ -5,11 +5,12 @@ require_once("./lib/util.php");
 session_start();
 
 if ($_SESSION['token2'] !== $_POST['token2']) :
-  // 正しくない場合は戻るボタンを表示
+  // 正しくない場合の処理
   $_SESSION['token2'] = "";
-  echo <<< EOL
-  <p>不正なアクセスです。</p>
-  EOL;
+  $notice = '※不正なアクセスのためエラー※'; // IDのお知らせエラー
+  // echo <<< EOL
+  // <p>不正なアクセスです。</p>
+  // EOL;
 else :
 
   if (!empty($_POST)) {
@@ -25,8 +26,6 @@ else :
       $gender = $_SESSION['gender'];
       $job = $_SESSION['job'];
   }
-
-var_dump($password);
 
   // データベース接続
   $user = 'shotohlcd31_kfc';
@@ -47,8 +46,6 @@ var_dump($password);
     /*---------- 新規のデータを追加 ----------*/
     $sql = "INSERT INTO user (kind, user_name, name, furigana, gender, email, password, address, zip, birth, job) VALUE ('$kind', '$user_name', '$name', '$furigana', '$gender', '$email', '$pass', '$address',	'$zip', '$birth',	'$job')";
 
-    var_dump($sql);
-
     // プリペアドステートメントを作る
     $stm = $pdo->prepare($sql);
 
@@ -68,7 +65,10 @@ var_dump($password);
 
 
     /*---------- user_id ⇒ SESSIONへ ----------*/
-    $_SESSION['user_id'] = $userdata[0]['user_id'];
+    if(!empty($_SESSION['user_id'])){
+      $_SESSION['user_id'] = $userdata[0]['user_id'];
+      $notice = $userdata[0]['user_id']; // IDを表示する用
+    }
 
 
   } catch (PDOException $e) {
@@ -92,7 +92,7 @@ $pagetitle = "新規会員登録完了";
     <h2><?php echo $pagetitle ?></h2>
     <div class="c">
     <p>会員登録が完了しました。</p>
-    <p>あなたのログインIDは「<span style="color:red;font-weight:bold;"><?php echo $userdata[0]['user_id']; ?></span>」です。<br>
+    <p>あなたのログインIDは「<span style="color:red;font-weight:bold;"><?php echo $notice; ?></span>」です。<br>
     <span style="color:red;">このIDはログイン時に必要</span>です。紛失されないようご注意ください。
     </p>
     <p>ログインページより、マイページへアクセスしてください。</p>
