@@ -18,13 +18,15 @@ else :
       $name = $_SESSION['name'];
       $furigana = $_SESSION['furigana'];
       $email = $_SESSION['email'];
-      $password = $_SESSION['password'];
+      $pass = $_SESSION['password'];
       $zip = $_SESSION['zip'];
       $address = $_SESSION['address'];
       $birth = $_SESSION['birth'];
       $gender = $_SESSION['gender'];
       $job = $_SESSION['job'];
   }
+
+var_dump($password);
 
   // データベース接続
   $user = 'shotohlcd31_kfc';
@@ -43,7 +45,9 @@ else :
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     /*---------- 新規のデータを追加 ----------*/
-    $sql = "INSERT INTO user (kind, user_name, name, furigana, gender, email, password, address, zip, birth, job) VALUE ('$kind', '$user_name', '$name', '$furigana', '$gender', '$email', '$password', '$address',	'$zip', '$birth',	'$job')";
+    $sql = "INSERT INTO user (kind, user_name, name, furigana, gender, email, password, address, zip, birth, job) VALUE ('$kind', '$user_name', '$name', '$furigana', '$gender', '$email', '$pass', '$address',	'$zip', '$birth',	'$job')";
+
+    var_dump($sql);
 
     // プリペアドステートメントを作る
     $stm = $pdo->prepare($sql);
