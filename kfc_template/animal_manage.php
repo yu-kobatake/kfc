@@ -39,7 +39,7 @@ try {
   $stm->bindValue(":user_id", $user_id, PDO::PARAM_STR);
   $stm->execute();
   $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-  var_dump($result);
+  // var_dump($result);
   $result_count = count($result);
 } catch (Exception $e) {
   echo '<span class ="error">エラーがありました</span><br>';
