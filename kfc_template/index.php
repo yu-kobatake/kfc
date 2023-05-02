@@ -5,8 +5,8 @@ require_once("./lib/util.php");
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
 $dbName = 'shotohlcd31_kfc';
-$host = 'sv14471.xserver.jp';
-//$host = 'localhost';
+//$host = 'sv14471.xserver.jp';
+$host = 'localhost';
 $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
 ?>
 <?php
@@ -37,9 +37,6 @@ $pagetitle = "犬猫里親募集"
 ?>
 
 <?php include('parts/header.php'); ?>
-
-<div id="container" class="c1">
-  <main>
 
       <!-- message_add.phpにPOSTするフォーム -->
       <?php
