@@ -13,19 +13,19 @@ if (empty($_SESSION['animal_id']) && empty($_POST['animal_id'])) {
 } elseif (!empty($_POST['animal_id'])) {
     $animal_id = $_POST['animal_id'];
 }
-// var_dump($_SESSION);
-// var_dump($_POST);
+var_dump($_SESSION);
+var_dump($_POST);
 
 /*************************************************************
  DB接続 基本情報
  ************************************************************/
-// $user = "shotohlcd31_kfc";
-$user = "testuser";
-$password = "pw4testuser";
-$dbName = "shotohlcd31_kfc";
-// $host = "sv14471.xserver.jp";
-$host = "localhost";
-$dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+  // データベース接続
+  $user = 'shotohlcd31_kfc';
+  $password = 'KFCpassword';
+  $dbName = 'shotohlcd31_kfc';
+  $host = 'localhost';
+  //$host = 'sv14471.xserver.jp';
+  $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
 
 /*************************************************************

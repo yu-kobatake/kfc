@@ -209,58 +209,58 @@ include('parts/header.php');
         <table class="ta1">
             <tbody>
 
-                    <tr>
-                        <th>タイトル※</th>
-                        <td><?= es($title); ?></td>
-                    </tr>
-                    <tr>
-                        <th>画像選択（3枚）※</th>
-                        <td><img src="./lib/image_1.php"></td>
-                        <td><img src="./lib/image_2.php"></td>
-                        <td><img src="./lib/image_3.php"></td>
-                    </tr>
-                    <tr>
-                        <th>犬種/猫種※</th>
-                        <td><?= es($kind); ?></td>
-                    </tr>
-                    <tr>
-                        <th>性別※</th>
-                        <td><?= es($gender); ?>
-                    <tr>
-                        <th>年齢※</th>
-                        <td><?= es($age); ?></td>
-                    </tr>
+                <tr>
+                    <th>タイトル※</th>
+                    <td><?= es($title); ?></td>
+                </tr>
+                <tr>
+                    <th>画像選択（3枚）※</th>
+                    <td><img src="./lib/image_1.php"></td>
+                    <td><img src="./lib/image_2.php"></td>
+                    <td><img src="./lib/image_3.php"></td>
+                </tr>
+                <tr>
+                    <th>犬種/猫種※</th>
+                    <td><?= es($kind); ?></td>
+                </tr>
+                <tr>
+                    <th>性別※</th>
+                    <td><?= es($gender); ?>
+                <tr>
+                    <th>年齢※</th>
+                    <td><?= es($age); ?></td>
+                </tr>
 
-                    <tr>
-                        <th rowspan="3">募集対象地域<br>3つまで選択可</th>
-                        <td>募集対象地域1：<?= es($area_1); ?> </td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>募集対象地域2：<?= es($area_2); ?></td>
-                    </tr>
-                    <tr>
-                        <td>募集対象地域3：<?= es($area_3); ?></td>
-                    </tr>
-                    <tr>
-                        <th>動物がいる地域※</th>
-                        <td><?= es($animal_area); ?></td>
-                    </tr>
-                    <tr>
-                        <th>特徴（性格）※</th>
-                        <td><?= es($animal_character); ?></td>
-                    </tr>
-                    <tr>
-                        <th>特記事項※</th>
-                        <td><?= es($other); ?></td>
-                    </tr>
-                </tbody>
-            </table>
-            <form method="POST" action="#">
+                <tr>
+                    <th rowspan="3">募集対象地域<br>3つまで選択可</th>
+                    <td>募集対象地域1：<?= es($area_1); ?> </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>募集対象地域2：<?= es($area_2); ?></td>
+                </tr>
+                <tr>
+                    <td>募集対象地域3：<?= es($area_3); ?></td>
+                </tr>
+                <tr>
+                    <th>動物がいる地域※</th>
+                    <td><?= es($animal_area); ?></td>
+                </tr>
+                <tr>
+                    <th>特徴（性格）※</th>
+                    <td><?= es($animal_character); ?></td>
+                </tr>
+                <tr>
+                    <th>特記事項※</th>
+                    <td><?= es($other); ?></td>
+                </tr>
+            </tbody>
+        </table>
+        <form method="POST" action="#">
             <input type="submit" value="この内容で登録する" name="send" formaction="animal_complet.php">
             <input type="submit" value="戻る" formaction="animal.php">
             <input type="hidden" name="token" value="<?= es($token); ?>">
-            
+
             </from>
 
     </main>

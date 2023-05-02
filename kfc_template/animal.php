@@ -3,8 +3,8 @@ session_start();
 require_once("./lib/util.php");
 // titleで読み込むページ名
 $pagetitle = "ペット情報登録画面";
-// var_dump($_SESSION);
-// var_dump($_POST);
+var_dump($_SESSION);
+var_dump($_POST);
 
 // ユーザーidがセッションに入っていなければログインページに戻す
 if (!empty($_SESSION['user_id'])) {
@@ -88,7 +88,7 @@ $_SESSION['token'] = $token;
         // セッションエラーの削除
         $_SESSION['error'] = [];
         $errors = [];
-        // var_dump(isset($_SESSION['area_1']));
+        var_dump(isset($_SESSION['area_1']));
         ?>
 
         <h2>犬猫の登録</h2>

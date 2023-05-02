@@ -51,7 +51,6 @@ else :
     // SQLクエリを実行する
     $stm->execute();
 
-
     /*---------- 今、登録したユーザーIDを抽出（登録メールアドレスと同じレコードのIDを取得） ----------*/
     $sql2 = "SELECT user_id FROM user WHERE email = '$email'";
 
@@ -88,10 +87,11 @@ $pagetitle = "新規会員登録完了";
   <main>
     <h2><?php echo $pagetitle ?></h2>
     <div class="c">
-    <p>
-      会員登録が完了しました。<br>
-      ログインページよりマイページへアクセスしてください。
+    <p>会員登録が完了しました。</p>
+    <p>あなたのログインIDは「<span style="color:red;font-weight:bold;"><?php echo $userdata[0]['user_id']; ?></span>」です。<br>
+    <span style="color:red;">このIDはログイン時に必要</span>です。紛失されないようご注意ください。
     </p>
+    <p>ログインページより、マイページへアクセスしてください。</p>
     <p><a href="./login.php">ログインページへ</a></p>
     </div>
 </div>

@@ -1,11 +1,13 @@
 <?php
 session_start();
 
-$user = 'testuser';
-$password = 'pw4testuser';
-$dbName = 'shotohlcd31_kfc';
-$host = 'localhost';
-$dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
+  // データベース接続
+  $user = 'shotohlcd31_kfc';
+  $password = 'KFCpassword';
+  $dbName = 'shotohlcd31_kfc';
+  $host = 'localhost';
+  //$host = 'sv14471.xserver.jp';
+  $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
 $user_id = $_SESSION['user_id'];
 
