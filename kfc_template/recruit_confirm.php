@@ -39,8 +39,6 @@ $pagetitle = "里親申し込み確認"
 <div id="container">
   <main>
     <?php
-    $user_id = 8;
-
     if (!empty($_POST['animal_id'])) {
       $animal_id = $_POST['animal_id'];
       $_SESSION['animal_id'] = $animal_id;
