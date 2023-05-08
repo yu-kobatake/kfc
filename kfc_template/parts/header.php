@@ -21,10 +21,9 @@ session_start();
             <li><a href="./recruit.php">里親募集</a></li>
             <li><a href="./event.php">イベント</a></li>
             <li><a href="./about.php">当サイトについて</a></li>
-            <?php if(!empty($SESSION['user_id'])){
-            
-              echo '<li><a href="./login.php">マイページ</a></li>';
-              echo '<li><a href="./logout.php">ログアウト</a></li>';
+            <?php if(!empty($_SESSION['user_id'])){
+                echo '<li><a href="./login.php">マイページ</a></li>';
+                echo '<li><a href="./logout.php">ログアウト</a></li>';
             } else {
               echo '<li><a href="./login.php">ログイン</a></li>';   
             }
@@ -45,11 +44,22 @@ session_start();
             <li><a href="./recruit.php">里親募集</a></li>
             <li><a href="./event.php">イベント</a></li>
             <li><a href="./about.php">当サイトについて</a></li>
-            <li><a href="./logout.php">ログアウト</a></li>
-
+            <?php if(!empty($_SESSION['user_id'])){
+                echo '<li><a href="./logout.php">ログアウト</a></li>';
+            }?>
         </ul>
         <ul class="submenu btn">
-            <li><a href="./login.php">マイページ</a></li>
+            <?php if(!empty($_SESSION['user_id'])){
+            echo '<li><a href="./login.php">マイページ</a></li>';
+        } else {
+          echo '<li><a href="./login.php">ログイン</a></li>';   
+        }
+?>
         </ul>
     </div>
+
+    <?php
+// セッションの削除
+session_destroy();
+    ?>
     <!--/#menubar-->
