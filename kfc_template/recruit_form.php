@@ -146,7 +146,6 @@ if (!empty($_POST['animal_id'])) {
 
 
     // userテーブルへの接続
-    $user_id = 4;
     try {
       $pdo = new PDO($dsn, $user, $password);
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -379,7 +378,6 @@ if (!empty($_POST['animal_id'])) {
         }
       }
       ?>
-<??>
       <!-- token -->
       <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
       <!-- animal_id -->
