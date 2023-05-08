@@ -133,7 +133,7 @@ $pagetitle = "里親申し込み確認"
     <?php
     // チェックボックス確認
     $errors_agree = [];
-    $_SESSION['errors_agree']=[];
+    $_SESSION['errors_agree'] = [];
     if (isset($_POST['agree_1'])) {
       $_SESSION['agree_1'] = $_POST['agree_1'];
     } else {
@@ -163,47 +163,54 @@ $pagetitle = "里親申し込み確認"
 
     // テキストエリア確認
     $errors = [];
-    $_SESSION['errors']=[];
+    $_SESSION['errors'] = [];
     if (isset($_POST['question_1'])) {
       $_SESSION['question_1'] = $_POST['question_1'];
-      $question_1=preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u','',$_POST['question_1']);
-      if(empty($question_1)){$errors[] = '項目1は必須項目です。';
+      $question_1 = preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['question_1']);
+      if (empty($question_1)) {
+        $errors[] = '項目1は必須項目です。';
       }
     }
     if (isset($_POST['question_2'])) {
       $_SESSION['question_2'] = $_POST['question_2'];
-      $question_2=preg_replace( '/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u','',$_POST['question_2']);
-      if(empty($question_2)){$errors[] = '項目2は必須項目です。';
+      $question_2 = preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['question_2']);
+      if (empty($question_2)) {
+        $errors[] = '項目2は必須項目です。';
       }
     }
     if (isset($_POST['question_3'])) {
       $_SESSION['question_3'] = $_POST['question_3'];
-      $question_3=preg_replace( '/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u','',$_POST['question_3']);
-      if(empty($question_3)){$errors[] = '項目3は必須項目です。';
+      $question_3 = preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['question_3']);
+      if (empty($question_3)) {
+        $errors[] = '項目3は必須項目です。';
       }
     }
     if (isset($_POST['question_4'])) {
       $_SESSION['question_4'] = $_POST['question_4'];
-      $question_4=preg_replace( '/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u','',$_POST['question_4']);
-      if(empty($question_4)){$errors[] = '項目4は必須項目です。';
+      $question_4 = preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['question_4']);
+      if (empty($question_4)) {
+        $errors[] = '項目4は必須項目です。';
       }
     }
     if (isset($_POST['question_5'])) {
       $_SESSION['question_5'] = $_POST['question_5'];
-      $question_5=preg_replace( '/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u','',$_POST['question_5']);
-      if(empty($question_5)){$errors[] = '項目5は必須項目です。';
+      $question_5 = preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['question_5']);
+      if (empty($question_5)) {
+        $errors[] = '項目5は必須項目です。';
       }
     }
     if (isset($_POST['question_6'])) {
       $_SESSION['question_6'] = $_POST['question_6'];
-      $question_6=preg_replace( '/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u','',$_POST['question_6']);
-      if(empty($question_6)){$errors[] = '項目6は必須項目です。';
+      $question_6 = preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['question_6']);
+      if (empty($question_6)) {
+        $errors[] = '項目6は必須項目です。';
       }
     }
     if (isset($_POST['question_7'])) {
       $_SESSION['question_7'] = $_POST['question_7'];
-      $question_7=preg_replace( '/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u','',$_POST['question_7']);
-      if(empty($question_7)){$errors[] = '項目7は必須項目です。';
+      $question_7 = preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['question_7']);
+      if (empty($question_7)) {
+        $errors[] = '項目7は必須項目です。';
       }
     }
 
@@ -248,11 +255,14 @@ $pagetitle = "里親申し込み確認"
       <!-- token -->
       <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
       <input type="submit" name="submit" value="この内容で申し込みする">
-      <form action="./recruit_form.php" method="get">
-      <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
-      <input type="submit" value="＜戻る">
     </form>
-
+    
+    <div class="back_btn">
+      <form action="./recruit_form.php" method="get">
+        <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
+        <input type="submit" value="＜戻る">
+      </form>
+    </div>
   </main>
 </div>
 
