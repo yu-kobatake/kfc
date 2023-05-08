@@ -63,7 +63,7 @@ $pagetitle = "里親申し込み完了"
     <p>申し込みが完了しました。</p>
     <form action="./message.php" method="get">
       <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
-      <input type="submit" value="メッセージを送信する">
+      <input type="submit" value="ブリーダーへメッセージを送信する">
     </form>
   </main>
 </div>

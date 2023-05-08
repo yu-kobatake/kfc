@@ -7,13 +7,13 @@ require_once("./lib/util.php");
 // $host = 'localhost';
 // $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
 
-  // データベース接続
-  $user = 'shotohlcd31_kfc';
-  $password = 'KFCpassword';
-  $dbName = 'shotohlcd31_kfc';
-  $host = 'localhost';
+// データベース接続
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
+$host = 'localhost';
 //$host = 'sv14471.xserver.jp';
-  $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+$dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 ?>
 <?php
 if (!cken($_GET)) {
@@ -45,70 +45,70 @@ $pagetitle = "里親募集詳細"
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <?php echo "<title>$pagetitle</title>"; ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow" />
-    <link rel="stylesheet" href="css/style.css">
-    <style>
+  <meta charset="UTF-8">
+  <?php echo "<title>$pagetitle</title>"; ?>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="css/style.css">
+  <style>
     .btn-good {
-        display: inline-block;
-        padding: 0 8px;
-        cursor: pointer;
+      display: inline-block;
+      padding: 0 8px;
+      cursor: pointer;
     }
 
     .btn-good:hover {
-        color: #f44336;
+      color: #f44336;
     }
 
     .active {
-        color: #f44336;
+      color: #f44336;
     }
 
     .btn-good .active {
-        color: #f44336;
+      color: #f44336;
     }
 
 
 
     */
-    </style>
+  </style>
 </head>
 
 <body>
 
-    <header>
-        <h1 id="logo"><a href="index.html"><img src="images/logo.png" alt="Sample Recipe Site"></a></h1>
-        <ul>
-            <li><a href="./index.php">ホーム</a></li>
-            <li><a href="./recruit.php">里親募集</a></li>
-            <li><a href="./event.php">イベント</a></li>
-            <li><a href="./about.php">当サイトについて</a></li>
-            <li><a href="./login.php">マイページ</a></li>
-            <li><a href="./logout.php">ログアウト</a></li>
-        </ul>
-    </header>
+  <header>
+    <h1 id="logo"><a href="index.html"><img src="images/logo.png" alt="Sample Recipe Site"></a></h1>
+    <ul>
+      <li><a href="./index.php">ホーム</a></li>
+      <li><a href="./recruit.php">里親募集</a></li>
+      <li><a href="./event.php">イベント</a></li>
+      <li><a href="./about.php">当サイトについて</a></li>
+      <li><a href="./login.php">マイページ</a></li>
+      <li><a href="./logout.php">ログアウト</a></li>
+    </ul>
+  </header>
 
-    <!--開閉ボタン（ハンバーガーアイコン）-->
-    <div id="menubar_hdr">
-        <span></span><span></span><span></span>
-    </div>
-    <!--スマホ用の開閉ブロック（メニュー）-->
-    <div id="menubar">
-        <ul>
-            <li><a href="./index.php">ホーム</a></li>
-            <li><a href="./recruit.php">里親募集</a></li>
-            <li><a href="./event.php">イベント</a></li>
-            <li><a href="./about.php">当サイトについて</a></li>
-            <li><a href="./logout.php">ログアウト</a></li>
-        </ul>
-        <ul class="submenu btn">
-            <li><a href="./login.php">マイページ</a></li>
-        </ul>
-    </div>
-    <div id="container">
-        <main>
-            <?php
+  <!--開閉ボタン（ハンバーガーアイコン）-->
+  <div id="menubar_hdr">
+    <span></span><span></span><span></span>
+  </div>
+  <!--スマホ用の開閉ブロック（メニュー）-->
+  <div id="menubar">
+    <ul>
+      <li><a href="./index.php">ホーム</a></li>
+      <li><a href="./recruit.php">里親募集</a></li>
+      <li><a href="./event.php">イベント</a></li>
+      <li><a href="./about.php">当サイトについて</a></li>
+      <li><a href="./logout.php">ログアウト</a></li>
+    </ul>
+    <ul class="submenu btn">
+      <li><a href="./login.php">マイページ</a></li>
+    </ul>
+  </div>
+  <div id="container">
+    <main>
+      <?php
       if (!empty($_GET['animal_id'])) {
         $animal_id = $_GET['animal_id'];
         // var_dump($animal_id);      
@@ -216,25 +216,29 @@ $pagetitle = "里親募集詳細"
       }
       if (isset($result)) {
       ?>
-            <?php
+        <div class="back_btn">
+          <a href="recruit.php"><button>＜ 戻る</button></a>
+        </div>
+
+        <?php
         foreach ($result as $row) {
           echo "<h2>{$row['title']}</h2>";
         ?>
-            <!-- いいねの表示 -->
-            <div class="post" data-postid="<?= es($animal_id); ?>">
-                <div class="btn-good <?php if (isGood($user_id, $animal_id)) echo 'active'; ?>">
+          <!-- いいねの表示 -->
+          <div class="post" data-postid="<?= es($animal_id); ?>">
+            <div class="btn-good <?php if (isGood($user_id, $animal_id)) echo 'active'; ?>">
 
-                    <span>いいね</span>
-                    <i class="far fa-heart 
+              <span>いいね</span>
+              <i class="far fa-heart 
                     <?php if (isGood($user_id, $animal_id)) { //いいね押したらハートが塗りつぶされる
-                          echo ' active star';
+                      echo ' active star';
                     } else { //いいねを取り消したらハートのスタイルが取り消される
-                          echo ' star_after';
+                      echo ' star_after';
                     }; ?>"></i>
-                    <span class="goodcount"><?php echo $dbPostGoodNum; ?></span>
-                </div>
-                <!-- いいねの表示終わり -->
-                <?php
+              <span class="goodcount"><?php echo $dbPostGoodNum; ?></span>
+            </div>
+            <!-- いいねの表示終わり -->
+        <?php
           echo <<<"EOL"
                         
                         <div>
@@ -296,19 +300,14 @@ $pagetitle = "里親募集詳細"
                 EOL;
         }
       }
-          ?>
-                <!-- 申込フォームへ -->
-                <form action="./recruit_form.php" method="POST">
-                    <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
-                    <input type="submit" name="submit" value="申し込みフォームへ">
-                </form>
-                <?php
-var_dump($_SESSION);
-
-          ?>
-        </main>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="./js/good.js"></script>
-    <?php include('parts/footer.php'); ?>
+        ?>
+        <!-- 申込フォームへ -->
+        <form action="./recruit_form.php" method="POST">
+          <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
+          <input type="submit" name="submit" value="申し込みフォームへ">
+        </form>
+    </main>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="./js/good.js"></script>
+  <?php include('parts/footer.php'); ?>

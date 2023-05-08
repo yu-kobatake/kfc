@@ -4,6 +4,16 @@ require_once("./lib/util.php");
 var_dump($_SESSION);
 var_dump($_POST);
 
+
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+  //セッションに入っていなければればログインページに戻す 
+  } else { 
+    header("Location:login.php");
+    exit();
+  }
+
 // エンコードチェック
 if (!cken($_POST)) {
     echo '<a href="login.php">ログインページに戻る</a>';
@@ -34,6 +44,9 @@ $errors = [];
 
 // POSTされたanimal_idを変数に入れる
 $animal_id = $_POST['animal_id'];
+
+
+
 
 /*************************************************************
  バリデーション

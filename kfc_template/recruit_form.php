@@ -41,6 +41,13 @@ if (!empty($_POST['animal_id'])) {
 
 <div id="container">
   <main>
+    <div class="back_btn">
+      <form action="./recruit_detail.php" method="get">
+        <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
+        <input type="submit" value="＜戻る">
+      </form>
+    </div>
+
     <h2>里親申込</h2>
     <div>
       <h3>ご注意</h3>
@@ -233,10 +240,15 @@ if (!empty($_POST['animal_id'])) {
         $question_7 = "";
       }
       ?>
-
+      <style>
+        .question_required::after {
+          content: "必須";
+          color: red;
+        }
+      </style>
       <table>
         <tr>
-          <th>
+          <th class='question_required'>
             1.動物の飼育経験について（種類、飼っていた時期など）
           </th>
         </tr>
@@ -246,7 +258,7 @@ if (!empty($_POST['animal_id'])) {
           </td>
         </tr>
         <tr>
-          <th>
+          <th class='question_required'>
             2.動物と一緒に暮らすご家族、恋人、同居人の構成と年齢層（例：父（応募者・30歳）　母（31歳）娘（10歳））
           </th>
         </tr>
@@ -256,7 +268,7 @@ if (!empty($_POST['animal_id'])) {
           </td>
         </tr>
         <tr>
-          <th>
+          <th class='question_required'>
             3.現在、動物のために用意しているもの（ケージ、トイレなど）
           </th>
         </tr>
@@ -266,7 +278,7 @@ if (!empty($_POST['animal_id'])) {
           </td>
         </tr>
         <tr>
-          <th>
+          <th class='question_required'>
             4.もしも自分や同居人が新たにアレルギーに発症したり、結婚や出産などで増えた家族がアレルギーだった場合はどうしますか
           </th>
         </tr>
@@ -276,7 +288,7 @@ if (!empty($_POST['animal_id'])) {
           </td>
         </tr>
         <tr>
-          <th>
+          <th class='question_required'>
             5. 長期にわたって家を留守にする場合、動物をどうしますか
           </th>
         </tr>
@@ -286,7 +298,7 @@ if (!empty($_POST['animal_id'])) {
           </td>
         </tr>
         <tr>
-          <th>
+          <th class='question_required'>
             6. 最寄りの動物病院について把握していますか
           </th>
         </tr>
@@ -295,7 +307,7 @@ if (!empty($_POST['animal_id'])) {
             <textarea name="question_6"><?php echo es($question_6); ?></textarea>
           </td>
         </tr>
-        <th>
+        <th class='question_required'>
           7.里親を希望する具体的な理由と、どのように動物と生活をする予定なのかをなるべく詳しく書いてください。
         </th>
         </tr>
@@ -343,7 +355,7 @@ if (!empty($_POST['animal_id'])) {
           </th>
         </tr>
         <tr>
-          <td>
+          <td class='question_required'>
             <label>
               <input type="checkbox" name='agree_1' value="agree" <?php echo es($agree_1); ?>>
               1.動物に必要な獣医療を受けさせます。
@@ -351,7 +363,7 @@ if (!empty($_POST['animal_id'])) {
           </td>
         </tr>
         <tr>
-          <td>
+          <td class='question_required'>
             <label>
               <input type="checkbox" name='agree_2' value="agree" <?php echo es($agree_2); ?>>
               2.犬の場合、ノーリード禁止の場所ではリードをつけること。猫の場合、完全室内飼育（通院など必要な場合を除いて外に出さない。リードの有無にかかわらずお散歩をさせない）を厳守します
@@ -359,7 +371,7 @@ if (!empty($_POST['animal_id'])) {
           </td>
         </tr>
         <tr>
-          <td>
+          <td class='question_required'>
             <label>
               <input type="checkbox" name='agree_3' value="agree" <?php echo es($agree_3); ?>>
               3.同意事項を全て確認し、同意します。
@@ -384,7 +396,7 @@ if (!empty($_POST['animal_id'])) {
       <input type='hidden' name='animal_id' value='<?php echo $animal_id; ?>'>
       <button name="submit" name="submit">入力内容を確認する</button>
     </form>
-    
+
   </main>
 </div>
 

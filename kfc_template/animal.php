@@ -6,14 +6,14 @@ $pagetitle = "ペット情報登録画面";
 var_dump($_SESSION);
 var_dump($_POST);
 
-// ユーザーidがセッションに入っていなければログインページに戻す
+// ユーザーIDがセッションに入っていれば$user_idに代入する
 if (!empty($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-} else {
+  //セッションに入っていなければればログインページに戻す 
+  } else { 
     header("Location:login.php");
     exit();
-}
-
+  }
 
 // トークンの発行
 $bytes = openssl_random_pseudo_bytes(16);

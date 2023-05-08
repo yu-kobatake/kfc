@@ -10,7 +10,7 @@ $pagetitle = "トークルーム一覧"
 <div id="container" class='c1' style="display:block">
   <main>
     <div class="mypage_btn">
-      <a href="message_top.php"><button>＜マイページに戻る</button></a>
+      <a href="login.php"><button>＜マイページに戻る</button></a>
     </div>
     <?php
     $current_user = get_user($_SESSION['user_id']);
