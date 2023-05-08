@@ -1,9 +1,9 @@
 <?php
 session_start();
 require_once("./lib/util.php");
-$user = 'username';
-$password = 'kfc';
-$dbName = 'shotohlcd31_ kfc';
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
 $host = 'localhost';
 $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 ?>
