@@ -113,7 +113,7 @@ if (!empty($_POST['login_send'])) {
     }
 }
 
-include('parts/header_mypage.php');
+include('parts/header.php');
 $pagetitle = "里親マイページ";
 ?>
 <div id="container">
