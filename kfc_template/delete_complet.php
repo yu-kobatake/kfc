@@ -85,20 +85,26 @@ try {
   // 結果の取得（連想配列で受け取る）
   // $resultには多次元配列で犬猫ごとに3枚の写真が入っている
   $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-  var_dump($result);
+  //var_dump($result);
 
   // $resultに値が入っていれば画像パスを取り出して、
   // ./images/animal_photo/フォルダに入っている画像を削除する
   if($result){
     foreach($result as $key => $animal)  {
       foreach($animal as $imagekey => $imagevalue){
-        var_dump($imagevalue);
+        //var_dump($imagevalue);
         unlink("./images/animal_photo/{$imagevalue}");
       }
     }
   }
 
   /* このユーザーが「犬猫登録をしていれば」animalテーブルから「犬猫のレコードを削除する」 */
+
+  $pdo = new PDO($dsn, $user, $password);
+  // プリペアドステートメントのエミュレーションを無効にする
+  $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+  // 例外がスローされる設定にする
+  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
   //SQL文：退会するユーザーのidが登録されている犬猫のレコードを削除する
   $sql = "DELETE FROM animal WHERE user_id = $HIT";
@@ -110,7 +116,7 @@ try {
 //削除した行数を取得
 $cnt = $stm->rowCount();
 //削除した行数が1以上なら削除成功、0なら削除できる番号がないとみなす
-var_dump($cnt);
+//var_dump($cnt);
 
 } catch (PDOException $e) {
   $err =  '<span class="error">エラーがありました。</span><br>';
