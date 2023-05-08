@@ -192,7 +192,8 @@ $pagetitle = "メッセージ"
     $user_id = $_SESSION['user_id'];
     $destination_user_ID = $_GET['user_id'];
     $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
-
+var_dump($user_id);
+var_dump($destination_user_ID);
     if (!check_relation_message($user_id, $destination_user_ID)) {
       insert_message($user_id, $destination_user_ID);
       echo "relation_messageにデータを挿入";
