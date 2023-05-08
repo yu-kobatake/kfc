@@ -194,7 +194,7 @@ opacity: 0.7;
 
 .destination_user_list{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 .destination_user_info{
