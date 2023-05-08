@@ -116,7 +116,7 @@ if (!empty($_POST['login_send'])) {
 include('parts/header.php');
 $pagetitle = "里親マイページ";
 ?>
-<div id="container">
+<div id="container" class="c1">
     <main>
         <?php
         /*************************************************************
@@ -186,7 +186,7 @@ DB接続 userテーブルから会員情報を取り出して表示
         <div>
             <h3>メッセージ</h3>
             <!-- 新規メッセージ的なコメント未設定 -->
-            <input type="submit" value="トーク画面へ">
+            <button><a href="message_top.php">メッセージ一覧へ</a></button>
         </div>
 
         <?php

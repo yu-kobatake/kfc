@@ -117,12 +117,12 @@ if (!empty($_POST['login_send'])) {
 $pagetitle = "ブリーダーマイページ";
  include('parts/header.php');
 ?>
-<div id="container">
+<div id="container" class="c1">
     <main>
         <div>
 
             <h3>登録ペット</h3>
-            <a href="animal.php"><button>犬猫新規登録</button></a>
+            <a href=" animal.php"><button>犬猫新規登録</button></a>
             <a href="animal_manage.php"><button>犬猫管理画面</button></a>
         </div>
         <?php
@@ -192,7 +192,7 @@ $pagetitle = "ブリーダーマイページ";
         <div>
             <h3>メッセージ</h3>
             <!-- 新規メッセージ的なコメント未設定 -->
-            <input type="submit" value="トーク画面へ">
+            <button><a href="message_top.php">メッセージ一覧へ</a></button>
         </div>
 
         <?php
