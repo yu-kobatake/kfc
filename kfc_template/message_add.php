@@ -49,8 +49,7 @@ $pagetitle = "message_add.php"
         echo "relation_messageにデータを挿入";
       }
       echo "メッセージを送信しました";
-      // header('Location:../kfc_template/message.php?user_id=' . $destination_user_ID . '');
-      header('Location:../backup/message.php?user_id=' . $destination_user_ID . '');
+      header('Location:../kfc_template/message.php?user_id=' . $destination_user_ID . '');
     } catch (Exception $e) {
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
       exit();
