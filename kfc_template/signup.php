@@ -1,8 +1,16 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "新規会員登録";
+?>
+<?php include('parts/header.php'); ?>
+<?php
 require_once("./lib/util.php");
 
 // セッション開始
-session_start();
+if(!isset($_SESSION)){
+  session_start();
+}
+
 
 // トークン発行・登録
 $bytes = openssl_random_pseudo_bytes(16);
@@ -57,11 +65,7 @@ function agreeChecked(){
 }
 
 ?>
-<?php
-// titleで読み込むページ名
-$pagetitle = "新規会員登録";
-?>
-<?php include('parts/header.php'); ?>
+
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <div id="container" class="c1">
   <main>

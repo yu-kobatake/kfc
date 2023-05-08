@@ -1,8 +1,16 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "新規会員登録完了";
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
 require_once("./lib/util.php");
 
 // セッション開始
-session_start();
+if(!isset($_SESSION)){
+  session_start();
+}
 
 if ($_SESSION['token2'] !== $_POST['token2']) :
   // 正しくない場合の処理
@@ -49,25 +57,16 @@ else :
     // プリペアドステートメントを作る
     $stm = $pdo->prepare($sql);
 
-    // SQLクエリを実行する
+    // SQL文を実行する
     $stm->execute();
 
-    /*---------- 今、登録したユーザーIDを抽出（登録メールアドレスと同じレコードのIDを取得） ----------*/
-    $sql2 = "SELECT user_id FROM user WHERE email = '$email'";
-
-    // プリペアドステートメントを作る
-    $stm2 = $pdo->prepare($sql2);
-
-    // SQLクエリを実行する
-    $stm2->execute();
-    // 結果の取得
-    $userdata = $stm2->fetchAll(PDO::FETCH_ASSOC);
-
+    // IDを通知するため、自動生成したIDを取得
+    $userdata_id = $pdo->lastInsertId();
 
     /*---------- user_id ⇒ SESSIONへ ----------*/
-    if(!empty($_SESSION['user_id'])){
-      $_SESSION['user_id'] = $userdata[0]['user_id'];
-      $notice = $userdata[0]['user_id']; // IDを表示する用
+    if(!empty($userdata_id)){
+      $_SESSION['user_id'] = $userdata_id;
+      $display = $userdata_id; // IDを表示する用
     }
 
 
@@ -82,17 +81,13 @@ else :
 
   endif;
 ?>
-<?php
-// titleで読み込むページ名
-$pagetitle = "新規会員登録完了";
-?>
-<?php include('parts/header.php'); ?>
+
 <div id="container" class="c1">
   <main>
     <h2><?php echo $pagetitle ?></h2>
     <div class="c">
     <p>会員登録が完了しました。</p>
-    <p>あなたのログインIDは「<span style="color:red;font-weight:bold;"><?php echo $notice; ?></span>」です。<br>
+    <p>あなたのログインIDは「<span style="color:red;font-weight:bold;"><?php echo $display; ?></span>」です。<br>
     <span style="color:red;">このIDはログイン時に必要</span>です。紛失されないようご注意ください。
     </p>
     <p>ログインページより、マイページへアクセスしてください。</p>
@@ -100,4 +95,3 @@ $pagetitle = "新規会員登録完了";
     </div>
 </div>
 <?php include('parts/footer.php'); ?>
-

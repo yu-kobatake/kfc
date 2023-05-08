@@ -1,8 +1,15 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "会員登録情報の確認";
+?>
+<?php include('parts/header.php'); ?>
+<?php
 require_once("./lib/util.php");
 
 // セッション開始
-session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
 
 // トークン発行・登録
 $bytes2 = openssl_random_pseudo_bytes(16);
@@ -163,11 +170,7 @@ else :
   
 endif;
 ?>
-<?php
-// titleで読み込むページ名
-$pagetitle = "会員登録情報の確認";
-?>
-<?php include('parts/header.php'); ?>
+
 <div id="container" class="c1">
   <main>
     <h2><?php echo $pagetitle ?></h2>
