@@ -72,6 +72,7 @@ $pagetitle = "メッセージ"
         </form>
       </div>
       </div>
+      </div>
       <script>
         // テキストエリア入力したら送信ボタン有効
         window.addEventListener('DOMContentLoaded', function() {
