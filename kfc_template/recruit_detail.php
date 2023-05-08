@@ -14,16 +14,27 @@ require_once("./lib/util.php");
   $host = 'localhost';
 //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
-<<<<<<< HEAD
-=======
-var_dump($_SESSION);
->>>>>>> c928777ed59159ee08d8e85f5d6197d3f6231c58
 ?>
 <?php
 if (!cken($_GET)) {
   exit("不正な文字コードです。");
 }
 $_GET = es($_GET);
+
+// アンケート情報の$_SESSIONを空にする
+$_SESSION['errors_agree'] = [];
+$_SESSION['agree_1'] = [];
+$_SESSION['agree_2'] = [];
+$_SESSION['agree_3'] = [];
+$_SESSION['errors'] = [];
+$_SESSION['question_1'] = [];
+$_SESSION['question_2'] = [];
+$_SESSION['question_3'] = [];
+$_SESSION['question_4'] = [];
+$_SESSION['question_5'] = [];
+$_SESSION['question_6'] = [];
+$_SESSION['question_7'] = [];
+
 ?>
 
 <?php
