@@ -49,28 +49,28 @@ $pagetitle = "メッセージ"
                 <span class="message_created_at"><?= convert_to_fuzzy_time($message['created_at']) ?></span>
                 <p><?= $message['text'] ?></p>
               </div>
-            <?php else : ?>
-              <div class="left"><img src="./images/足跡アイコン.png" class="icon_image">
-                <div class="says">
-                  <p><?= $message['text'] ?></p>
-                </div>
-                <span class="message_created_at"><?= convert_to_fuzzy_time($message['created_at']) ?>
-                </span>
-              </div>
-            <?php endif; ?>
-          <?php endforeach ?>
+          </div>
+        <?php else : ?>
+          <div class="left"><img src="./images/足跡アイコン.png" class="icon_image">
+            <div class="says">
+              <p><?= $message['text'] ?></p>
+            </div>
+            <span class="message_created_at"><?= convert_to_fuzzy_time($message['created_at']) ?>
+            </span>
+          </div>
+        <?php endif; ?>
+      <?php endforeach ?>
 
-          <div class="message_process">
-            <!-- message_add.phpにPOSTするフォーム -->
-            <form method="post" action="./message_add.php">
-              <textarea class="textarea form-control" placeholder="メッセージを入力ください" name="text" id="text4" autocomplete="off"></textarea>
-              <input type="hidden" name="destination_user_ID" value="<?= $destination_user['user_id']; ?>">
-              <div class="message_btn">
-                <button class="btn btn-outline-primary btn_03" type="submit" name="post" value="post" id="post">送信</button>
-              </div>
-            </form>
+      <div class="message_process">
+        <!-- message_add.phpにPOSTするフォーム -->
+        <form method="post" action="./message_add.php">
+          <textarea class="textarea form-control" placeholder="メッセージを入力ください" name="text" id="text4" autocomplete="off"></textarea>
+          <input type="hidden" name="destination_user_ID" value="<?= $destination_user['user_id']; ?>">
+          <div class="message_btn">
+            <button class="btn btn-outline-primary btn_03" type="submit" name="post" value="post" id="post">送信</button>
           </div>
-          </div>
+        </form>
+      </div>
       </div>
       <script>
         // テキストエリア入力したら送信ボタン有効
@@ -184,19 +184,19 @@ $pagetitle = "メッセージ"
       return (int)$time . $unit;
     }
     ?>
-<?php
-// 里親申し込み完了後のトークルーム作成
+    <?php
+    // 里親申し込み完了後のトークルーム作成
 
-$_POST = es($_POST);
-  $user_id = $_SESSION['user_id'];
-  $destination_user_ID = $_GET['user_id'];
-  $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
+    $_POST = es($_POST);
+    $user_id = $_SESSION['user_id'];
+    $destination_user_ID = $_GET['user_id'];
+    $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
 
-  if (!check_relation_message($user_id, $destination_user_ID)) {
-    insert_message($user_id, $destination_user_ID);
-    echo "relation_messageにデータを挿入";
-  }
-?>
+    if (!check_relation_message($user_id, $destination_user_ID)) {
+      insert_message($user_id, $destination_user_ID);
+      echo "relation_messageにデータを挿入";
+    }
+    ?>
     <?php
     function insert_message($user_id, $destination_user_ID)
     {
@@ -205,7 +205,7 @@ $_POST = es($_POST);
         $password = 'KFCpassword';
         $dbName = 'shotohlcd31_kfc';
         $host = 'localhost';
-          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
         $dbh = new PDO($dsn, $user, $password);
         $sql = "INSERT INTO message_relation(user_id,destination_user_id) VALUES (:user_id,:destination_user_ID)";
         $stmt = $dbh->prepare($sql);
@@ -225,7 +225,7 @@ $_POST = es($_POST);
         $password = 'KFCpassword';
         $dbName = 'shotohlcd31_kfc';
         $host = 'localhost';
-          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
         $dbh = new PDO($dsn, $user, $password);
         $sql = "SELECT user_id,destination_user_id
             FROM message_relation
