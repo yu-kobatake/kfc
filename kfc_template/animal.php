@@ -38,16 +38,16 @@ $_SESSION['token'] = $token;
 
         // 入力値の設定
         // 一度入力した値がSESSIONに存在すればその値、無ければ空文字を入れる 
-        $title =  $_SESSION['animal']['title'] ?? "";
-        $kind =  $_SESSION['animal']['kind'] ?? "";
-        $gender =  $_SESSION['animal']['gender'] ?? "";
-        $age = $_SESSION['animal']['age'] ?? "";
-        $area_1 = $_SESSION['animal']['area_1'] ?? "";
-        $area_2 = $_SESSION['animal']['area_2'] ?? "";
-        $area_3 =  $_SESSION['animal']['area_3'] ?? "";
-        $animal_area =  $_SESSION['animal']['animal_area'] ?? "";
-        $animal_character = $_SESSION['animal']['animal_character'] ?? "";
-        $other =  $_SESSION['animal']['other'] ?? "";
+        $title =  !empty($_SESSION['animal']['title']) ? $_SESSION['animal']['title'] : "";
+        $kind =  !empty($_SESSION['animal']['kind']) ? $_SESSION['animal']['kind'] : "";
+        $gender =  !empty($_SESSION['animal']['gender']) ? $_SESSION['animal']['gender']: "";
+        $age = !empty($_SESSION['animal']['age']) ?$_SESSION['animal']['age'] : "";
+        $area_1 = !empty($_SESSION['animal']['area_1'] ) ? $_SESSION['animal']['area_1']: "";
+        $area_2 = !empty($_SESSION['animal']['area_2']) ? $_SESSION['animal']['area_2'] : "";
+        $area_3 =  !empty($_SESSION['animal']['area_3'])? $_SESSION['animal']['area_3'] : "";
+        $animal_area =  !empty($_SESSION['animal']['animal_area']) ? $_SESSION['animal']['animal_area'] : "";
+        $animal_character = !empty($_SESSION['animal']['animal_character']) ? $_SESSION['animal']['animal_character'] : "";
+        $other =  !empty($_SESSION['animal']['other'])? $_SESSION['animal']['other'] : "";
 
         // 都道府県のセレクトボックスオプションの作成
         $prefList = array(
@@ -90,7 +90,9 @@ $_SESSION['token'] = $token;
         $errors = [];
         var_dump(isset($_SESSION['area_1']));
         ?>
-
+        <div class="back_btn">
+            <button><a href="breeder_mypage.php">戻る</a></button>
+        </div>
         <h2>犬猫の登録</h2>
         <div>
             <h3>ご注意</h3>

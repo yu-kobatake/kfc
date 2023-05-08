@@ -45,6 +45,8 @@ $errors = [];
 // POSTされたanimal_idを変数に入れる
 $animal_id = $_POST['animal_id'];
 
+// セッションに$animal_idを入れる
+$_SESSION['animal_id'] = $animal_id;
 
 
 
@@ -199,7 +201,6 @@ $_SESSION['animal']['other'] = !empty($other) ? $other : null;
 // $_SESSION['animal_error']に$errors[]を代入
 if (count($errors) > 0) {
     $_SESSION['animal']['error'] = $errors;
-    $_SESSION['animal_id'] = $animal_id;
     // var_dump($errors);
     header("Location:animal_change.php");
     exit();
@@ -232,7 +233,11 @@ $pagetitle = "犬猫登録確認"
 <?php include('parts/header.php'); ?>
 <div id="container">
     <main>
+        <div class="back_btn">
+            <button><a href="animal_change.php">戻る</a></button>
+        </div>
         <h2>犬猫情報変更確認画面</h2>
+
         <img src="<?= es($send_image1); ?>">
         <p>掲載ID:
             <?= es($animal_id); ?></p>

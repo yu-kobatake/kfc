@@ -219,6 +219,9 @@ include('parts/header.php');
 ?>
 <div id="container">
     <main>
+        <div class="back_btn">
+            <button><a href="animal.php">戻る</a></button>
+        </div>
         <h2>犬猫情報登録確認画面</h2>
         <table class="ta1">
             <tbody>
@@ -229,9 +232,9 @@ include('parts/header.php');
                 </tr>
                 <tr>
                     <th>画像選択（3枚）※</th>
-                    <td><img src="./lib/image_1.php"></td>
-                    <td><img src="./lib/image_2.php"></td>
-                    <td><img src="./lib/image_3.php"></td>
+                    <td><img src="./lib/image_1.php" width="200px"></td>
+                    <td><img src="./lib/image_2.php" width="200px"></td>
+                    <td><img src="./lib/image_3.php" width="200px"> </td>
                 </tr>
                 <tr>
                     <th>犬種/猫種※</th>
@@ -272,7 +275,7 @@ include('parts/header.php');
         </table>
         <form method="POST" action="#">
             <input type="submit" value="この内容で登録する" name="send" formaction="animal_complet.php">
-            <input type="submit" value="戻る" formaction="animal.php">
+
             <input type="hidden" name="token" value="<?= es($token); ?>">
 
             </from>

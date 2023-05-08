@@ -124,7 +124,11 @@ try {
 
 <div id="container">
     <main>
+        <div class="back_btn">
+            <button><a href="animal_manage.php">戻る</a></button>
+        </div>
         <h2>登録内容の変更</h2>
+
         <img src="./images/animal_photo/<?= $result['image_1'] ;?>" alt="{$result['kind']}">
         <p>掲載ID:<?= $result['animal_id'] ;?></p>
         <p>（※の項目は入力必須になります。）</p>
@@ -226,7 +230,7 @@ try {
             </tbody>
         </table>
         <input type="submit" value="確認ページへ" name="send" formaction="animal_change_confirm.php">
-        <input type="submit" value="戻る" formaction="animal_manage.php">
+        
         <input type="hidden" name="token" value="{$token}">
         <input type="hidden" name="animal_id" value="{$animal_id}">
         <input type="hidden" name="send_image1" value="{$send_image1}">

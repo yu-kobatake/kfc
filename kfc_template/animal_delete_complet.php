@@ -3,14 +3,11 @@ session_start();
 require_once("./lib/util.php");
 
 
-// ユーザーIDがセッションに入っていれば$user_idに代入する
-if (!empty($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-  //セッションに入っていなければればログインページに戻す 
-  } else { 
-    header("Location:login.php");
-    exit();
-  }
+// セッションにユーザーIDが入っていなければログインページに飛ばす
+if (empty($_SESSION['user_id'])) {
+  header("Location:login.php");
+  exit();
+}
 
 // 不正アクセスチェックとanimal_idの取得
 if (empty($_SESSION['animal_id']) && empty($_POST['animal_id'])) {
@@ -73,7 +70,7 @@ $cnt = $stm->rowCount();
 $e->getMessage();
 echo "エラーが発生しました。2";
 // エラーの場合は犬猫管理ページに
-echo "<a class='error' href='animal_manage.php'>戻る</a>";
+echo "<button><a class='error' href='animal_manage.php'>戻る</a></button>";
 }
 
 ?>

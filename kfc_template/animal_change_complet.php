@@ -182,7 +182,7 @@ $_SESSION['token'] = [];
       $e->getMessage();
       echo "変更に失敗しました。再度入力してください。";
       echo "<form method = 'post' action ='animal_change.php'>";
-      echo "<input type='submit' value='前のページ戻る'>";
+      echo "<input type='submit' value='前のページに戻る'>";
       echo "<input type='hidden' name='animal_id' value='<?= es($animal_id) ;?>'>";
 echo "<input type='hidden' name='token' value='<?= es($token) ;?>'>";
 echo "</form>";

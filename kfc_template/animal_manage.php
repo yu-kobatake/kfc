@@ -51,8 +51,11 @@ try {
 $pagetitle = "犬猫管理ページ";
 include('parts/header.php'); ?>
 <div id="container">
-    <main>
 
+    <main>
+        <div class="back_btn">
+            <button><a href="breeder_mypage.php">戻る</a></button>
+        </div>
         <?php
     // 犬猫を登録していれば表示
     if (isset($result)) {

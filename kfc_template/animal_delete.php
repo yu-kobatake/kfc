@@ -62,6 +62,10 @@ try {
         echo <<<"EOL"
         <div id="container">
             <main>
+            <div class="back_btn">
+            <button><a href="animal_manage.php">戻る</a></button>
+        </div>
+
   <h2>{$row['title']}</h2>
   <div>
   <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
@@ -92,7 +96,7 @@ try {
     <h4>掲載ID{$row['animal_id']}の登録を削除しますか？</h4>
     <form method="POST" action="#">
     <input type="submit" formaction="animal_delete_complet.php" value="削除">
-    <input type="submit" formaction="animal_manage.php" value="戻る">
+    
     <input type="hidden" name="animal_id" value="{$row['animal_id']}">
 </div>
 
