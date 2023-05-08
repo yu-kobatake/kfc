@@ -80,7 +80,7 @@ $pagetitle = "メッセージ"
       $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
       if (!check_relation_message($user_id, $destination_user_ID)) {
         insert_message($user_id, $destination_user_ID);
-        echo "relation_messageにデータを挿入";
+        // echo "relation_messageにデータを挿入";
       }
       ?>
       <?php
