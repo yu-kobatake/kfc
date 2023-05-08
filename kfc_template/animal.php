@@ -38,16 +38,16 @@ $_SESSION['token'] = $token;
 
         // 入力値の設定
         // 一度入力した値がSESSIONに存在すればその値、無ければ空文字を入れる 
-        $title = !empty($_SESSION['animal']['title']) ? $_SESSION['animal']['title'] : "";
-        $kind = !empty($_SESSION['animal']['kind']) ? $_SESSION['animal']['kind'] : "";
-        $gender = !empty($_SESSION['animal']['gender']) ? $_SESSION['animal']['gender'] : "";
-        $age = !empty($_SESSION['animal']['age']) ? $_SESSION['animal']['age'] : "";
-        $area_1 = !empty($_SESSION['animal']['area_1']) ? $_SESSION['animal']['area_1'] : "";
-        $area_2 = !empty($_SESSION['animal']['area_2']) ? $_SESSION['animal']['area_2'] : "";
-        $area_3 = !empty($_SESSION['animal']['area_3']) ? $_SESSION['animal']['area_3'] : "";
-        $animal_area = !empty($_SESSION['animal']['animal_area']) ? $_SESSION['animal']['animal_area'] : "";
-        $animal_character = !empty($_SESSION['animal']['animal_character']) ? $_SESSION['animal']['animal_character'] : "";
-        $other = !empty($_SESSION['animal']['other']) ? $_SESSION['animal']['other'] : "";
+        $title =  $_SESSION['animal']['title'] ?? "";
+        $kind =  $_SESSION['animal']['kind'] ?? "";
+        $gender =  $_SESSION['animal']['gender'] ?? "";
+        $age = $_SESSION['animal']['age'] ?? "";
+        $area_1 = $_SESSION['animal']['area_1'] ?? "";
+        $area_2 = $_SESSION['animal']['area_2'] ?? "";
+        $area_3 =  $_SESSION['animal']['area_3'] ?? "";
+        $animal_area =  $_SESSION['animal']['animal_area'] ?? "";
+        $animal_character = $_SESSION['animal']['animal_character'] ?? "";
+        $other =  $_SESSION['animal']['other'] ?? "";
 
         // 都道府県のセレクトボックスオプションの作成
         $prefList = array(
@@ -161,7 +161,7 @@ $_SESSION['token'] = $token;
                 <tbody>
 
                     <tr>
-                        <th>掲載タイトル<br></th>
+                        <th>掲載タイトル※<br></th>
                         <td><textarea name="title" placeholder="例）マイペースで優しい柴犬の男の子"><?= es($title); ?></textarea></td>
                     </tr>
                     <tr>
@@ -178,7 +178,6 @@ $_SESSION['token'] = $token;
                             <div class="preview-area"></div><input type="file" name="image_3"
                                 accept="image/png, image/jpeg" onchange="preview(this)">
                         </td>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="4194304">
 
                     <tr>
                         <th>犬種/猫種※</th>

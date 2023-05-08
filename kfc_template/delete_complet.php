@@ -4,8 +4,6 @@ require_once("./lib/util.php");
 /* セッション開始 */
 session_start();
 
-var_dump($_SESSION['user_id']);
-
 /* 未ログイン状態のアクセスは、トップへリダイレクトする */
 if (!isset($_SESSION['user_id'])) {
   header('Location: ./index.php');
@@ -30,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = 'KFCpassword';
     $dbName = 'shotohlcd31_kfc';
     $host = 'localhost';
-    //$host = 'sv14471.xserver.jp';
     $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
     //MySQLデータベースに接続する

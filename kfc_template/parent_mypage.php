@@ -7,6 +7,9 @@ if (!cken($_POST)) {
     $err = "encoding Err! {$encoding}";
     exit($err);
 }
+
+var_dump($_SESSION);
+var_dump($_POST);
 // エスケープ処理
 $_POST = es($_POST);
 
@@ -110,7 +113,7 @@ if (!empty($_POST['login_send'])) {
     }
 }
 
-include('parts/header.php');
+include('parts/header_mypage.php');
 $pagetitle = "里親マイページ";
 ?>
 <div id="container">
@@ -197,15 +200,19 @@ DB接続 userテーブルから会員情報を取り出して表示
             $pdo = new PDO($dsn, $user, $password);
             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "SELECT animal_id FROM good WHERE userid = :user_id";
+            $sql = "SELECT animal_id FROM good WHERE user_id = :user_id";
             $stm = $pdo->prepare($sql);
             $stm->bindValue(":user_id", $user_id, PDO::PARAM_STR);
             $stm->execute();
             // $resultにはanimal_idが入っている
             $result = $stm->fetchAll(PDO::FETCH_ASSOC);
             var_dump($result);
-
+            
+            // いいね一覧表示
+            echo "<h3>いいね一覧</h3>";
+            
             if($result){
+                echo "<div class='animal list-container'>";
                 foreach($result as $good){
                     var_dump($good);
                     $pdo = new PDO($dsn, $user, $password);
@@ -213,17 +220,39 @@ DB接続 userテーブルから会員情報を取り出して表示
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     // animalテーブルから$resultのanimal_idを元に犬猫写真、名前、性別、犬種/猫種、動物がいる地域、（掲載期限）を抽出する
                     $sql = "SELECT image_1,title,gender,age,animal_id,kind,animal_area FROM animal WHERE animal_id = :good";
-            $stm->bindValue(":good", $good, PDO::PARAM_STR);
-
                     $stm = $pdo->prepare($sql);
-                    $stm->execute();
-                    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+            $stm->bindValue(":good", $good['animal_id'], PDO::PARAM_STR);
+            
+            $stm->execute();
+            $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+            
+            // エスケープ処理
+            // $result = es($result);
+            var_dump($result);
+            
+           
     
-                    // エスケープ処理
-                    $result = es($result);
-                    // var_dump($result);
-                }
                 
+                    echo <<<EOL
+                    <div class="list">
+                    <a href="recruit_detail.php?animal_id={$result[0]['animal_id']}">
+                    <figure>
+                    <img src="./images/animal_photo/{$result[0]['image_1']}" alt="{$result[0]['kind']}">
+                    </figure>
+                    <div class="text">
+                    <p>{$result[0]['title']}</p>
+                    <p>年齢：{$result[0]['age']}&nbsp;{$good[0]['gender']}</p>
+                    <p>{$result[0]['animal_area']}</p>
+                    <p>掲載ID：{$result[0]['animal_id']}</p>
+                    </div>
+                    </a>
+                    </div>
+              EOL;
+                }
+                echo "</div>";
+                
+            } else{
+                echo "<p>現在いいねしている犬猫はいません</p>";
             }
         } catch (Exception $e) {
             $e->getMessage();
@@ -232,36 +261,17 @@ DB接続 userテーブルから会員情報を取り出して表示
         }
         ?>
         <?php
-        // いいね一覧表示
-        echo "<h3>いいね一覧</h3>";
-        if ($result) {
-      echo "<div class='animal list-container'>";
 
-            foreach ($result as $row) {
-                echo <<<EOL
-                <div class="list">
-                <a href="recruit_detail.php?animal_id={$row['animal_id']}">
-                <figure>
-                <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
-                </figure>
-                <div class="text">
-                <p>{$row['title']}</p>
-                <p>年齢：{$row['age']}&nbsp;{$row['gender']}</p>
-                <p>{$row['animal_area']}</p>
-                <p>掲載ID：{$row['animal_id']}</p>
-                </div>
-                </a>
-                </div>
-          EOL;
-            }
-      echo "</div>";
-
-        }
+        
         /*************************************************************
  退会ページ
          ************************************************************/
         ?>
-        <button><a href="delete.php">退会</a></button>
+        <h3>退会</h3>
+        <form method="POST" action="delete.php">
+            <input type="submit" value="退会ページへ">
+            <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+        </form>
     </main>
 </div>
 

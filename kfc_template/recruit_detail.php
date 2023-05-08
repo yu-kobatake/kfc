@@ -14,6 +14,10 @@ require_once("./lib/util.php");
   $host = 'localhost';
 //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+<<<<<<< HEAD
+=======
+var_dump($_SESSION);
+>>>>>>> c928777ed59159ee08d8e85f5d6197d3f6231c58
 ?>
 <?php
 if (!cken($_GET)) {
@@ -288,6 +292,8 @@ $pagetitle = "里親募集詳細"
                     <input type="submit" name="submit" value="申し込みフォームへ">
                 </form>
                 <?php
+var_dump($_SESSION);
+
           ?>
         </main>
     </div>

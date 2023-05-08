@@ -43,24 +43,27 @@ if (empty($title)) {
 
 // $file1,$file2,$file3($_FILEの連想配列が入っている)
 //  画像のバリデーション
-$allow_ext = array('jpg','jpeg','png');
-for($i = 1; $i<= 3; $i++){
-    $file_ext = pathinfo($_FILES["image_{$i}"]['name'],PATHINFO_EXTENSION);
-    // ファイルがアップロードされているか
-    if(!is_uploaded_file($_FILES["image_1"]['tmp_name']) || 
-    !is_uploaded_file($_FILES["image_2"]['tmp_name']) || 
-    !is_uploaded_file($_FILES["image_3"]['tmp_name'])){
-        $errors[] = "【画像】は3枚選択してください。";
-        // 拡張子が正しいかの確認
-    }elseif(!in_array(strtolower($file_ext),$allow_ext)){
-        $errors[] = "【画像{$i}】は画像ファイルを添付してください";
-    } else{
-        ${"file".$i} = $_FILES["image_{$i}"];
-//選択した犬猫画像を読み込む 
-        $_SESSION['animal']["image_{$i}"]['data'] = file_get_contents($_FILES["image_{$i}"]['tmp_name']);
-        $_SESSION['animal']["image_{$i}"]['type'] = exif_imagetype($_FILES["image_{$i}"]['tmp_name']);
+// ファイルがアップロードされているか
+if(!is_uploaded_file($_FILES["image_1"]['tmp_name']) || 
+!is_uploaded_file($_FILES["image_2"]['tmp_name']) || 
+!is_uploaded_file($_FILES["image_3"]['tmp_name'])){
+    $errors[] = "【画像】は3枚選択してください。";
+}else{
+    
+    for($i = 1; $i<= 3; $i++){
+            $allow_ext = array('jpg','jpeg','png');
+            $file_ext = pathinfo($_FILES["image_{$i}"]['name'],PATHINFO_EXTENSION);
+            // 拡張子が正しいかの確認
+            if(!in_array(strtolower($file_ext),$allow_ext)){
+                $errors[] = "【画像{$i}】は画像ファイルを添付してください";
+            } else{
+                ${"file".$i} = $_FILES["image_{$i}"];
+                //選択した犬猫画像を読み込む 
+                $_SESSION['animal']["image_{$i}"]['data'] = file_get_contents($_FILES["image_{$i}"]['tmp_name']);
+                $_SESSION['animal']["image_{$i}"]['type'] = exif_imagetype($_FILES["image_{$i}"]['tmp_name']);
+            } 
+        }
     } 
-    }
 
 // 犬種/猫種のバリデーション
 $kind = preg_replace('/^[　]+|[　]+$/u', "", $_POST["kind"]);
@@ -172,7 +175,7 @@ $_SESSION['animal']['other'] = !empty($other) ? $other : null;
 
 
 
-// エラーがあった場合ログインページへ戻る
+// エラーがあった場合犬猫登録ページへ戻る
 // $_SESSION['error']に$errors[]を代入
 if (count($errors) > 0) {
     $_SESSION['animal']['error'] = $errors;
