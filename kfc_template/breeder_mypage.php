@@ -115,7 +115,7 @@ if (!empty($_POST['login_send'])) {
 ?>
 <?php
 $pagetitle = "ブリーダーマイページ";
- include('parts/header.php');
+ include('parts/header_mypage.php');
 ?>
 <div id="container">
     <main>

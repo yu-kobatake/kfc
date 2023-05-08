@@ -182,14 +182,13 @@ $_SESSION['animal']['animal_character'] = !empty($animal_character) ? $animal_ch
 $_SESSION['animal']['other'] = !empty($other) ? $other : null;
 
 
-// エラーがあった場合犬猫管理ページへ戻る
+// エラーがあった場合、変更入力画面に戻る
 // $_SESSION['animal_error']に$errors[]を代入
 if (count($errors) > 0) {
     $_SESSION['animal']['error'] = $errors;
     $_SESSION['animal_id'] = $animal_id;
     // var_dump($errors);
-    $errors = [];
-    header("Location:animal_manage.php");
+    header("Location:animal_change.php");
     exit();
 }
 

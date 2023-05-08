@@ -117,6 +117,10 @@ try {
 
 <div id="container">
     <main>
+        <h2>登録内容の変更</h2>
+        <img src="./images/animal_photo/<?= $result['image_1'] ;?>" alt="{$result['kind']}">
+        <p>掲載ID:<?= $result['animal_id'] ;?></p>
+        <p>（※の項目は入力必須になります。）</p>
 
         <?php
         // エラーを受け取る処理
@@ -130,10 +134,6 @@ try {
 
 
         echo <<<EOL
-    <h2>登録内容の変更</h2>
-    <img src ="./images/animal_photo/{$result['image_1']}" alt="{$result['kind']}">
-    <p>掲載ID:{$result['animal_id']}</p>
-    <p>（※の項目は入力必須になります。）</p>
     <form method="POST" action="animal_confirm.php" enctype="multipart/form-data">
         <table class="ta1">
             <tbody>
@@ -244,7 +244,7 @@ EOL;
         <script>
         function preview(elem) {
             const blobUrl = window.URL.createObjectURL(elem.files[0])
-            elem.previousElementSibling.innerHTML = `<img src=${blobUrl} width="30%">`
+            elem.previousElementSibling.innerHTML = `<img src=${blobUrl} width=" 30%">`
         }
         </script>
         <?php include('parts/footer.php'); ?>
