@@ -302,10 +302,9 @@ $pagetitle = "里親募集詳細"
                     <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
                     <input type="submit" name="submit" value="申し込みフォームへ">
                 </form>
-                <?php
-var_dump($_SESSION);
-
-          ?>
+                <div class="back_btn">
+          <a href="recruit.php"><button>＜ 戻る</button></a>
+        </div>
         </main>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
