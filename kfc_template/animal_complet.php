@@ -2,6 +2,15 @@
 session_start();
 require_once("./lib/util.php");
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
 // トークンチェック
   if($_SERVER["REQUEST_METHOD"]!=="POST"){
     echo "不正なアクセスです。err:2";
@@ -24,12 +33,14 @@ require_once("./lib/util.php");
 <?php
 // animal_id変数の初期化
 $animal_id = "";
+
+
 // リロード時に重複してSQL実行されないようにする
 if (!empty($_SESSION['animal'])) {
 
 
 // セッションでわたってきた値を変数に入れる
-$user_id = $_SESSION['user_id'];
+
 $title = $_SESSION['animal']['title'];
 $file1 = $_SESSION['animal']['file1'];
 $file2 = $_SESSION['animal']['file2'];
@@ -122,7 +133,8 @@ try {
     $stm->execute();
     $result = $stm->fetchAll(PDO::FETCH_ASSOC);
     // var_dump($result);
-    //$animal_idに入れる 
+    
+    //$animal_id変数に代入
     $animal_id = $result[0]['animal_id'];
     
   } catch (Exception $e) {
@@ -148,6 +160,7 @@ function mine_type($tmp_name){
     return "png";
   }
 }
+// 拡張子を抜き出す
 $mine1 = mine_type($file1['type']);
 $mine2 = mine_type($file2['type']);
 $mine3 = mine_type($file3['type']);

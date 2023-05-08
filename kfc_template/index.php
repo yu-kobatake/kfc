@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION = [];
+// $_SESSION = [];
 require_once("./lib/util.php");
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
@@ -38,46 +38,46 @@ $pagetitle = "犬猫里親募集"
 
 <?php include('parts/header.php'); ?>
 
-      <!-- message_add.phpにPOSTするフォーム -->
-      <?php
+<!-- message_add.phpにPOSTするフォーム -->
+<?php
       /*
       <form method="post" action="./message_add.php">
       <textarea class="textarea form-control" placeholder="メッセージを入力ください" name="text"></textarea>
       <input type="hidden" name="destination_user_id" value="<?= $destination_user['user_id'] ?>">
-      <div class="message_btn">
-        <div class="message_image">
-          <!-- <input type="file" name="image" class="my_image" accept="image/*" multiple> -->
-        </div>
-        <button class="btn btn-outline-primary" type="submit" name="post" value="post" id="post">投稿</button>
-      </div>
-    </form>
-    */
-    ?>
+<div class="message_btn">
+    <div class="message_image">
+        <!-- <input type="file" name="image" class="my_image" accept="image/*" multiple> -->
+    </div>
+    <button class="btn btn-outline-primary" type="submit" name="post" value="post" id="post">投稿</button>
+</div>
+</form>
+*/
+?>
 
 
 <!-- ---------------------------
   スライドショー（slick）
 ---------------------------- -->
 <aside id="mainimg">
-  <div class="mainimg">
-    <div><img src="images/1.jpg" alt=""></div>
-    <div><img src="images/2.jpg" alt=""></div>
-    <div><img src="images/3.jpg" alt=""></div>
-  </div>
-  <img src="images/kazari.png" alt="" class="kazari">
+    <div class="mainimg">
+        <div><img src="images/1.jpg" alt=""></div>
+        <div><img src="images/2.jpg" alt=""></div>
+        <div><img src="images/3.jpg" alt=""></div>
+    </div>
+    <img src="images/kazari.png" alt="" class="kazari">
 </aside>
 
 <div id="container" class="c1">
-  <main>
+    <main>
 
-    <!-- ---------------------------
+        <!-- ---------------------------
       犬猫リスト
     ---------------------------- -->
-    <section>
-      <h2>犬猫たちが里親さんを待っています<span>New Animals</span></h2>
-      <!-- ここから犬猫リスト -->
-      <div class="list-container">
-        <?php
+        <section>
+            <h2>犬猫たちが里親さんを待っています<span>New Animals</span></h2>
+            <!-- ここから犬猫リスト -->
+            <div class="list-container">
+                <?php
         if (isset($result)) {
           foreach ($result as $row) {
             echo <<<"EOL"
@@ -97,27 +97,28 @@ $pagetitle = "犬猫里親募集"
           }
         }
         ?>
-      </div><!--/.list-container-->
-      <!-- ここまで犬猫リスト -->
-    </section>
+            </div>
+            <!--/.list-container-->
+            <!-- ここまで犬猫リスト -->
+        </section>
 
-    <!-- ---------------------------
+        <!-- ---------------------------
       お知らせ
     ---------------------------- -->
-    <section>
-      <h2>お知らせ<span>What's New</span></h2>
-      <dl id="new">
-        <dt>2023/04/27<span class="icon-bg1">新着</span></dt>
-        <dd>ホームページをリニューアルしました。<span class="newicon">NEW</span></dd>
-        <dt>2023/04/05<span class="icon-bg1">新着</span></dt>
-        <dd>ブリーダーさん向け登録ページを一部更新しました。</dd>
-        <dt>2023/03/20<span class="icon-bg2">イベント</span></dt>
-        <dd>子猫譲渡会の開催決定しました。詳細はイベントページより！</dd>
-        <dt>2023/03/12<span>その他</span></dt>
-        <dd>お知らせのサンプルテキスト。サンプルテキスト。サンプルテキスト。</dd>
-      </dl>
-    </section>
-  </main>
+        <section>
+            <h2>お知らせ<span>What's New</span></h2>
+            <dl id="new">
+                <dt>2023/04/27<span class="icon-bg1">新着</span></dt>
+                <dd>ホームページをリニューアルしました。<span class="newicon">NEW</span></dd>
+                <dt>2023/04/05<span class="icon-bg1">新着</span></dt>
+                <dd>ブリーダーさん向け登録ページを一部更新しました。</dd>
+                <dt>2023/03/20<span class="icon-bg2">イベント</span></dt>
+                <dd>子猫譲渡会の開催決定しました。詳細はイベントページより！</dd>
+                <dt>2023/03/12<span>その他</span></dt>
+                <dd>お知らせのサンプルテキスト。サンプルテキスト。サンプルテキスト。</dd>
+            </dl>
+        </section>
+    </main>
 </div>
 
 <?php include('parts/footer.php'); ?>

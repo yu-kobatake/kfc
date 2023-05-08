@@ -4,6 +4,15 @@ require_once("./lib/util.php");
 // var_dump($_SESSION);
 // var_dump($_POST);
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+  //セッションに入っていなければればログインページに戻す 
+  } else { 
+    header("Location:login.php");
+    exit();
+  }
+  
 // 不正アクセスチェックとanimal_idの取得
 if (empty($_SESSION['animal_id']) && empty($_POST['animal_id'])) {
     echo "不正なアクセスです。err:1";
@@ -20,8 +29,6 @@ if (empty($_SESSION['animal_id']) && empty($_POST['animal_id'])) {
 $bytes = openssl_random_pseudo_bytes(16);
 $token = bin2hex($bytes);
 $_SESSION['token'] = $token;
-
-
 
 
 /*************************************************************
@@ -45,7 +52,7 @@ try {
     $pdo = new PDO($dsn, $user, $password);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // sql文：userテーブルから$user_idに該当するユーザー情報を取得
+    // sql文：userテーブルから$animal_idに該当するユーザー情報を取得
     $sql = "SELECT * FROM animal WHERE animal_id = $animal_id";
     $stm = $pdo->prepare($sql);
     $stm->execute();
