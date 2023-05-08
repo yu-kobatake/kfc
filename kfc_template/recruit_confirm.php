@@ -48,7 +48,7 @@ $pagetitle = "里親申し込み確認"
       exit();
     }
 
-
+    $user_id = $_SESSION['user_id'];
     // animalテーブルへの接続
     try {
       $pdo = new PDO($dsn, $user, $password);
