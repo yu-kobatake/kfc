@@ -71,7 +71,6 @@ $pagetitle = "メッセージ"
           </div>
         </form>
       </div>
-      </div>
 </div>
 <script>
   // テキストエリア入力したら送信ボタン有効
@@ -188,7 +187,6 @@ function convert_to_fuzzy_time($time_db)
 <?php
 // 里親申し込み完了後のトークルーム作成
 
-$_POST = es($_POST);
 $user_id = $_SESSION['user_id'];
 $destination_user_ID = $_GET['user_id'];
 $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
