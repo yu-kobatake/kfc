@@ -15,7 +15,7 @@ session_start();
 <body>
 
     <header>
-        <h1 id="logo"><a href="index.html"><img src="images/logo.png" alt="Sample Recipe Site"></a></h1>
+        <h1 id="logo"><a href="./index.php"><img src="images/logo.png" alt="Sample Recipe Site"></a></h1>
         <ul>
             <li><a href="./index.php">ホーム</a></li>
             <li><a href="./recruit.php">里親募集</a></li>
@@ -58,8 +58,4 @@ session_start();
         </ul>
     </div>
 
-    <?php
-// セッションの削除
-session_destroy();
-    ?>
     <!--/#menubar-->
