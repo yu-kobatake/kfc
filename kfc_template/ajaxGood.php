@@ -1,6 +1,15 @@
 <?php
 session_start();
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
   // データベース接続
   $user = 'shotohlcd31_kfc';
   $password = 'KFCpassword';
@@ -9,7 +18,7 @@ session_start();
   //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
-$user_id = $_SESSION['user_id'];
+
 
 // 関数定義
 function getGood($animal_good_id){

@@ -2,10 +2,11 @@
 session_start();
 require_once("./lib/util.php");
 
-// ユーザーidがセッションに入っていなければログインページに戻す
+// ユーザーIDがセッションに入っていれば$user_idに代入する
 if (!empty($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
-} else {
+  
+} else { //セッションに入っていなければればログインページに戻す
   header("Location:login.php");
   exit();
 }

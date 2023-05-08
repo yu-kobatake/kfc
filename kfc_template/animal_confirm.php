@@ -2,6 +2,15 @@
 session_start();
 require_once("./lib/util.php");
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+  //セッションに入っていなければればログインページに戻す 
+  } else { 
+    header("Location:login.php");
+    exit();
+  }
+
 // エンコードチェック
 if (!cken($_POST)) {
     echo '<a href="animal.php">登録画面に戻る</a>';
