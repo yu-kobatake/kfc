@@ -25,7 +25,7 @@ $pagetitle = "message_add.php"
       $password = 'KFCpassword';
       $dbName = 'shotohlcd31_kfc';
       $host = 'localhost';
-      $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+    $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
       $dbh = new PDO($dsn, $user, $password);
       echo "データベース{$dbName}に接続しました", "<br>"; //確認用
 
@@ -37,28 +37,20 @@ $pagetitle = "message_add.php"
       var_dump($destination_user_ID);
       var_dump($date->format('Y-m-d H:i:s'));
       $stmt = $dbh->prepare($sql);
-      echo "成功11", "<br>";
-
       $stmt->bindValue(':text', $message_text, PDO::PARAM_STR);
-      echo "成功12", "<br>";
-
-      $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);      echo "成功13", "<br>";
-
-      $stmt->bindValue(':destination_user_ID', $destination_user_ID, PDO::PARAM_STR);      echo "成功14", "<br>";
-
-      $stmt->bindValue(':created_at', $date->format('Y-m-d H:i:s'), PDO::PARAM_STR);      echo "成功15", "<br>";
-
-
-
+      $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+      $stmt->bindValue(':destination_user_ID', $destination_user_ID, PDO::PARAM_STR);
+      $stmt->bindValue(':created_at', $date->format('Y-m-d H:i:s'), PDO::PARAM_STR);
       $stmt->execute();
-      echo "成功16", "<br>";
+
       //データベース内に自分と送信先のIDがあるかチェック
       if (!check_relation_message($user_id, $destination_user_ID)) {
         insert_message($user_id, $destination_user_ID);
         echo "relation_messageにデータを挿入";
       }
       echo "メッセージを送信しました";
-      header('Location:../kfc_template/message.php?user_id=' . $destination_user_ID . '');
+      // header('Location:../kfc_template/message.php?user_id=' . $destination_user_ID . '');
+      header('Location:../backup/message.php?user_id=' . $destination_user_ID . '');
     } catch (Exception $e) {
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
       exit();
@@ -75,7 +67,7 @@ $pagetitle = "message_add.php"
         $password = 'KFCpassword';
         $dbName = 'shotohlcd31_kfc';
         $host = 'localhost';
-        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
         $dbh = new PDO($dsn, $user, $password);
         $sql = "INSERT INTO message_relation(user_id,destination_user_id) VALUES (:user_id,:destination_user_ID)";
         $stmt = $dbh->prepare($sql);
@@ -95,7 +87,7 @@ $pagetitle = "message_add.php"
         $password = 'KFCpassword';
         $dbName = 'shotohlcd31_kfc';
         $host = 'localhost';
-        $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
         $dbh = new PDO($dsn, $user, $password);
         $sql = "SELECT user_id,destination_user_id
             FROM message_relation

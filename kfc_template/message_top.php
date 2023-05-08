@@ -36,14 +36,18 @@ $pagetitle = "トークルーム一覧"
                 </div>
                 <div class='destination_user_info'>
                   <div class="destination_user_name"><?= $destination_user['user_name'] ?></div>
-                  <span class="destination_user_text"><?= $bottom_message['text'] ?></span>
+                  <?php
+                  if(isset($bottom_message['text'])){
+                    echo"<span class='destination_user_text'>{$bottom_message['text']}</span>";
+                  }
+                  ?>
                 </div>
-                <span class="bottom_message_time"><?= convert_to_fuzzy_time($bottom_message['created_at']); ?></span>
+                <!-- <span class="bottom_message_time"><?= convert_to_fuzzy_time($bottom_message['created_at']); ?></span> -->
               </div>
             </a>
           </div>
         </div>
-      <?php endforeach ?>
+      <?php endforeach; ?>
       </body>
 
       <?php
@@ -55,7 +59,7 @@ $pagetitle = "トークルーム一覧"
           $password = 'KFCpassword';
           $dbName = 'shotohlcd31_kfc';
           $host = 'localhost';
-          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+                $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
           $dbh = new PDO($dsn, $user, $password);
           $sql = "SELECT *
                     FROM message
@@ -117,7 +121,7 @@ $pagetitle = "トークルーム一覧"
           $password = 'KFCpassword';
           $dbName = 'shotohlcd31_kfc';
           $host = 'localhost';
-          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+                $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
           $dbh = new PDO($dsn, $user, $password);
           $sql = "SELECT user_id,user_name,password FROM user
                             WHERE user_id = :id";
@@ -138,7 +142,7 @@ $pagetitle = "トークルーム一覧"
           $password = 'KFCpassword';
           $dbName = 'shotohlcd31_kfc';
           $host = 'localhost';
-          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+                $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
           $dbh = new PDO($dsn, $user, $password);
           $sql = "SELECT *
                   FROM message_relation

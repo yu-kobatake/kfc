@@ -13,20 +13,21 @@ if (!cken($_POST)) {
   exit("不正な文字コードです。");
 }
 $_POST = es($_POST);
+$animal_id = $_SESSION['animal_id'];
 
 //token確認 
-if (isset($_SESSION['token']) && isset($_POST['token'])) {
-  if ($_SESSION['token'] !== $_POST['token']) {
-    echo "<p>不正なアクセスです。①</p>";
-    echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
-    exit();
-  }
-} else {
-  echo "<p>不正なアクセスです。②</p>";
-  echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
-  exit();
-}
-$animal_id = $_SESSION['animal_id'];
+// if (isset($_SESSION['token']) && isset($_POST['token'])) {
+//   if ($_SESSION['token'] !== $_POST['token']) {
+//     echo "<p>不正なアクセスです。①</p>";
+//     echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
+//     exit();
+//   }
+// } else {
+//   echo "<p>不正なアクセスです。②</p>";
+//   echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
+//   exit();
+// }
+
 // userテーブルへの接続
 try {
   $pdo = new PDO($dsn, $user, $password);

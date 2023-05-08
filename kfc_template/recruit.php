@@ -1,10 +1,9 @@
 <?php
 session_start();
-// $_SESSION=[];
 require_once("./lib/util.php");
-$user = 'shotohlcd31_kfc';
-$password = 'KFCpassword';
-$dbName = 'shotohlcd31_kfc';
+$user = 'username';
+$password = 'kfc';
+$dbName = 'shotohlcd31_ kfc';
 $host = 'localhost';
 $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 ?>
@@ -35,7 +34,20 @@ if (!empty($_POST['keyword'])) {
   $keyword = '';
 }
 
-
+// アンケート情報の$_SESSIONを空にする
+$_SESSION['animal_id'] = [];
+$_SESSION['errors_agree'] = [];
+$_SESSION['agree_1'] = [];
+$_SESSION['agree_2'] = [];
+$_SESSION['agree_3'] = [];
+$_SESSION['errors'] = [];
+$_SESSION['question_1'] = [];
+$_SESSION['question_2'] = [];
+$_SESSION['question_3'] = [];
+$_SESSION['question_4'] = [];
+$_SESSION['question_5'] = [];
+$_SESSION['question_6'] = [];
+$_SESSION['question_7'] = [];
 ?>
 <?php
 // titleで読み込むページ名
@@ -213,7 +225,6 @@ $pagetitle = "里親募集ページ"
         //該当件数
         $hit = count($result);
         echo "<p>該当{$hit}件です。</p>";
-
       } catch (Exception $e) {
         echo '<span class ="error">エラーがありました</span><br>';
         echo $e->getMessage();

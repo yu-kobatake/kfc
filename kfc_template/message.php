@@ -20,7 +20,7 @@ $pagetitle = "メッセージ"
     // 現在ログインしているユーザー情報
     $current_user = get_user($_SESSION['user_id']);
 
-//送信先
+    //送信先
     $destination_user = get_user($_GET['user_id']);
     // やり取りされるメッセージ情報
     $messages = get_messages($current_user['user_id'], $destination_user['user_id']);
@@ -37,7 +37,8 @@ $pagetitle = "メッセージ"
           </div>
           <div class="textarea_btn">
             <a href="#text4">
-              <div class="arrow"></div>
+              <div class="arrow">
+              </div>
             </a>
           </div>
         </div>
@@ -58,7 +59,7 @@ $pagetitle = "メッセージ"
               </div>
             <?php endif; ?>
           <?php endforeach ?>
-          </div>
+
           <div class="message_process">
             <!-- message_add.phpにPOSTするフォーム -->
             <form method="post" action="./message_add.php">
@@ -69,8 +70,8 @@ $pagetitle = "メッセージ"
               </div>
             </form>
           </div>
+          </div>
       </div>
-
       <script>
         // テキストエリア入力したら送信ボタン有効
         window.addEventListener('DOMContentLoaded', function() {
@@ -92,7 +93,6 @@ $pagetitle = "メッセージ"
           function click_disabled() {
             document.getElementById('post').disabled = true;
           }
-
         }, false);
       </script>
     </body>
@@ -182,6 +182,65 @@ $pagetitle = "メッセージ"
       }
 
       return (int)$time . $unit;
+    }
+    ?>
+<?php
+// 里親申し込み完了後のトークルーム作成
+
+$_POST = es($_POST);
+  $user_id = $_SESSION['user_id'];
+  $destination_user_ID = $_GET['user_id'];
+  $user_id = htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8');
+
+  if (!check_relation_message($user_id, $destination_user_ID)) {
+    insert_message($user_id, $destination_user_ID);
+    echo "relation_messageにデータを挿入";
+  }
+?>
+    <?php
+    function insert_message($user_id, $destination_user_ID)
+    {
+      try {
+        $user = 'shotohlcd31_kfc';
+        $password = 'KFCpassword';
+        $dbName = 'shotohlcd31_kfc';
+        $host = 'localhost';
+          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+        $dbh = new PDO($dsn, $user, $password);
+        $sql = "INSERT INTO message_relation(user_id,destination_user_id) VALUES (:user_id,:destination_user_ID)";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+        $stmt->bindValue(':destination_user_ID', $destination_user_ID, PDO::PARAM_STR);
+        $stmt->execute();
+      } catch (\Exception $e) {
+        error_log('エラー発生:' . $e->getMessage());
+        echo "ERR_MSG1";
+      }
+    }
+
+    function check_relation_message($user_id, $destination_user_ID)
+    {
+      try {
+        $user = 'shotohlcd31_kfc';
+        $password = 'KFCpassword';
+        $dbName = 'shotohlcd31_kfc';
+        $host = 'localhost';
+          $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+        $dbh = new PDO($dsn, $user, $password);
+        $sql = "SELECT user_id,destination_user_id
+            FROM message_relation
+            WHERE (user_id = :user_id and destination_user_id = :destination_user_id)
+                  or (user_id = :destination_user_id and destination_user_id = :user_id)";
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(
+          ':user_id' => $user_id,
+          ':destination_user_id' => $destination_user_ID
+        ));
+        return $stmt->fetch();
+      } catch (\Exception $e) {
+        error_log('エラー発生:' . $e->getMessage());
+      }
+      echo "ERR_MSG1";
     }
     ?>
 

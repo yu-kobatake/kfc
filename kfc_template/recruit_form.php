@@ -3,9 +3,9 @@ session_start();
 require_once("./lib/util.php");
 
 // tokenの作成
-$bytes = openssl_random_pseudo_bytes(16);
-$token = bin2hex($bytes);
-$_SESSION['token'] = $token;
+// $bytes = openssl_random_pseudo_bytes(16);
+// $token = bin2hex($bytes);
+// $_SESSION['token'] = $token;
 
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
@@ -381,7 +381,7 @@ if (!empty($_POST['animal_id'])) {
       ?>
 <??>
       <!-- token -->
-      <input type='hidden' name='token' value='<?php echo $token; ?>'>
+      <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
       <!-- animal_id -->
       <input type='hidden' name='animal_id' value='<?php echo $animal_id; ?>'>
       <button name="submit" name="submit">入力内容を確認する</button>

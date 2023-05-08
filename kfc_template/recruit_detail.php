@@ -12,9 +12,8 @@ require_once("./lib/util.php");
   $password = 'KFCpassword';
   $dbName = 'shotohlcd31_kfc';
   $host = 'localhost';
-  //$host = 'sv14471.xserver.jp';
+//$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
-// var_dump($_SESSION);
 ?>
 <?php
 if (!cken($_GET)) {
@@ -101,6 +100,7 @@ $pagetitle = "里親募集詳細"
       } else {
         echo "<p>無効な掲載IDです。</p>";
         echo "<a href='recruit.php'><button>前ページに戻る</button></a><br>";
+        exit();
       }
       /******************************************* 
  いいね用コード

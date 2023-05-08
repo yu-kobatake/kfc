@@ -15,19 +15,19 @@ if (!cken($_POST)) {
 $_POST = es($_POST);
 
 //token確認 
-if (isset($_SESSION['token']) && isset($_POST['token'])) {
-  if ($_SESSION['token'] !== $_POST['token']) {
-    echo "<p>不正なアクセスです。①</p>";
-    echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
-    exit();
-  } else {
-    $token = $_POST['token'];
-  }
-} else {
-  echo "<p>不正なアクセスです。②</p>";
-  echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
-  exit();
-}
+// if (isset($_SESSION['token']) && isset($_POST['token'])) {
+//   if ($_SESSION['token'] !== $_POST['token']) {
+//     echo "<p>不正なアクセスです。①</p>";
+//     echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
+//     exit();
+//   } else {
+//     $token = $_POST['token'];
+//   }
+// } else {
+//   echo "<p>不正なアクセスです。②</p>";
+//   echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
+//   exit();
+// }
 
 ?>
 
@@ -217,7 +217,7 @@ $pagetitle = "里親申し込み確認"
 
     <form action="recruit_complet.php" method="POST">
       <!-- token -->
-      <input type='hidden' name='token' value='<?php echo $token; ?>'>
+      <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
       <input type="submit" name="submit" value="この内容で申し込みする">
     </form> <a href="./recruit_form.php"><button>戻る</button></a>
 
