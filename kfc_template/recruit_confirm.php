@@ -38,6 +38,12 @@ $pagetitle = "里親申し込み確認"
 <?php include('parts/header.php'); ?>
 <div id="container">
   <main>
+    <div class="back_btn">
+      <form action="./recruit_form.php" method="get">
+        <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
+        <input type="submit" value="＜戻る">
+      </form>
+    </div>
     <?php
     if (!empty($_POST['animal_id'])) {
       $animal_id = $_POST['animal_id'];
@@ -256,13 +262,6 @@ $pagetitle = "里親申し込み確認"
       <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
       <input type="submit" name="submit" value="この内容で申し込みする">
     </form>
-
-    <div class="back_btn">
-      <form action="./recruit_form.php" method="get">
-        <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
-        <input type="submit" value="＜戻る">
-      </form>
-    </div>
   </main>
 </div>
 

@@ -41,6 +41,13 @@ if (!empty($_POST['animal_id'])) {
 
 <div id="container">
   <main>
+    <div class="back_btn">
+      <form action="./recruit_detail.php" method="get">
+        <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
+        <input type="submit" value="＜戻る">
+      </form>
+    </div>
+
     <h2>里親申込</h2>
     <div>
       <h3>ご注意</h3>
@@ -384,13 +391,7 @@ if (!empty($_POST['animal_id'])) {
       <input type='hidden' name='animal_id' value='<?php echo $animal_id; ?>'>
       <button name="submit" name="submit">入力内容を確認する</button>
     </form>
-    <div class="back_btn">
-      <form action="./recruit_detail.php" method="get">
-        <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
-        <input type="submit" value="＜戻る">
-      </form>
-    </div>
-    
+
   </main>
 </div>
 
