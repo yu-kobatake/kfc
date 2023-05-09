@@ -1,8 +1,15 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "会員情報変更の確認";
+?>
+<?php include('parts/header.php'); ?>
+<?php
 require_once("./lib/util.php");
 
 // セッション開始
-session_start();
+if(!isset($_SESSION)){
+  session_start();
+}
 
 // トークン発行・登録
 $bytes2 = openssl_random_pseudo_bytes(16);
@@ -53,6 +60,93 @@ else :
 
     // 結果の取得（連想配列で受け取る）
     $userdata = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+
+    // トークンが正しければバリデーションチェック
+    $_POST = es($_POST); // POST情報をエスケープ
+
+    // 値があれば、trimで前後空白を取り除く。なければ、nullを入れる。
+    $_SESSION['user_name'] = isset($_POST['user_name']) ? trim($_POST['user_name'], '\x20\t\r\0\v') : null;
+    $_SESSION['name'] = isset($_POST['name']) ? trim($_POST['name'], '\x20\t\r\0\v') : null;
+    $_SESSION['furigana'] = isset($_POST['furigana']) ? trim($_POST['furigana'], '\x20\t\r\0\v') : null;
+    $_SESSION['email'] = isset($_POST['email']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['email']) : null;
+    $_SESSION['password'] = isset($_POST['password']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['password']) : null;
+    $_SESSION['zip'] = isset($_POST['zip']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['zip']) : null;
+    $_SESSION['address'] = isset($_POST['address']) ? trim($_POST['address'], '\x20\t\r\0\v') : null;
+    $_SESSION['birth']  = isset($_POST['birth']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '' , $_POST['birth']) : null;
+    $_SESSION['gender'] = isset($_POST['gender']) ? trim($_POST['gender'], '\x20\t\r\0\v') : null;
+    $_SESSION['job'] = isset($_POST['job']) ? trim($_POST['job'], '\x20\t\r\0\v') : null;
+    
+    // セッションを変数へ
+    $kind = $_SESSION['kind'];
+    $user_name = $_SESSION['user_name'];
+    $name = $_SESSION['name'];
+    $furigana = $_SESSION['furigana'];
+    $email = $_SESSION['email'];
+    $password = $_SESSION['password'];
+    $zip = $_SESSION['zip'];
+    $address = $_SESSION['address'];
+    $birth = $_SESSION['birth'];
+    $gender = $_SESSION['gender'];
+    $job = $_SESSION['job'];
+
+    // 必須が空になっていないか or バリデーションチェック
+    $error = [];
+    $_SESSION['error'] = [];
+
+    if (empty($user_name)) {
+      $error[] = "【ユーザー名】は必須です";
+    } else {
+      $_SESSION['user_name'] = $user_name;
+    }
+    if (empty($name)) {
+      $error[] = "【氏名】は必須です";
+    } else {
+      $_SESSION['name'] = $name;
+    }
+    if (empty($furigana)) {
+      $error[] = "【ふりがな】は必須です";
+    } else {
+      $_SESSION['furigana'] = $furigana;
+    }
+    if (empty($email)) {
+      $error[] = "【メールアドレス】は必須です";
+    } else {
+      // メールアドレスの形式チェック
+      if (!preg_match("/^[a-z0-9._+^~-]+@[a-z0-9.-]+$/i", $email)) {
+        $error[] = "【メールアドレス】の形式を正しく入力してください。";
+      } else {
+        $_SESSION['email'] = $email;
+      }
+    }
+    if (empty($password)) {
+      $error[] = "【パスワード】は必須です";
+    } else {
+      $_SESSION['password'] = $password;
+    }
+    if (empty($zip)) {
+      $error[] = "【郵便番号】は必須です";
+    } else {
+      $_SESSION['zip'] = $zip;
+    }
+    if (empty($address)) {
+      $error[] = "【住所】は必須です";
+    } else {
+      $_SESSION['address'] = $address;
+    }
+    if (empty($gender)) {
+      $error[] = "【性別】は必須です";
+    } else {
+      $_SESSION['gender'] = $gender;
+    }
+
+    // エラー文の表示
+    if (count($error) > 0) {
+      $_SESSION['error'] = $error;
+      header("Location:mypage_change.php");
+      exit();
+    }
+
     
   } catch (PDOException $e) {
     $err =  '<span class="error">エラーがありました。</span><br>';
@@ -60,101 +154,8 @@ else :
     exit($err);
   }
 
-  // トークンが正しければバリデーションチェック
-  $_POST = es($_POST); // POST情報をエスケープ
-
-  // 値があれば、trimで前後空白を取り除く。なければ、nullを入れる。
-  $_SESSION['user_name'] = isset($_POST['user_name']) ? trim($_POST['user_name'], '\x20\t\r\0\v') : null;
-  $_SESSION['name'] = isset($_POST['name']) ? trim($_POST['name'], '\x20\t\r\0\v') : null;
-  $_SESSION['furigana'] = isset($_POST['furigana']) ? trim($_POST['furigana'], '\x20\t\r\0\v') : null;
-  $_SESSION['email'] = isset($_POST['email']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['email']) : null;
-  $_SESSION['password'] = isset($_POST['password']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['password']) : null;
-  $_SESSION['zip'] = isset($_POST['zip']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $_POST['zip']) : null;
-  $_SESSION['address'] = isset($_POST['address']) ? trim($_POST['address'], '\x20\t\r\0\v') : null;
-  $_SESSION['birth']  = isset($_POST['birth']) ? preg_replace('/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '' , $_POST['birth']) : null;
-  $_SESSION['gender'] = isset($_POST['gender']) ? trim($_POST['gender'], '\x20\t\r\0\v') : null;
-  $_SESSION['job'] = isset($_POST['job']) ? trim($_POST['job'], '\x20\t\r\0\v') : null;
-  
-  // セッションを変数へ
-  $kind = $_SESSION['kind'];
-  $user_name = $_SESSION['user_name'];
-  $name = $_SESSION['name'];
-  $furigana = $_SESSION['furigana'];
-  $email = $_SESSION['email'];
-  $password = $_SESSION['password'];
-  $zip = $_SESSION['zip'];
-  $address = $_SESSION['address'];
-  $birth = $_SESSION['birth'];
-  $gender = $_SESSION['gender'];
-  $job = $_SESSION['job'];
-
-  // 必須が空になっていないか or バリデーションチェック
-  $error = [];
-  $_SESSION['error'] = [];
-
-  if (empty($user_name)) {
-    $error[] = "【ユーザー名】は必須です";
-  } else {
-    $_SESSION['user_name'] = $user_name;
-  }
-  if (empty($name)) {
-    $error[] = "【氏名】は必須です";
-  } else {
-    $_SESSION['name'] = $name;
-  }
-  if (empty($furigana)) {
-    $error[] = "【ふりがな】は必須です";
-  } else {
-    $_SESSION['furigana'] = $furigana;
-  }
-  if (empty($email)) {
-    $error[] = "【メールアドレス】は必須です";
-  } else {
-    // メールアドレスの形式チェック
-    if (!preg_match("/^[a-z0-9._+^~-]+@[a-z0-9.-]+$/i", $email)) {
-      $error[] = "【メールアドレス】の形式を正しく入力してください。";
-    } elseif(array_search($_SESSION['email'], array_column($userdata, 'email'))){
-      // メールアドレスの重複チェック
-      $error[] = "【メールアドレス】入力頂いたメールアドレスは既に登録されています。";
-    } else {
-      $_SESSION['email'] = $email;
-    }
-  }
-  if (empty($password)) {
-    $error[] = "【パスワード】は必須です";
-  } else {
-    $_SESSION['password'] = $password;
-  }
-  if (empty($zip)) {
-    $error[] = "【郵便番号】は必須です";
-  } else {
-    $_SESSION['zip'] = $zip;
-  }
-  if (empty($address)) {
-    $error[] = "【住所】は必須です";
-  } else {
-    $_SESSION['address'] = $address;
-  }
-  if (empty($gender)) {
-    $error[] = "【性別】は必須です";
-  } else {
-    $_SESSION['gender'] = $gender;
-  }
-
-  // エラー文の表示
-  if (count($error) > 0) {
-    $_SESSION['error'] = $error;
-    header("Location:signup.php");
-    exit();
-  }
-
 endif;
 ?>
-<?php
-// titleで読み込むページ名
-$pagetitle = "会員情報変更の確認";
-?>
-<?php include('parts/header.php'); ?>
 <div id="container" class="c1">
   <main>
     <h2><?php echo $pagetitle ?></h2>

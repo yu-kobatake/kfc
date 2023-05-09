@@ -1,8 +1,15 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "退会完了"
+?>
+<?php include('parts/header.php'); ?>
+<?php
 require_once("./lib/util.php");
 
-/* セッション開始 */
-session_start();
+// セッション開始
+if(!isset($_SESSION)){
+  session_start();
+}
 
 /* 未ログイン状態のアクセスは、トップへリダイレクトする */
 if (!isset($_SESSION['user_id'])) {
@@ -133,11 +140,6 @@ $cnt = $stm->rowCount();
 }
 ?>
 
-<?php
-// titleで読み込むページ名
-$pagetitle = "退会完了"
-?>
-<?php include('parts/header.php'); ?>
 <div id="container" class="c1">
     <main>
         <h2><?php echo $pagetitle ?></h2>

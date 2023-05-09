@@ -1,8 +1,15 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "登録情報の変更";
+?>
+<?php include('parts/header.php'); ?>
+<?php
 require_once("./lib/util.php");
 
 // セッション開始
-session_start();
+if(!isset($_SESSION)){
+  session_start();
+}
 
 // トークン発行・登録
 $bytes = openssl_random_pseudo_bytes(16);
@@ -16,7 +23,29 @@ $error = !empty($_SESSION['error']) ? $_SESSION['error'] : "";
 if(isset($_POST['user_id'])){
   $_POST = es($_POST);
   $user_id = $_POST['user_id'];
+} elseif(isset($_SESSION['user_id'])){
+  $user_id = $_SESSION['user_id'];
 }
+
+/*-------- SESSION不具合・エラー文の対策 --------*/
+// 推移前のページURLを取得
+$uri = rtrim($_SERVER["HTTP_REFERER"], '/');
+$uri = substr($uri, strrpos($uri, '/') + 1);
+// マイページから来た場合
+if($uri === 'breeder_mypage.php' || $uri === 'parent_mypage.php'){
+  // idとkind以外のセッションを、一旦、空にする
+  unset($_SESSION['user_name']);
+  unset($_SESSION['name']);
+  unset($_SESSION['furigana']);
+  unset($_SESSION['email']);
+  unset($_SESSION['password']);
+  unset($_SESSION['zip']);
+  unset($_SESSION['address']);
+  unset($_SESSION['birth']);
+  unset($_SESSION['gender']);
+  unset($_SESSION['job']);
+}
+// ※確認⇒戻るボタンから来たときはセッションを消さない
 
 /*---------- DB読み込み ----------*/
 // データベース接続
@@ -72,17 +101,17 @@ foreach ($userdata as $val) {
 
 
 // 戻ってきたとき、最初からvalueに値を入れる用（値を代入するか、空を代入するか）
-$kind = !empty($_SESSION['kind']) ? $_SESSION['kind'] : "";
-$user_name = !empty($_SESSION['user_name']) ? $_SESSION['user_name'] : "";
-$name = !empty($_SESSION['name']) ? $_SESSION['name'] : "";
-$furigana = !empty($_SESSION['furigana']) ? $_SESSION['furigana'] : "";
-$email = !empty($_SESSION['email']) ? $_SESSION['email'] : "";
-$password = !empty($_SESSION['password']) ? $_SESSION['password'] : "";
-$zip = !empty($_SESSION['zip']) ? $_SESSION['zip'] : "";
-$address = !empty($_SESSION['address']) ? $_SESSION['address'] : "";
-$birth = !empty($_SESSION['birth']) ? $_SESSION['birth'] : "";
-$gender = !empty($_SESSION['gender']) ? $_SESSION['gender'] : "";
-$job = !empty($_SESSION['job']) ? $_SESSION['job'] : "";
+//$kind = !empty($_SESSION['kind']) ? $_SESSION['kind'] : "";
+$user_name = !empty($_SESSION['user_name']) ? $_SESSION['user_name'] : $user_name;
+$name = !empty($_SESSION['name']) ? $_SESSION['name'] : $name;
+$furigana = !empty($_SESSION['furigana']) ? $_SESSION['furigana'] : $furigana;
+$email = !empty($_SESSION['email']) ? $_SESSION['email'] : $email;
+$password = !empty($_SESSION['password']) ? $_SESSION['password'] : $password;
+$zip = !empty($_SESSION['zip']) ? $_SESSION['zip'] : $zip;
+$address = !empty($_SESSION['address']) ? $_SESSION['address'] : $address;
+$birth = !empty($_SESSION['birth']) ? $_SESSION['birth'] : $birth;
+$gender = !empty($_SESSION['gender']) ? $_SESSION['gender'] : $gender;
+$job = !empty($_SESSION['job']) ? $_SESSION['job'] : $job;
 
 // 初期値をチェックする
 // ラジオボタン（種類・性別）
@@ -109,11 +138,6 @@ function selected($value, $select){
 }
 
 ?>
-<?php
-// titleで読み込むページ名
-$pagetitle = "登録情報の変更";
-?>
-<?php include('parts/header.php'); ?>
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <div id="container" class="c1">
   <main>
@@ -199,6 +223,9 @@ $pagetitle = "登録情報の変更";
       <p class="c">
         <input type="submit" value="修正内容を確認する" id="submit-btn">
         <input type="hidden" name="token" value="<?php echo es($token); ?>">
+      </p>
+      <p class="c">
+        <button type="button" onclick="location.href='login.php'">戻る</button>
       </p>
     </form>
   </main>
