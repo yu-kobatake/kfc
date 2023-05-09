@@ -54,11 +54,11 @@ $_SESSION['question_7'] = [];
 $pagetitle = "里親募集ページ"
 ?>
 <?php include('parts/header.php'); ?>
-<div id="container">
+<div id="container" class="c1">
   <main>
     <!--検索フォーム-->
-    <form method="post" action="<?php echo es($_SERVER['SCRIPT_NAME']) ?>">
-      <p>種別
+    <form class="searchf" method="post" action="<?php echo es($_SERVER['SCRIPT_NAME']) ?>">
+      <p><span class="lavel">種別</span>
         <?php
         if ($kind === '全て') {
           echo "<input type='radio' name='kind' value='全て' checked>全て";
@@ -232,25 +232,30 @@ $pagetitle = "里親募集ページ"
       }
     }
     ?>
-
+    <!-- ここからリスト -->
+    <div class="list-container">
     <?php
-    echo "<div>";
+    //echo "<div>";
     if (isset($result)) {
       foreach ($result as $row) {
         echo <<<"EOL"
-  <a href="recruit_detail.php?animal_id={$row['animal_id']}">
-  <div> 
-  <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
-  <p>{$row['title']}</p>
-  <p>年齢：{$row['age']}&nbsp;{$row['gender']}</p>
-  <p>{$row['animal_area']}</p>
-  <p>掲載ID：{$row['animal_id']}</p>
+  <div class="list">
+    <a href="recruit_detail.php?animal_id={$row['animal_id']}">
+      <figure><img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}"></figure>
+      <div class="text">
+        <h4>{$row['title']}</h4>
+        <p class="name">年齢：{$row['age']}&nbsp;{$row['gender']}</p>
+        <p>{$row['animal_area']}</p>
+        <p>掲載ID：{$row['animal_id']}</p>
+      </div>
+      <span class="newicon">NEW</span>
+    </a>
   </div>
-  </a>
   EOL;
       }
     }
     ?>
+    </div><!-- / list-container -->
   </main>
 </div>
 <img src="./images/animal_photo/" alt="">

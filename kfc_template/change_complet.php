@@ -5,6 +5,7 @@ require_once("./lib/util.php");
 session_start();
 
 // 変数へSESSIONの値を格納
+$user_id = $_SESSION['user_id'];
 $user_name = $_SESSION['user_name'];
 $name = $_SESSION['name'];
 $furigana = $_SESSION['furigana'];
@@ -54,7 +55,7 @@ else :
     address= '$address',
     birth= '$birth',
     job= '$job'
-    WHERE user_id = 1";
+    WHERE user_id = $user_id";
 
     // プリペアドステートメントを作る
     $stm = $pdo->prepare($sql);
