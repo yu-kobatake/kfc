@@ -151,7 +151,6 @@ $pagetitle = "里親募集詳細"
         exit();
       }
       if (isset($result)) {
-        var_dump($result);
         $destination_user_id=$result[0]['user_id'];
       ?>
         <div class="back_btn">
@@ -250,8 +249,6 @@ $pagetitle = "里親募集詳細"
                 if($user_id!==$destination_user_id){
                   echo"<input type='submit' name='submit' value='申し込みフォームへ'>";
                 }
-                var_dump($destination_user_id);
-                var_dump($user_id);
                 ?>
             </form>
     </main>
