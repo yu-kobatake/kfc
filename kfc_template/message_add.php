@@ -27,15 +27,10 @@ $pagetitle = "message_add.php"
       $host = 'localhost';
     $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
       $dbh = new PDO($dsn, $user, $password);
-      echo "データベース{$dbName}に接続しました", "<br>"; //確認用
 
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "INSERT INTO message(text,user_id,destination_user_id,created_at) 
       VALUES (:text,:user_id,:destination_user_ID,:created_at)";
-      var_dump($message_text);
-      var_dump($user_id);
-      var_dump($destination_user_ID);
-      var_dump($date->format('Y-m-d H:i:s'));
       $stmt = $dbh->prepare($sql);
       $stmt->bindValue(':text', $message_text, PDO::PARAM_STR);
       $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
@@ -46,10 +41,11 @@ $pagetitle = "message_add.php"
       //データベース内に自分と送信先のIDがあるかチェック
       if (!check_relation_message($user_id, $destination_user_ID)) {
         insert_message($user_id, $destination_user_ID);
-        echo "relation_messageにデータを挿入";
+        // echo "relation_messageにデータを挿入";
       }
-      echo "メッセージを送信しました";
       header('Location:../kfc_template/message.php?user_id=' . $destination_user_ID . '');
+            // echo "メッセージを送信しました";
+
     } catch (Exception $e) {
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
       exit();
