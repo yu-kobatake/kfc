@@ -41,74 +41,10 @@ $_SESSION['question_7'] = [];
 // titleで読み込むページ名
 $pagetitle = "里親募集詳細"
 ?>
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-  <meta charset="UTF-8">
-  <?php echo "<title>$pagetitle</title>"; ?>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow" />
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .btn-good {
-      display: inline-block;
-      padding: 0 8px;
-      cursor: pointer;
-    }
-
-    .btn-good:hover {
-      color: #f44336;
-    }
-
-    .active {
-      color: #f44336;
-    }
-
-    .btn-good .active {
-      color: #f44336;
-    }
-
-
-
-    */
-  </style>
-</head>
-
-<body>
-
-  <header>
-    <h1 id="logo"><a href="index.html"><img src="images/logo.png" alt="Sample Recipe Site"></a></h1>
-    <ul>
-      <li><a href="./index.php">ホーム</a></li>
-      <li><a href="./recruit.php">里親募集</a></li>
-      <li><a href="./event.php">イベント</a></li>
-      <li><a href="./about.php">当サイトについて</a></li>
-      <li><a href="./login.php">マイページ</a></li>
-      <li><a href="./logout.php">ログアウト</a></li>
-    </ul>
-  </header>
-
-  <!--開閉ボタン（ハンバーガーアイコン）-->
-  <div id="menubar_hdr">
-    <span></span><span></span><span></span>
-  </div>
-  <!--スマホ用の開閉ブロック（メニュー）-->
-  <div id="menubar">
-    <ul>
-      <li><a href="./index.php">ホーム</a></li>
-      <li><a href="./recruit.php">里親募集</a></li>
-      <li><a href="./event.php">イベント</a></li>
-      <li><a href="./about.php">当サイトについて</a></li>
-      <li><a href="./logout.php">ログアウト</a></li>
-    </ul>
-    <ul class="submenu btn">
-      <li><a href="./login.php">マイページ</a></li>
-    </ul>
-  </div>
-  <div id="container">
+<?php include('parts/header_animal_detail.php'); ?>
+<div id="container">
     <main>
-      <?php
+        <?php
       if (!empty($_GET['animal_id'])) {
         $animal_id = $_GET['animal_id'];
         // var_dump($animal_id);      
@@ -177,11 +113,11 @@ $pagetitle = "里親募集詳細"
           // SELECTで得た結果に対してもrowCountメソッドを使えるようにする
           $pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
           $sql = 'SELECT * FROM good WHERE animal_id = :animal_id AND user_id = :user_id';
-          $data = array(':user_id' => $user_id, ':animal_id' => $animal_id);
+          // $data = array(':user_id' => $user_id, ':animal_id' => $animal_id);
           // クエリ実行
           $stm = $pdo->prepare($sql);
-          $result = $stm->execute(array(':animal_id' => $animal_id));
-
+          $result = $stm->execute(array(':user_id' => $user_id, ':animal_id' => $animal_id));
+          var_dump($result);
           if ($stm->rowCount()) {
             return true;
           } else {
@@ -217,28 +153,32 @@ $pagetitle = "里親募集詳細"
       if (isset($result)) {
       ?>
         <div class="back_btn">
-          <a href="recruit.php"><button>＜ 戻る</button></a>
+            <a href="recruit.php"><button>＜ 戻る</button></a>
         </div>
 
         <?php
         foreach ($result as $row) {
           echo "<h2>{$row['title']}</h2>";
         ?>
-          <!-- いいねの表示 -->
-          <div class="post" data-postid="<?= es($animal_id); ?>">
-            <div class="btn-good <?php if (isGood($user_id, $animal_id)) echo 'active'; ?>">
+        <!-- いいねの表示 -->
+        <div class="post" data-postid="<?= es($animal_id); ?>">
+            <div class="btn-good <?php if (isGood($user_id, $animal_id)) { //いいねの状態文字色ピンク
+                      echo 'active ';
+                    } else { //未いいねの状態文字色指定なし
+                      echo '';
+                    }; ?>">
 
-              <span>いいね</span>
-              <i class="far fa-heart 
-                    <?php if (isGood($user_id, $animal_id)) { //いいね押したらハートが塗りつぶされる
-                      echo ' active star';
-                    } else { //いいねを取り消したらハートのスタイルが取り消される
-                      echo ' star_after';
+                <span>いいね</span>
+                <i class=" fa-heart 
+                    <?php if (isGood($user_id, $animal_id)) { //いいねの状態ハート塗りつぶし
+                      echo 'fas active  ';
+                    } else { //未いいねの時ハート空洞
+                      echo 'far';
                     }; ?>"></i>
-              <span class="goodcount"><?php echo $dbPostGoodNum; ?></span>
+                <span class="goodcount"><?php echo $dbPostGoodNum; ?></span>
             </div>
             <!-- いいねの表示終わり -->
-        <?php
+            <?php
           echo <<<"EOL"
                         
                         <div>
@@ -301,13 +241,14 @@ $pagetitle = "里親募集詳細"
         }
       }
         ?>
-        <!-- 申込フォームへ -->
-        <form action="./recruit_form.php" method="POST">
-          <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
-          <input type="submit" name="submit" value="申し込みフォームへ">
-        </form>
+            <!-- 申込フォームへ -->
+            <form action="./recruit_form.php" method="POST">
+                <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
+                <input type="submit" name="submit" value="申し込みフォームへ">
+            </form>
     </main>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="./js/good.js"></script>
-  <?php include('parts/footer.php'); ?>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="./js/good.js"></script>
+<?php include('parts/footer.php'); ?>
