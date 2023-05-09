@@ -81,31 +81,23 @@ try {
     $prefList = array(
         '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
     );
-    //セレクトボックスのオプションタグを作成
-    // 必須項目の場合のセレクトボックス
-    $pref_option1 = "<option hidden>選択してください</option>";
-    // 任意項目の場合のセレクトボックス
-    $pref_option2 = "<option hidden>選択してください</option><option value='設定しない'>設定しない</option>";
-    function option($pref_select, $pref_option)
-    {
+    function select_option($area){
         global $prefList;
-        if ($pref_select === "未設定") {
-            $pref_select = "設定しない";
-        }
-        $pref_optionlist = $pref_option;
-        foreach ($prefList as $pref) {
-            if ($pref_select === $pref) {
-                $pref_optionlist .= "<option value='{$pref}' selected>{$pref}</option>";
+        $pref_optionlist = "";
+        foreach ($prefList as $pref_option) {
+            if ($area === $pref_option) {
+                $pref_optionlist .= "<option value='{$pref_option}' selected>{$pref_option}</option>";
             }
-            $pref_optionlist .= "<option value='{$pref}'>{$pref}</option>";
+            $pref_optionlist .= "<option value='{$pref_option}'>{$pref_option}</option>";
         }
         return $pref_optionlist;
+        
     }
-
-    $area_1_option = option($area_1, $pref_option1);
-    $area_2_option = option($area_2, $pref_option2);
-    $area_3_option = option($area_3, $pref_option2);
-    $animal_area_option = option($animal_area, $pref_option1);
+    // 都道府県選択のオプション設定
+    $area_1_option = select_option($area_1);
+    $area_2_option = select_option($area_2);
+    $area_3_option = select_option($area_3);
+    $animal_area_option = select_option($animal_area);
 
     // 性別入力値checkedの設定
     $gender_check1 = $gender === "♂" ? "checked" : "";
@@ -131,7 +123,6 @@ try {
 
         <img src="./images/animal_photo/<?= $result['image_1'] ;?>" alt="{$result['kind']}">
         <p>掲載ID:<?= $result['animal_id'] ;?></p>
-        <p>（※の項目は入力必須になります。）</p>
 
         <?php
         // エラーを受け取る処理
@@ -153,7 +144,7 @@ try {
                     <td><textarea name="title">{$title}</textarea></td>
                 </tr>
                 <tr>
-                    <th rowspan="2">画像選択(3枚)※</th>
+                    <th rowspan="2">掲載画像<br>(3枚選択)</th>
                     <th>現在登録されている画像</th>
                     <td><p>画像1</p><img src ="./images/animal_photo/{$result['image_1']}" alt="{$result['kind']}" width="200px"></td>
                     <td><p>画像2</p><img src ="./images/animal_photo/{$result['image_2']}" alt="{$result['kind']}" width="200px"></td>
@@ -176,7 +167,7 @@ try {
                         <input type="hidden" name="MAX_FILE_SIZE" value="4194304">
                 </tr>     
                 <tr>
-                    <th>犬種猫種※</th>
+                    <th>犬種猫種</th>
                     <td><input type="text" name="kind" value="{$kind}"></td>
                 </tr>
                 <tr>
@@ -190,11 +181,11 @@ try {
                     <td><input type=" text" name="age" value="{$age}"></td>
                 </tr>
                 <tr>
-                    <th rowspan="3">募集対象地域<br>3つまで選択可</th>
+                    <th rowspan="3">募集対象地域<br>3つ選択</th>
                     <td>募集対象地域1
                         <select name="area_1">
                             {$area_1_option}
-                        </select>※
+                        </select>
                     </td>
                 </tr>
                 <tr>

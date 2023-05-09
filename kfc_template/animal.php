@@ -52,34 +52,47 @@ $_SESSION['token'] = $token;
 
         // 都道府県のセレクトボックスオプションの作成
         $prefList = array(
-            '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
+            '選択してください','北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
         );
         //セレクトボックスのオプションタグを作成
         // 必須のセレクトボックス
-        $pref_option1 = "<option hidden>選択してください</option>";
+        // $pref_option1 = "<option hidden>選択してください</option>";
         // 任意のセレクトボックス
-        $pref_option2 = "<option hidden>選択してください</option><option value='設定しない'>設定しない</option>";
-        function option($pref_select, $pref_option)
-        {
+        // $pref_option2 = "<option hidden>選択してください</option><option value='設定しない'>設定しない</option>";
+        // function option($pref_select, $pref_option)
+        // {
+        //     global $prefList;
+        //     // if ($pref_select === "未設定") {
+        //     //     $pref_select = "設定しない";
+        //     // }
+        //     $pref_optionlist = $pref_option;
+        //     foreach ($prefList as $pref) {
+        //         if ($pref_select === $pref) {
+        //             $pref_optionlist .= "<option value='{$pref}' selected>{$pref}</option>";
+        //         }
+        //         $pref_optionlist .= "<option value='{$pref}'>{$pref}</option>";
+        //     }
+        //     return $pref_optionlist;
+        // }
+
+
+        function select_option($area){
             global $prefList;
-            if ($pref_select === "未設定") {
-                $pref_select = "設定しない";
-            }
-            $pref_optionlist = $pref_option;
-            foreach ($prefList as $pref) {
-                if ($pref_select === $pref) {
-                    $pref_optionlist .= "<option value='{$pref}' selected>{$pref}</option>";
+            $pref_optionlist = "";
+            foreach ($prefList as $pref_option) {
+                if ($area === $pref_option) {
+                    $pref_optionlist .= "<option value='{$pref_option}' selected>{$pref_option}</option>";
                 }
-                $pref_optionlist .= "<option value='{$pref}'>{$pref}</option>";
+                $pref_optionlist .= "<option value='{$pref_option}'>{$pref_option}</option>";
             }
             return $pref_optionlist;
+            
         }
-
         // 都道府県選択のオプション設定
-        $area_1_option = option($area_1, $pref_option1);
-        $area_2_option = option($area_2, $pref_option2);
-        $area_3_option = option($area_3, $pref_option2);
-        $animal_area_option = option($animal_area, $pref_option1);
+        $area_1_option = select_option($area_1);
+        $area_2_option = select_option($area_2);
+        $area_3_option = select_option($area_3);
+        $animal_area_option = select_option($animal_area);
 
         // 性別入力値checkedの設定
         $gender_check1 = $gender === "♂" ? "checked" : "";
@@ -147,8 +160,8 @@ $_SESSION['token'] = $token;
             </ul>
         </div>
         <h3>犬猫情報の入力</h3>
-        <p>同意事項に同意の上、下記フォーム入力し確認ページへお進みください。</p>
-        <p>（※の項目は入力必須）</p>
+        <p>同意事項に同意の上、下記フォームに入力していただき確認ページへお進みください。</p>
+        <p>全て入力必須</p>
         <?php
         // 入力内容に不備があった場合のエラー表示
         if (!empty($_SESSION['animal']['error'])) {
@@ -164,11 +177,11 @@ $_SESSION['token'] = $token;
                 <tbody>
 
                     <tr>
-                        <th>掲載タイトル※<br></th>
+                        <th>掲載タイトル<br></th>
                         <td><textarea name="title" placeholder="例）マイペースで優しい柴犬の男の子"><?= es($title); ?></textarea></td>
                     </tr>
                     <tr>
-                        <th>画像選択(3枚)※</th>
+                        <th>掲載画像(3枚選択)</th>
                         <td>
                             <div class="preview-area"></div><input type="file" name="image_1"
                                 accept="image/png, image/jpeg" onchange="preview(this)">
@@ -183,7 +196,7 @@ $_SESSION['token'] = $token;
                         </td>
 
                     <tr>
-                        <th>犬種/猫種※</th>
+                        <th>犬種/猫種</th>
                         <td><input type="text" name="kind" placeholder="柴犬" value="<?= es($kind); ?>"></td>
                     </tr>
                     <tr>
@@ -198,10 +211,10 @@ $_SESSION['token'] = $token;
                         <td colspan="2"><input type="text" name="age" placeholder="例）5才3ヶ月" value="<?= $age; ?>"></td>
                     </tr>
                     <tr>
-                        <th rowspan="3">募集対象地域<br>3つまで選択可</th>
+                        <th rowspan="3">募集対象地域<br>(3つ選択)</th>
                         <td>募集対象地域1
                             <select name="area_1">
-                                <?= $area_1_option; ?></select><span>&ensp;※</span>
+                                <?= $area_1_option; ?></select>
                         </td>
                     </tr>
                     <tr>
@@ -219,14 +232,14 @@ $_SESSION['token'] = $token;
                         </td>
                     </tr>
                     <tr>
-                        <th>動物がいる地域※</th>
+                        <th>動物がいる地域</th>
                         <td><select name="animal_area">
                                 <?= $animal_area_option; ?>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <th>特徴（色柄、性格など）</th>
+                        <th>特徴（色柄、性格など)</th>
                         <td>
                             <textarea name="animal_character" placeholder="【毛色】 茶・白
                         【体重】 8.6㎏
