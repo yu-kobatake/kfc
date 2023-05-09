@@ -249,6 +249,8 @@ $pagetitle = "里親募集詳細"
                 if($user_id!==$destination_user_id){
                   echo"<input type='submit' name='submit' value='申し込みフォームへ'>";
                 }
+                var_dump($destination_user_id);
+                var_dump($user_id);
                 ?>
             </form>
     </main>
