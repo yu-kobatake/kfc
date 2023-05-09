@@ -89,7 +89,6 @@ $_SESSION['token'] = $token;
         // セッションエラーの削除
         $_SESSION['error'] = [];
         $errors = [];
-        var_dump(isset($_SESSION['area_1']));
         ?>
         <div class="back_btn">
             <button><a href="breeder_mypage.php">戻る</a></button>
