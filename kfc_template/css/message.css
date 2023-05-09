@@ -113,7 +113,7 @@ border: none;
   display: inline-block;
   position: absolute;
   top: 3px; 
-  left: 81px;
+  left: 0px;
   border: 8px solid transparent;
   border-right: 18px solid rgb(199, 209, 201);
   -webkit-transform: rotate(35deg);
