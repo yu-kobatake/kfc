@@ -53,27 +53,27 @@ include('parts/header.php'); ?>
 <div id="container">
 
     <main>
-        <div class="back_btn">
-            <button><a href="breeder_mypage.php">戻る</a></button>
-        </div>
         <?php
     // 犬猫を登録していれば表示
-    if (isset($result)) {
+    if ($result_count > 0) {
       // define('MAX','12');
       // // 総数は$result_countに入っている
       // $max_page = ceil($result_count / MAX);
       // if(!isset($_GET['page_id'])){
-      //   $now = 1;
-      // }else{
-      //   $now = $_GET['page_id'];
-      // }
-      // $start_no = ($now - 1) * MAX;
-
-      // $disp_data = array_slice($result, $start_no, MAX, true);
-
-
-      // 
-      echo "<div class='animal list-container'>";
+        //   $now = 1;
+        // }else{
+          //   $now = $_GET['page_id'];
+          // }
+          // $start_no = ($now - 1) * MAX;
+          
+          // $disp_data = array_slice($result, $start_no, MAX, true);
+          
+          
+          // 
+          echo "<div class='animal list-container'>";
+          echo "<div class='back_btn'>";
+             echo" <button><a href='breeder_mypage.php'>戻る</a></button>";
+          echo "</div>";
       foreach ($result as $row) {
         echo <<<"EOL"
         <div class="list">

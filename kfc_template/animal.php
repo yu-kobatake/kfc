@@ -3,8 +3,8 @@ session_start();
 require_once("./lib/util.php");
 // titleで読み込むページ名
 $pagetitle = "ペット情報登録画面";
-var_dump($_SESSION);
-var_dump($_POST);
+// var_dump($_SESSION);
+// var_dump($_POST);
 
 // ユーザーIDがセッションに入っていれば$user_idに代入する
 if (!empty($_SESSION['user_id'])) {
@@ -27,14 +27,15 @@ $_SESSION['token'] = $token;
     <main>
 
         <?php
+        // var_dump($_SESSION);
         // 確認ページからセッションに入れた値をエスケープ処理
         $_SESSION = es($_SESSION);
 
         //確認画面から帰ってきた場合の都道府県設定の初期値設定 
-        $area_1 = !empty($_SESSION['area_1']) ? $_SESSION['area_1'] : "";
-        $area_2 = !empty($_SESSION['area_2']) ? $_SESSION['area_2'] : "";
-        $area_3 = !empty($_SESSION['area_3']) ? $_SESSION['area_3'] : "";
-        $animal_area = !empty($_SESSION['animal_area']) ? $_SESSION['animal_area'] : "";
+        $area_1 = !empty($_SESSION['animal']['area_1']) ? $_SESSION['animal']['area_1'] : "";
+        $area_2 = !empty($_SESSION['animal']['area_2']) ? $_SESSION['animal']['area_2'] : "";
+        $area_3 = !empty($_SESSION['animal']['area_3']) ? $_SESSION['animal']['area_3'] : "";
+        $animal_area = !empty($_SESSION['animal']['animal_area']) ? $_SESSION['animal']['animal_area'] : "";
 
         // 入力値の設定
         // 一度入力した値がSESSIONに存在すればその値、無ければ空文字を入れる 
@@ -261,14 +262,14 @@ function preview(elem) {
 <?php include('parts/footer.php'); ?>
 <?php
 // セッションの削除
-$_SESSION['title'] = [];
+$_SESSION['animal']['animal']['title'] = [];
 $_SESSION['kind'] = [];
-$_SESSION['gender'] = [];
-$_SESSION['age'] = [];
-$_SESSION['area_1'] = [];
-$_SESSION['area_2'] = [];
-$_SESSION['area_3'] = [];
-$_SESSION['animal_area'] = [];
-$_SESSION['animal_character'] = [];
-$_SESSION['other'] = [];
+$_SESSION['animal']['gender'] = [];
+$_SESSION['animal']['age'] = [];
+$_SESSION['animal']['area_1'] = [];
+$_SESSION['animal']['area_2'] = [];
+$_SESSION['animal']['area_3'] = [];
+$_SESSION['animal']['animal_area'] = [];
+$_SESSION['animal']['animal_character'] = [];
+$_SESSION['animal']['other'] = [];
 ?>

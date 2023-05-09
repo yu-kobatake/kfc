@@ -51,7 +51,7 @@ try {
     $stm = $pdo->prepare($sql);
     $stm->execute();
     $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-    var_dump($result);
+    // var_dump($result);
     // エスケープ処理
     $result = es($result);
     

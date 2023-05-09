@@ -206,7 +206,7 @@ DB接続 userテーブルから会員情報を取り出して表示
             $stm->execute();
             // $resultにはanimal_idが入っている
             $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-            var_dump($result);
+            // var_dump($result);
             
             // いいね一覧表示
             echo "<h3>いいね一覧</h3>";
@@ -214,7 +214,7 @@ DB接続 userテーブルから会員情報を取り出して表示
             if($result){
                 echo "<div class='animal list-container'>";
                 foreach($result as $good){
-                    var_dump($good);
+                    // var_dump($good);
                     $pdo = new PDO($dsn, $user, $password);
                     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -228,7 +228,7 @@ DB接続 userテーブルから会員情報を取り出して表示
             
             // エスケープ処理
             // $result = es($result);
-            var_dump($result);
+            // var_dump($result);
             
            
     
