@@ -56,7 +56,7 @@ if (empty($title)) {
 if(!is_uploaded_file($_FILES["image_1"]['tmp_name']) || 
 !is_uploaded_file($_FILES["image_2"]['tmp_name']) || 
 !is_uploaded_file($_FILES["image_3"]['tmp_name'])){
-    $errors[] = "【画像】は3枚選択してください。";
+    $errors[] = "【掲載画像】は3枚選択してください。";
 }else{
     
     for($i = 1; $i<= 3; $i++){
@@ -104,40 +104,60 @@ if (empty($age)) {
 
 // 募集地域/犬猫がいる地域のバリデーション
 $prefList = array(
-    '選択してください','設定しない','北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県',
+    '選択してください','北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県',
     '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
 );
 
-if (in_array($_POST['area_1'], $prefList)) {
-    if ($_POST['area_1'] === "選択してください" ||$_POST['area_1'] === "設定しない") {
-        $errors[] = "【募集対象地域1】は必須です";
-    } else {
-        $area_1 = $_POST["area_1"];
-    }
+if(($_POST["area_1"] === "選択してください" || empty($_POST["area_1"]))|| 
+($_POST["area_2"] === "選択してください" || empty($_POST["area_2"]))|| 
+($_POST["area_3"] === "選択してください" || empty($_POST["area_3"]))){
+$errors[] = "【募集対象地域】は3つ選択してください。";
 } else {
-    $errors[] = "【募集対象地域1】に入力エラーがありました。";
+    
+    for($i = 1; $i<= 3; $i++){
+        
+        if (in_array($_POST["area_{$i}"], $prefList)) {
+            ${"area_".$i} = $_POST["area_{$i}"];
+        } else {
+            $errors[] = "【募集対象地域{$i}】に入力エラーがありました。";
+        } 
+    }
+       
 }
 
 
-if (in_array($_POST['area_2'], $prefList)) {
-if ($_POST['area_2'] === "選択してください" || $_POST['area_2'] === "設定しない") {
-        $area_2 = "未設定";
-    } else {
-        $area_2 = $_POST["area_2"];
-    }
-} else {
-    $errors[] = "【募集対象地域2】に入力エラーがありました。";
-}
+// if (in_array($_POST['area_1'], $prefList)) {
+//     if ($_POST['area_1'] === "選択してください" ||$_POST['area_1'] === "設定しない") {
+//         $errors[] = "【募集対象地域1】は必須です";
+//     } else {
+//         $area_1 = $_POST["area_1"];
+//     }
+// } else {
+//     $errors[] = "【募集対象地域1】に入力エラーがありました。";
+// }
 
-if (in_array($_POST['area_3'], $prefList)) {
-    if ($_POST['area_3'] === "選択してください" || $_POST['area_3'] === "設定しない") {
-        $area_3 = "未設定";
-    } else {
-        $area_3 = $_POST["area_3"];
-    }
-} else {
-    $errors[] = "【募集対象地域3】に入力エラーがありました。";
-}
+
+// if (in_array($_POST['area_2'], $prefList)) {
+// if ($_POST['area_2'] === "選択してください" || $_POST['area_2'] === "設定しない") {
+//         $area_2 = "未設定";
+//     } else {
+//         $area_2 = $_POST["area_2"];
+//     }
+// } else {
+//     $errors[] = "【募集対象地域2】に入力エラーがありました。";
+// }
+
+// if (in_array($_POST['area_3'], $prefList)) {
+//     if ($_POST['area_3'] === "選択してください" || $_POST['area_3'] === "設定しない") {
+//         $area_3 = "未設定";
+//     } else {
+//         $area_3 = $_POST["area_3"];
+//     }
+// } else {
+//     $errors[] = "【募集対象地域3】に入力エラーがありました。";
+// }
+
+
 
 if (in_array($_POST['animal_area'], $prefList)) {
     if ($_POST['animal_area'] === "選択してください" || $_POST['animal_area'] === "設定しない") {
@@ -150,20 +170,20 @@ if (in_array($_POST['animal_area'], $prefList)) {
 }
 
 
-// 特徴（性格）のバリデーション
+//特徴（色柄、性格など)のバリデーション
 $animal_character = preg_replace('/^[　]+|[　]+$/u', "", $_POST["animal_character"]);
-if (!empty($animal_character)) {
-    if (mb_strlen($animal_character) > 40) {
-        $errors[] = "【特徴（性格）】は40文字以内で入力して下さい";
-    }
+if (empty($animal_character)) {
+    $errors[] = "【特徴】は必須です";
+} else if (mb_strlen($title) > 200) {
+    $errors[] = "【特徴】は200文字以内で入力して下さい";
 }
 
 // 特記事項のバリデーション
 $other = preg_replace('/^[　]+|[　]+$/u', "", $_POST["other"]);
-if (!empty($other)) {
-    if (mb_strlen($other) > 500) {
-        $errors[] = "【特記事項】は500文字以内で入力して下さい";
-    }
+if (empty($other)) {
+    $errors[] = "【特記事項】は必須です";
+} else if (mb_strlen($title) > 500) {
+    $errors[] = "【特記事項】は500文字以内で入力して下さい";
 }
 
 
