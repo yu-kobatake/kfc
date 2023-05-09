@@ -151,6 +151,7 @@ $pagetitle = "里親募集詳細"
         exit();
       }
       if (isset($result)) {
+        var_dump($result);
         $destination_user_id=$result['user_id'];
       ?>
         <div class="back_btn">
