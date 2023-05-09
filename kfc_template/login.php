@@ -2,8 +2,6 @@
 session_start();
 require_once("./lib/util.php");
 // $_SESSION = [];
-var_dump($_SESSION);
-var_dump($_POST);
 $pagetitle = "ログインページ";
 
 ?>
