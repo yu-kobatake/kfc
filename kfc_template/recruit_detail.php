@@ -152,7 +152,7 @@ $pagetitle = "里親募集詳細"
       }
       if (isset($result)) {
         var_dump($result);
-        $destination_user_id=$result['user_id'];
+        $destination_user_id=$result[0]['user_id'];
       ?>
         <div class="back_btn">
             <a href="recruit.php"><button>＜ 戻る</button></a>
