@@ -36,12 +36,12 @@ $_POST = es($_POST);
 $pagetitle = "里親申し込み確認"
 ?>
 <?php include('parts/header.php'); ?>
-<div id="container">
+<div id="container" class="c1">
   <main>
     <div class="back_btn">
       <form action="./recruit_form.php" method="get">
         <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
-        <input type="submit" value="＜戻る">
+        <button type="button" onclick="location.href='recruit_form.php'" class="btn_back_mini">< 戻る</button>
       </form>
     </div>
     <?php
@@ -75,13 +75,21 @@ $pagetitle = "里親申し込み確認"
           echo <<<"EOL"
             <div>
             <h3>動物情報</h3>
-            <p>掲載ID：{$row['animal_id']}</p>
-            <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
             <table class='ta1'>
-              <tr><th>性別</th></tr>
-              <tr><td>{$row['gender']}</td></tr>
-              <tr><th>年齢</th></tr>
-              <tr><td>{$row['age']}</td></tr>
+            <tr>
+            <th>掲載ID：{$row['animal_id']}</th>
+            <td>
+            <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
+            <td>
+            </tr>
+              <tr>
+              <th>性別</th>
+              <td>{$row['gender']}</td>
+              </tr>
+              <tr>
+              <th>年齢</th>
+              <td>{$row['age']}</td>
+              </tr>
             </table>
             </div>
             EOL;
@@ -260,7 +268,7 @@ $pagetitle = "里親申し込み確認"
     <form action="recruit_complet.php" method="POST">
       <!-- token -->
       <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
-      <input type="submit" name="submit" value="この内容で申し込みする">
+      <input type="submit" name="submit" value="この内容で申し込みする" class="btn_one">
     </form>
   </main>
 </div>

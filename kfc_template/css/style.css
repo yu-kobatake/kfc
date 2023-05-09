@@ -874,6 +874,31 @@ button.btn_back_one:hover{
 	background: #fff;
 	color: #777;
 }
+
+/* 小さい戻るボタン */
+input.btn_back_mini,
+button.btn_back_mini{
+    text-decoration: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-size: 15px;
+    background: #777;
+    color: #fff;
+    border: 2px solid #777;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 30px;
+}
+input.btn_back_mini:hover,
+button.btn_back_mini:hover{
+	background: #fff;
+	color: #777;
+}
+
+
+
 /* ボタンサイズ変更時（デフォルト100%） */
 .bw_size100{
 	width: 100% !important;
@@ -883,13 +908,40 @@ button.btn_back_one:hover{
 }
 
 
-/* 会員登録ページ関係
+/* 会員登録・ログインページ関係
 ---------------------------------------------------------------------------*/
 .text_r{
 	font-size: 13px;
 }
 
+.login_area{
+	display: flex;
+}
+.login_area ul{
+	list-style-type: none;
+}
+.login_area ul li:not(:first-child){
+	margin-top: 20px;
+}
+.login_area ul li:last-child{
+	margin-top: 30px;
+}
+.login_area div{
+	width: 100%;
+}
+.login_area div:first-child{
+	margin-right: 4%;
+}
+.login_area .label_ttl{
+	font-weight: bold;
+}
 
+/* 里親募集関係
+---------------------------------------------------------------------------*/
+.question_area textarea{
+	height: 10em;
+	width: 70%;
+}
 
 
 /*その他
@@ -899,6 +951,7 @@ button.btn_back_one:hover{
 .color-theme, .color-theme a {color: #e94019 !important;}
 .color-check, .color-check a {color: #f00 !important;}
 .c {text-align: center !important;}
+.r {text-align: right !important;}
 .ws {width: 95%;display: block;}
 .wl {width: 95%;display: block;}
 .mb30 {margin-bottom: 30px !important;}
@@ -928,6 +981,14 @@ header ul {
 /* 住所フォーム */
 .text_r{
 	display: block;	
+}
+/* ログインページのカラム */
+.login_area{
+	display: block;
+	width: 100%;
+}
+.login_area div:first-child{
+	margin-right: 0;
 }
 
 /*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/

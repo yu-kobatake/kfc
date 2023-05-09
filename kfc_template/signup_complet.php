@@ -87,11 +87,12 @@ else :
     <h2><?php echo $pagetitle ?></h2>
     <div class="c">
     <p>会員登録が完了しました。</p>
-    <p>あなたのログインIDは「<span style="color:red;font-weight:bold;"><?php echo $display; ?></span>」です。<br>
+    <p>あなたのユーザーIDは「<span style="color:red;font-weight:bold;"><?php echo $display; ?></span>」です。<br>
     <span style="color:red;">このIDはログイン時に必要</span>です。紛失されないようご注意ください。
     </p>
     <p>ログインページより、マイページへアクセスしてください。</p>
     <p><a href="./login.php">ログインページへ</a></p>
     </div>
+  </main>
 </div>
 <?php include('parts/footer.php'); ?>

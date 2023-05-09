@@ -45,7 +45,7 @@ try {
   echo $e->getMessage();
   exit();
 }
-$user_id=$result['user_id'];
+$user_id = $result['user_id'];
 ?>
 
 <?php
@@ -58,12 +58,12 @@ $user_id=$result['user_id'];
 $pagetitle = "里親申し込み完了"
 ?>
 <?php include('parts/header.php'); ?>
-<div id="container">
+<div id="container" class="c1">
   <main>
-    <p>申し込みが完了しました。</p>
+    <p class="c">申し込みが完了しました。</p>
     <form action="./message.php" method="get">
-      <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
-      <input type="submit" value="ブリーダーへメッセージを送信する">
+      <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+      <input type="submit" value="ブリーダーへメッセージを送信する" class="btn_one">
     </form>
   </main>
 </div>

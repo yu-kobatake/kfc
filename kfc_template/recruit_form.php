@@ -39,12 +39,12 @@ if (!empty($_POST['animal_id'])) {
 }
 ?>
 
-<div id="container">
+<div id="container" class="c1">
   <main>
     <div class="back_btn">
       <form action="./recruit_detail.php" method="get">
         <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
-        <input type="submit" value="＜戻る">
+        <button type="button" onclick="location.href='recruit.php'" class="btn_back_mini">< 戻る</button>
       </form>
     </div>
 
@@ -131,15 +131,22 @@ if (!empty($_POST['animal_id'])) {
           foreach ($result as $row) {
             echo <<<"EOL"
             <div>
-            <h3>動物情報</h3>
-            <p>掲載ID：{$row['animal_id']}</p>
-            <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
-            <table class='ta1'>
-              <tr><th>性別</th></tr>
-              <tr><td>{$row['gender']}</td></tr>
-              <tr><th>年齢</th></tr>
-              <tr><td>{$row['age']}</td></tr>
-            </table>
+              <h3>動物情報</h3>
+              <table class='ta1'>
+                <tr>
+                <th>掲載ID：{$row['animal_id']}</th>
+                <td>
+                <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
+                </td>
+                <tr>
+                <th>性別</th>
+                <td>{$row['gender']}</td>
+                </tr>
+                <tr>
+                <th>年齢</th>
+                <td>{$row['age']}</td>
+                </tr>
+              </table>
             </div>
             EOL;
           }
@@ -246,7 +253,7 @@ if (!empty($_POST['animal_id'])) {
           color: red;
         }
       </style>
-      <table>
+      <table class="ta1 question_area">
         <tr>
           <th class='question_required'>
             1.動物の飼育経験について（種類、飼っていた時期など）
@@ -254,7 +261,7 @@ if (!empty($_POST['animal_id'])) {
         </tr>
         <tr>
           <td>
-            <textarea name="question_1"><?php echo es($question_1); ?></textarea>
+            <textarea name="question_1" class="ws" row="5"><?php echo es($question_1); ?></textarea>
           </td>
         </tr>
         <tr>
@@ -347,8 +354,7 @@ if (!empty($_POST['animal_id'])) {
         }
       }
       ?>
-
-      <table>
+      <table class="ta1">
         <tr>
           <th>
             同意事項
@@ -394,7 +400,7 @@ if (!empty($_POST['animal_id'])) {
       <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
       <!-- animal_id -->
       <input type='hidden' name='animal_id' value='<?php echo $animal_id; ?>'>
-      <button name="submit" name="submit">入力内容を確認する</button>
+      <button name="submit" name="submit" class="btn_one">入力内容を確認する</button>
     </form>
 
   </main>
