@@ -151,6 +151,7 @@ $pagetitle = "里親募集詳細"
         exit();
       }
       if (isset($result)) {
+        $destination_user_id=$result['user_id'];
       ?>
         <div class="back_btn">
             <a href="recruit.php"><button>＜ 戻る</button></a>
@@ -244,7 +245,11 @@ $pagetitle = "里親募集詳細"
             <!-- 申込フォームへ -->
             <form action="./recruit_form.php" method="POST">
                 <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
-                <input type="submit" name="submit" value="申し込みフォームへ">
+                <?php
+                if($user_id!==$destination_user_id){
+                  echo"<input type='submit' name='submit' value='申し込みフォームへ'>";
+                }
+                ?>
             </form>
     </main>
 </div>
