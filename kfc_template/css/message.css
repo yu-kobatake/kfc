@@ -96,6 +96,7 @@ border: none;
 .left .icon_image{
     width: 80px;
     border-radius: 50%;
+    position: absolute;
   }
 
 .says {
