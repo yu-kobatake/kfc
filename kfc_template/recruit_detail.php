@@ -160,6 +160,8 @@ $pagetitle = "里親募集詳細"
         <?php
         foreach ($result as $row) {
           echo "<h2>{$row['title']}</h2>";
+          // ログイン済みの場合のみいいねを表示させる
+          if(!empty($_SESSION['user_id'])){
         ?>
         <!-- いいねの表示 -->
         <div class="post" data-postid="<?= es($animal_id); ?>">
@@ -180,6 +182,7 @@ $pagetitle = "里親募集詳細"
             </div>
             <!-- いいねの表示終わり -->
             <?php
+          } // いいねif修了
           echo <<<"EOL"
                         
                         <div>
