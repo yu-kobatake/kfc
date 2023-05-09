@@ -10,7 +10,7 @@ $user_name = $_SESSION['user_name'];
 $name = $_SESSION['name'];
 $furigana = $_SESSION['furigana'];
 $email = $_SESSION['email'];
-$password = $_SESSION['password'];
+$pass = $_SESSION['password'];
 $zip = $_SESSION['zip'];
 $address = $_SESSION['address'];
 $birth = $_SESSION['birth'];
@@ -50,7 +50,7 @@ else :
     furigana = '$furigana',
     gender = '$gender',
     email = '$email',
-    password= '$password',
+    password= '$pass',
     zip = '$zip',
     address= '$address',
     birth= '$birth',
@@ -62,7 +62,6 @@ else :
 
     // SQLクエリを実行する
     $stm->execute();
-
   } catch (PDOException $e) {
     $err =  '<span class="error">エラーがありました。</span><br>';
     $err .= $e->getMessage();
@@ -72,14 +71,14 @@ else :
   // セッションを破壊
   killSession();
 
-  endif;
+endif;
 ?>
 <?php
 // titleで読み込むページ名
 $pagetitle = "会員情報の変更完了"
 ?>
 <?php include('parts/header.php'); ?>
-<div id="container"  class="c1">
+<div id="container" class="c1">
   <main>
     <h2><?php echo $pagetitle ?></h2>
     <div class="c">

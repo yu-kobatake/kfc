@@ -1,5 +1,13 @@
 <?php
-session_start();
+// titleで読み込むページ名
+$pagetitle = "イベント"
+?>
+<?php include('parts/header.php'); ?>
+<?php
+// セッション開始
+if(!isset($_SESSION)){
+  session_start();
+}
 // $_SESSION=[];
 require_once("./lib/util.php");
 // データベース接続
@@ -46,63 +54,58 @@ if (!empty($_POST['keyword'])) {
   $keyword = '';
 }
 ?>
-<?php
-// titleで読み込むページ名
-$pagetitle = "イベント"
-?>
-<?php include('parts/header.php'); ?>
 <div id="container" class="c1">
     <main>
         <h2><?php echo $pagetitle ?></h2>
-        <h3>イベント検索</h3>
+        <!-- <h3>イベント検索</h3> -->
         <!--検索フォーム-->
-        <form method="post" action="<?php echo es($_SERVER['SCRIPT_NAME']) ?>">
-            <p>種別
-                <?php
-        if ($kind === '全て') {
-          echo "<label><input type='radio' name='kind' value='全て' checked>全て</label>　";
-          echo "<label><input type='radio' name='kind' value='犬'>犬</label>　";
-          echo "<input type='radio' name='kind' value='猫'>猫</label>";
-        } elseif ($kind === '犬') {
-          echo "<label><input type='radio' name='kind' value='全て'>全て</label>　";
-          echo "<label><input type='radio' name='kind' value='犬' checked>犬</label>　";
-          echo "<label><input type='radio' name='kind' value='猫'>猫</label>";
-        } elseif ($kind === '猫') {
-          echo "<label><input type='radio' name='kind' value='全て'>全て</label>　";
-          echo "<label><input type='radio' name='kind' value='犬'>犬</label>　";
-          echo "<label><input type='radio' name='kind' value='猫' checked>猫</label>";
-        } else {
-          echo "<label><input type='radio' name='kind' value='全て' checked>全て</label>　";
-          echo "<label><input type='radio' name='kind' value='犬'>犬</label>　";
-          echo "<label><input type='radio' name='kind' value='猫'>猫</label>";
-        }
-        ?>
-            </p>
-            <!-- 「都道府県」リスト -->
-            <?php
-      $pref_list = ['', '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'];
-      ?>
-            <p>開催地域
-                <select name="area">
-                    <?php
-          foreach ($pref_list as $pref) {
-            if ($area == $pref) {
-              echo " <option value='$pref' selected>$pref</option>";
-            } else {
-              echo " <option value='$pref'>$pref</option>";
-            }
+        <form class="searchf" method="post" action="<?php echo es($_SERVER['SCRIPT_NAME']) ?>">
+          <p class='kind_chk'><span class="label">種別</span>
+                  <?php
+          if ($kind === '全て') {
+            echo "<label><input type='radio' name='kind' value='全て' checked>全て</label>";
+            echo "<label><input type='radio' name='kind' value='犬'>犬</label>";
+            echo "<input type='radio' name='kind' value='猫'>猫</label>";
+          } elseif ($kind === '犬') {
+            echo "<label><input type='radio' name='kind' value='全て'>全て</label>";
+            echo "<label><input type='radio' name='kind' value='犬' checked>犬</label>";
+            echo "<label><input type='radio' name='kind' value='猫'>猫</label>";
+          } elseif ($kind === '猫') {
+            echo "<label><input type='radio' name='kind' value='全て'>全て</label>";
+            echo "<label><input type='radio' name='kind' value='犬'>犬</label>";
+            echo "<label><input type='radio' name='kind' value='猫' checked>猫</label>";
+          } else {
+            echo "<label><input type='radio' name='kind' value='全て' checked>全て</label>";
+            echo "<label><input type='radio' name='kind' value='犬'>犬</label>";
+            echo "<label><input type='radio' name='kind' value='猫'>猫</label>";
           }
           ?>
-                </select>　
-                開催日
-                <input type="date" name="day_start" value="<?php echo $day_start; ?>">
-                ～
-                <input type="date" name="day_end" value="<?php echo $day_end; ?>">
-            </p>
-            <p>キーワード
-                <input type="text" name="keyword" value="<?php echo $keyword; ?>">
-            </p>
-            <p><input type="submit" name="submit" value="検索"></p>
+
+              <!-- 「都道府県」リスト -->
+              <?php
+        $pref_list = ['', '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'];
+        ?>
+              <span class="label">開催地域</span>
+                  <select name="area">
+                      <?php
+            foreach ($pref_list as $pref) {
+              if ($area == $pref) {
+                echo " <option value='$pref' selected>$pref</option>";
+              } else {
+                echo " <option value='$pref'>$pref</option>";
+              }
+            }
+            ?>
+                  </select>
+                  <span class="label">開催日</span>
+                  <input type="date" name="day_start" value="<?php echo $day_start; ?>">
+                  ～
+                  <input type="date" name="day_end" value="<?php echo $day_end; ?>">
+              </p>
+              <p><span class="label">キーワード</span>
+                  <input class="ws" type="text" name="keyword" value="<?php echo $keyword; ?>">
+              </p>
+              <p class="c"><input type="submit" name="submit" value="条件を絞って検索する"></p>
         </form>
         <h3>イベント一覧</h3>
         <?php
@@ -220,7 +223,7 @@ $pagetitle = "イベント"
 
         //該当件数
         $hit = count($result);
-        echo "<p>該当{$hit}件です。</p>";
+        echo "<div class='serch_hit'>該当 {$hit}件です。</div>";
         // var_dump($result); //確認用
 
       } catch (Exception $e) {

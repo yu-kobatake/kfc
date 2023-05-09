@@ -56,34 +56,34 @@ $pagetitle = "里親募集ページ"
 <?php include('parts/header.php'); ?>
 <div id="container" class="c1">
   <main>
+    <h2><?php echo $pagetitle ?></h2>
     <!--検索フォーム-->
     <form class="searchf" method="post" action="<?php echo es($_SERVER['SCRIPT_NAME']) ?>">
-      <p><span class="lavel">種別</span>
+      <p class='kind_chk'><span class="label">種別</span>
         <?php
         if ($kind === '全て') {
-          echo "<input type='radio' name='kind' value='全て' checked>全て";
-          echo "<input type='radio' name='kind' value='犬'>犬";
-          echo "<input type='radio' name='kind' value='猫'>猫";
+          echo "<label><input type='radio' name='kind' value='全て' checked>全て</label>";
+          echo "<label><input type='radio' name='kind' value='犬'>犬</label>";
+          echo "<label><input type='radio' name='kind' value='猫'>猫</label>";
         } elseif ($kind === '犬') {
-          echo "<input type='radio' name='kind' value='全て'>全て";
-          echo "<input type='radio' name='kind' value='犬' checked>犬";
-          echo "<input type='radio' name='kind' value='猫'>猫";
+          echo "<label><input type='radio' name='kind' value='全て'>全て</label>";
+          echo "<label><input type='radio' name='kind' value='犬' checked>犬</label>";
+          echo "<label><input type='radio' name='kind' value='猫'>猫</label>";
         } elseif ($kind === '猫') {
-          echo "<input type='radio' name='kind' value='全て'>全て";
-          echo "<input type='radio' name='kind' value='犬'>犬";
-          echo "<input type='radio' name='kind' value='猫' checked>猫";
+          echo "<label><input type='radio' name='kind' value='全て'>全て</label>";
+          echo "<label><input type='radio' name='kind' value='犬'>犬</label>";
+          echo "<label><input type='radio' name='kind' value='猫' checked>猫</label>";
         } else {
-          echo "<input type='radio' name='kind' value='全て' checked>全て";
-          echo "<input type='radio' name='kind' value='犬'>犬";
-          echo "<input type='radio' name='kind' value='猫'>猫";
+          echo "<label><input type='radio' name='kind' value='全て' checked>全て</label>";
+          echo "<label><input type='radio' name='kind' value='犬'>犬</label>";
+          echo "<label><input type='radio' name='kind' value='猫'>猫</label>";
         }
         ?>
-      </p>
       <!-- 「都道府県」リスト -->
       <?php
       $pref_list = ['', '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'];
       ?>
-      <p>募集対象地域
+      <span class="label">募集対象地域</span>
         <select name="area">
           <?php
           foreach ($pref_list as $pref) {
@@ -97,8 +97,7 @@ $pagetitle = "里親募集ページ"
         </select>
         <?php
         ?>
-      </p>
-      <p>動物のいる地域
+      <span class="label">動物のいる地域</span>
         <select name="animal_area">
           <?php
           foreach ($pref_list as $pref) {
@@ -113,10 +112,10 @@ $pagetitle = "里親募集ページ"
         <?php
         ?>
       </p>
-      <p>キーワード
-        <input type="text" name="keyword" value="<?php echo $keyword; ?>">
+      <p><span class="label">キーワード</span>
+        <input class="ws" type="text" name="keyword" value="<?php echo $keyword; ?>">
       </p>
-      <p><input type="submit" name="submit" value="検索"></p>
+      <p><input type="submit" name="submit" value="検索する"></p>
     </form>
     <?php
     if (isset($_POST['submit'])) {
@@ -224,7 +223,7 @@ $pagetitle = "里親募集ページ"
 
         //該当件数
         $hit = count($result);
-        echo "<p>該当{$hit}件です。</p>";
+        echo "<div class='serch_hit'>該当 {$hit}件です。</div>";
       } catch (Exception $e) {
         echo '<span class ="error">エラーがありました</span><br>';
         echo $e->getMessage();

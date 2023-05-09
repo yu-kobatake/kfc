@@ -245,8 +245,8 @@ endif;
           </td>
         </tr>
       </table>
-      <p class="c"><input type="submit" value="この内容で登録する"></p>
-      <p class="c"><input type="button" value="戻る" onclick="location.href='signup.php'"></p>
+      <p class="c"><input type="submit" class="btn_one" value="この内容で登録する"></p>
+      <p class="c"><input type="button" value="戻る" onclick="location.href='signup.php'" class="btn_back_one"></p>
       <input type="hidden" name="is_POSTcheck" value="1">
       <input type="hidden" name="token2" value="<?php echo es($token2); ?>">
     </form>

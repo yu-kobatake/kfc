@@ -1,5 +1,15 @@
 <?php
-session_start();
+// titleで読み込むページ名
+$pagetitle = "犬猫里親募集"
+?>
+
+<?php include('parts/header.php'); ?>
+<?php
+// セッション開始
+if(!isset($_SESSION)){
+  session_start();
+}
+
 // $_SESSION = [];
 require_once("./lib/util.php");
 $user = 'shotohlcd31_kfc';
@@ -31,12 +41,6 @@ try {
   exit();
 }
 ?>
-<?php
-// titleで読み込むページ名
-$pagetitle = "犬猫里親募集"
-?>
-
-<?php include('parts/header.php'); ?>
 
 <!-- message_add.phpにPOSTするフォーム -->
 <?php
@@ -53,7 +57,6 @@ $pagetitle = "犬猫里親募集"
 </form>
 */
 ?>
-
 
 <!-- ---------------------------
   スライドショー（slick）

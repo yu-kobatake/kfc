@@ -7,10 +7,10 @@ killSession();
   
 ?>
 <?php include('parts/header.php'); ?>
-<div id="container">
+<div id="container" class="c1">
     <main>
-        ログアウトしました。
-        <a href="index.php"><button>トップページへ戻る</button></a>
+        <h2>ログアウトしました。</h2>
+        <p class="c"><a href="index.php"><button class="btn_back_one bw_size30">トップページへ戻る</button></a></p>
     </main>
 </div>
 

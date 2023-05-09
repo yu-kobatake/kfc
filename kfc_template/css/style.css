@@ -744,6 +744,154 @@ input[type="reset"].btn {
 }
 
 
+
+/* 各フォーム
+---------------------------------------------------------------------------*/
+.serch_hit{
+	background: #f1f1f1;
+	padding: 1rem;
+	text-align: center;
+	margin-bottom: 1rem;
+	border-radius: 10px;
+}
+
+input[type="radio"]{
+	margin-right: 0.3rem;
+}
+.kind_chk label{
+	margin-right: 1rem;
+}
+
+form.searchf input[type="submit"]{
+	font-size: 15px;
+	background: #e94019;
+	color: #fff;
+	border: 2px solid #e94019;
+	padding: 16px;
+	border-radius: 30px;
+	width: 100%;
+	cursor: pointer;
+	transition: 0.5s;
+}
+form.searchf input[type="submit"]:hover{
+	background: #fff;
+	color: #e94019;
+}
+
+form.searchf{
+	border: 2px solid #eee;
+	/*background: #f1f1f1;*/
+	padding: 2rem 2rem 0.2rem 2rem;
+	border-radius: 12px;
+	margin-bottom: 20px;
+}
+form.searchf .label{
+	font-weight: bold;
+	margin-right: 0.5rem;
+}
+form.searchf .label:not(:first-child){
+	margin-left: 2rem;
+}
+form.searchf p:not(:last-child){
+	border-bottom: 1px dotted #ccc;
+	padding-bottom: 1rem;
+}
+
+input,
+textarea,
+select{
+	border: 2px solid #ccc;
+  padding: 0.4rem;
+	/* appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none; */
+}
+/* input:checked {
+	border: 1px solid rgb(33, 150, 243);
+	background-color: rgb(33, 150, 243);
+} */
+
+
+
+.martop6{
+	margin-top: 6px;
+}
+
+
+/* 独立submitボタン */
+
+
+
+
+a.btn_one,
+input[type="submit"].btn_one,
+button.btn_one{
+	display: block;
+	text-decoration: none;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	font-size: 15px;
+	background: #e94019;
+	color: #fff;
+	border: 2px solid #e94019;
+	margin: auto;
+	padding: 16px;
+	cursor: pointer;
+	transition: 0.5s;
+	border-radius: 30px;
+	width: 50%;
+}
+a.btn_one,
+input[type="submit"].btn_one:hover,
+button.btn_one:hover{
+	background: #fff;
+	color: #e94019;
+}
+/* 戻るボタン（大） */
+a.btn_back_one,
+input[type="button"].btn_back_one,
+button.btn_back_one{
+	display: block;
+	text-decoration: none;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	font-size: 15px;
+	background: #777;
+	color: #fff;
+	border: 2px solid #777;
+	margin: auto;
+	padding: 16px;
+	cursor: pointer;
+	transition: 0.5s;
+	border-radius: 30px;
+	width: 50%;
+}
+a.btn_back_one:hover,
+input[type="button"].btn_back_one:hover,
+button.btn_back_one:hover{
+	background: #fff;
+	color: #777;
+}
+/* ボタンサイズ変更時（デフォルト100%） */
+.bw_size100{
+	width: 100% !important;
+}
+.bw_size30{
+	width: 30% !important;
+}
+
+
+/* 会員登録ページ関係
+---------------------------------------------------------------------------*/
+.text_r{
+	font-size: 13px;
+}
+
+
+
+
 /*その他
 ---------------------------------------------------------------------------*/
 .clear {clear: both;}
@@ -776,6 +924,11 @@ header ul {
 	display: none;	/*面積が狭くなるので非表示に。サブコンテンツに同じメニューがあるのが予備です。*/
 }
 
+
+/* 住所フォーム */
+.text_r{
+	display: block;	
+}
 
 /*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
 

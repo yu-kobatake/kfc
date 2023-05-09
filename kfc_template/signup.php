@@ -198,7 +198,7 @@ function agreeChecked(){
         </tr>
       </table>
       <p class="c">
-        <input type="submit" value="登録内容を確認する" id="submit-btn">
+        <input type="submit" value="登録内容を確認する" id="submit-btn" class="btn_one">
         <input type="hidden" name="token" value="<?php echo es($token); ?>">
       </p>
     </form>

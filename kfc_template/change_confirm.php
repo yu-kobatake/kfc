@@ -230,8 +230,8 @@ endif;
           </td>
         </tr>
       </table>
-      <p class="c"><input type="submit" value="この内容で登録する"></p>
-      <p class="c"><input type="button" value="戻る" onclick="location.href='mypage_change.php'"></p>
+      <p class="c"><input type="submit" value="この内容で登録する" class="btn_one"></p>
+      <p class="c"><input type="button" value="戻る" onclick="location.href='mypage_change.php'" class="btn_back_one"></p>
       <input type="hidden" name="token2" value="<?php echo es($token2); ?>">
     </form>
 
