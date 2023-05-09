@@ -91,7 +91,7 @@ border: none;
 }
 /*以下、②左側のコメント*/
 .left{
-  padding: 100px 0;
+  padding: 10px 0;
 }
 .left .icon_image{
     width: 80px;
@@ -102,7 +102,7 @@ border: none;
 .says {
   display: inline-block;
   position: relative; 
-  margin: 10px 0 10px 20px;
+  margin: 10px 0 10px 120px;
   padding: 10px;
   max-width: 250px;
   border-radius: 12px;
@@ -113,7 +113,7 @@ border: none;
   display: inline-block;
   position: absolute;
   top: 3px; 
-  left: -19px;
+  left: -119px;
   border: 8px solid transparent;
   border-right: 18px solid rgb(199, 209, 201);
   -webkit-transform: rotate(35deg);
