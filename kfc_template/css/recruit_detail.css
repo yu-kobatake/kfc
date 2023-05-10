@@ -22,6 +22,12 @@
 .cover{
 justify-content: center;
 }
+.main-frame{
+    text-align: center;
+}
+.main-frame img{
+    object-fit: cover;
+}
 .flex{
     display: flex;
     justify-content: space-between;
@@ -29,6 +35,7 @@ justify-content: center;
 .flex li{
     width: 30%;
     list-style: none;
+    text-align: center;
 }
 .flex li img{
     height: 170px;
@@ -36,5 +43,5 @@ justify-content: center;
 }
 .flex li img:hover{
     cursor: pointer;
-opacity: 0.8;
+    opacity: 0.8;
 }
