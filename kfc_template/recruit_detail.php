@@ -292,6 +292,7 @@ var _width = img.width;
 var device_width = $(window).width();
 //横÷縦の値が１以上、つまり横長の場合
 if((img_width / img_height) >= 1){
+  console.log('あああ');
 //.css(ここに挿入以下サンプル）
 if(_width <= device_width){
   //画像幅が画面幅以下の時
