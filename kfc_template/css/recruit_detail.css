@@ -19,10 +19,18 @@
 }
 
 /* 動物の写真 */
+.cover{
+    text-align: center;
+}
 .flex{
     display: flex;
     justify-content: space-between;
 }
 .flex li{
     width: 30%;
+    list-style: none;
+}
+.flex li img{
+    height: 170px;
+    object-fit: cover;
 }
