@@ -27,13 +27,15 @@ justify-content: center;
 }
 .main-frame img{
     object-fit: cover;
+    height: 400px;
+    max-height: 100%;
 }
 .flex{
     display: flex;
     justify-content: space-between;
 }
 .flex li{
-    width: 30%;
+    width: calc(100% / 3);
     list-style: none;
     text-align: center;
 }
