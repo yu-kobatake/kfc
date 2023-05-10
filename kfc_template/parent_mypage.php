@@ -164,7 +164,7 @@ DB接続 userテーブルから会員情報を取り出して表示
             </table>
 
             <form method="POST" action="mypage_change.php">
-            <input type="submit" value="会員情報の変更">
+            <input type="submit" value="会員情報の変更" class="btn_one">
             <input type="hidden" name="user_id" value="{$user_id}">
             </form>
             </div>
@@ -240,8 +240,8 @@ DB接続 userテーブルから会員情報を取り出して表示
                     <img src="./images/animal_photo/{$result[0]['image_1']}" alt="{$result[0]['kind']}">
                     </figure>
                     <div class="text">
-                    <p>{$result[0]['title']}</p>
-                    <p>年齢：{$result[0]['age']}&nbsp;{$good[0]['gender']}</p>
+                    <h4>{$result[0]['title']}</h4>
+                    <p class="name">年齢：{$result[0]['age']}&nbsp;{$good[0]['gender']}</p>
                     <p>{$result[0]['animal_area']}</p>
                     <p>掲載ID：{$result[0]['animal_id']}</p>
                     </div>
@@ -261,7 +261,6 @@ DB接続 userテーブルから会員情報を取り出して表示
         }
         ?>
         <?php
-
         
         /*************************************************************
  退会ページ
@@ -269,7 +268,7 @@ DB接続 userテーブルから会員情報を取り出して表示
         ?>
         <h3>退会</h3>
         <form method="POST" action="delete.php">
-            <input type="submit" value="退会ページへ">
+            <input type="submit" value="退会ページへ" class="btn_back_mini">
             <input type="hidden" name="user_id" value="<?= $user_id; ?>">
         </form>
     </main>

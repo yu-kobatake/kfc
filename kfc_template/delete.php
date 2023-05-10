@@ -1,13 +1,20 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "退会申し込み"
+?>
+<?php include('parts/header.php'); ?>
+<?php
 require_once("./lib/util.php");
 
 // セッション開始
-session_start();
+if(!isset($_SESSION)){
+  session_start();
+}
 
 /* 未ログイン状態のアクセスは、トップへリダイレクトする */
-if (!isset($_POST['user_id'])) {
-   header('Location: ./index.php');
-   exit;
+if(!isset($_POST['user_id'])) {
+  ('Location: ./index.php');
+  exit;
 } else {
   // ログイン済ならば、POSTされた値をセッション変数に受け渡す
   $_SESSION['user_id'] = $_POST['user_id'];
@@ -76,11 +83,7 @@ foreach ($userdata as $val) {
 }
 
 ?>
-<?php
-// titleで読み込むページ名
-$pagetitle = "退会申し込み"
-?>
-<?php include('parts/header.php'); ?>
+
 <div id="container" class="c1">
   <main>
     <h2><?php echo $pagetitle ?></h2>
@@ -107,12 +110,14 @@ $pagetitle = "退会申し込み"
         <tr>
           <th>退会理由をお聞かせください。（任意）</th>
           <td>
-            <textarea name="delete_reason" cols="70" rows="10"></textarea>
+            <textarea name="delete_reason" class="ws" rows="5"></textarea>
           </td>
         </tr>
       </table>
+      <p class="c txtred">※退会すると、登録頂いたデータや記録は戻せません。</p>
       <p class="c">
-        <input type="submit" class="" value="退会する（退会後は戻せません）">
+        <input type="submit" class="btn_one" value="退会する">
+        <button type="button" class="btn_back_one martop10" onclick="location.href='login.php'">戻る</button>
         <input type="hidden" name="is_delete" value="1">
       </p>
     </form>
