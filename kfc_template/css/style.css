@@ -81,8 +81,8 @@ a:hover {
 ---------------------------------------------------------------------------*/
 #container {
 	margin: 5% 2%;		/*上下、左右に空ける余白*/
-	display: flex;		/*flexボックスを使う指定*/
-	justify-content: space-between;	/*並びかたの種類の指定*/
+	/* display: flex;
+	justify-content: space-between; */
 }
 
 
