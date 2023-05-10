@@ -274,12 +274,30 @@ $pagetitle = "里親募集詳細"
 <script src="./js/good.js">
 </script>
 <script>
-    var thumbs = document.querySelectorAll('.thumbnails');
+  var thumbs = document.querySelectorAll('.thumbnails');
   for (var i = 0; i < thumbs.length; i++) {
     thumbs[i].onclick = function() {
       document.getElementById('main-img').src = this.dataset.imagesrc;
     };
   }
 
+  var main_image = document.querySelectorAll('#main-image');
+  var main_frame = document.querySelectorAll('.main-frame');
+  //画像を入れるdivの幅と高さを代入
+  var main_frame_width = main_frame.naturalWidth;
+  var main_frame_height = main_frame.naturalHeight;
+  // 画像読み込みの時間
+  var intervalId = setInterval(function() {
+    if (main_image.complete) {
+      //画像の幅と高さを代入
+      var main_image_width = main_image.naturalWidth;
+      var main_image_height = main_image.naturalHeight;
+      clearInterval(intervalId);
+    }
+  }, 500);
+  //画像の高さがdivより大きい時css付ける
+  if (main_image_height > main_frame_height) {
+    main_image.style.width = 'auto';
+  }
 </script>
 <?php include('parts/footer.php'); ?>
