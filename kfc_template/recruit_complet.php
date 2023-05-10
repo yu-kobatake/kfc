@@ -1,5 +1,14 @@
 <?php
-session_start();
+// titleで読み込むページ名
+$pagetitle = "里親申し込み完了"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if (!isset($_SESSION)) {
+  session_start();
+}
 require_once("./lib/util.php");
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
@@ -62,11 +71,7 @@ $user_id = $result['user_id'];
 // killSession();
 ?>
 
-<?php
-// titleで読み込むページ名
-$pagetitle = "里親申し込み完了"
-?>
-<?php include('parts/header.php'); ?>
+
 <div id="container" class="c1">
     <main>
         <p class="c">申し込みが完了しました。</p>

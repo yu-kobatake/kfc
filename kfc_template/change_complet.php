@@ -1,8 +1,17 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "会員情報の変更完了"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if (!isset($_SESSION)) {
+    session_start();
+}
 require_once("./lib/util.php");
 
-// セッション開始
-session_start();
+
 
 // ユーザーIDがセッションに入っていれば$user_idに代入する
 if (!empty($_SESSION['user_id'])) {
@@ -82,11 +91,7 @@ else :
 
 endif;
 ?>
-<?php
-// titleで読み込むページ名
-$pagetitle = "会員情報の変更完了"
-?>
-<?php include('parts/header.php'); ?>
+
 <div id="container" class="c1">
     <main>
         <h2><?php echo $pagetitle ?></h2>

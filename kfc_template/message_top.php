@@ -1,22 +1,20 @@
 <?php
-session_start();
-require_once("./lib/util.php");
-
-// ユーザーIDがセッションに入っていれば$user_idに代入する
-if (!empty($_SESSION['user_id'])) {
-  $user_id = $_SESSION['user_id'];
-//セッションに入っていなければればログインページに戻す 
-} else { 
-  header("Location:login.php");
-  exit();
-}
-
-?>
-<?php
 // titleで読み込むページ名
 $pagetitle = "トークルーム一覧"
 ?>
-<?php include('parts/header_message.php'); ?>
+<?php include('parts/header.php'); ?>
+<?php
+// セッション開始
+if (!isset($_SESSION)) {
+  session_start();
+}
+require_once("./lib/util.php");
+?>
+<?php
+// titleで読み込むページ名
+
+?>
+
 <div id="container" class='c1' style="display:block">
     <main>
         <div class="mypage_btn">

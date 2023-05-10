@@ -1,5 +1,14 @@
 <?php
-session_start();
+// titleで読み込むページ名
+$pagetitle = "申し込みフォーム"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if (!isset($_SESSION)) {
+  session_start();
+}
 require_once("./lib/util.php");
 
 // tokenの作成
@@ -30,11 +39,7 @@ if (!cken($_POST)) {
 $_POST = es($_POST);
 ?>
 
-<?php
-// titleで読み込むページ名
-$pagetitle = "申し込みフォーム"
-?>
-<?php include('parts/header.php'); ?>
+
 
 <?php
 

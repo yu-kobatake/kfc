@@ -274,51 +274,30 @@ $pagetitle = "里親募集詳細"
 <script src="./js/good.js">
 </script>
 <script>
-    var thumbs = document.querySelectorAll('.thumbnails');
+  var thumbs = document.querySelectorAll('.thumbnails');
   for (var i = 0; i < thumbs.length; i++) {
     thumbs[i].onclick = function() {
       document.getElementById('main-img').src = this.dataset.imagesrc;
     };
   }
 
-$(window).load(function (){
-// ↓ここに幅を変更したいクラスなど入れる
-$('.mainimage img').each(function(){
-var img_height = $(this).height();
-var img_width = $(this).width();
-var img = new Image();
-img.src = $(this).attr('src');
-var _width = img.width;
-var device_width = $(window).width();
-//横÷縦の値が１以上、つまり横長の場合
-if((img_width / img_height) >= 1){
-  console.log('aaa');
-//.css(ここに挿入以下サンプル）
-if(_width <= device_width){
-  //画像幅が画面幅以下の時
-$(this).css("width", "auto");
-console.log('iii');
-}else{
-  //画像幅が画面幅より大きい時
-$(this).css("width", "100%");
-console.log('uuu');
-}
-$(this).css("max-width", "100%");
-}else{
-// そのほかの場合（縦長の場合）こんな感じ
-$(this).css({"max-height":"400px","margin":"0 auto","width":"auto","display":"block"});
-console.log('eee');
-if($(this).width() >= device_width){
-    //画像幅が画面幅以下の時
-$(this).css("width", "100%");
-console.log('ooo');
-}else{
-    //画像幅が画面幅より大きい時
-$(this).css("width", "auto");
-console.log('kkk');
-}
-}
-});
-});
+  var main_image = document.querySelectorAll('#main-image');
+  var main_frame = document.querySelectorAll('.main-frame');
+  //画像を入れるdivの幅と高さを代入
+  var main_frame_width = main_frame.naturalWidth;
+  var main_frame_height = main_frame.naturalHeight;
+  // // 画像読み込みの時間
+  // var intervalId = setInterval(function() {
+  //   if (main_image.complete) {
+  //     //画像の幅と高さを代入
+      var main_image_width = main_image.naturalWidth;
+      var main_image_height = main_image.naturalHeight;
+  //     clearInterval(intervalId);
+  //   }
+  // }, 500);
+  //画像の高さがdivより大きい時css付ける
+  if (main_image_height > main_frame_height) {
+    main_image.style.width = 'auto';
+  }
 </script>
 <?php include('parts/footer.php'); ?>

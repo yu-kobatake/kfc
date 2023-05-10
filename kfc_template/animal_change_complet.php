@@ -6,16 +6,16 @@ $pagetitle = "犬猫情報変更完了"
 <?php include('parts/header.php'); ?>
 <?php
 // セッション開始
-if(!isset($_SESSION)){
-session_start();
+if (!isset($_SESSION)) {
+  session_start();
 }
 require_once("./lib/util.php");
 
 // ユーザーIDがセッションに入っていれば$user_idに代入する
 if (!empty($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
-//セッションに入っていなければればログインページに戻す 
-} else { 
+  //セッションに入っていなければればログインページに戻す 
+} else {
   header("Location:login.php");
   exit();
 }
@@ -61,21 +61,6 @@ if (!empty($_SESSION['animal'])) {
   $animal_area = $_SESSION['animal']['animal_area'];
   $animal_character = $_SESSION['animal']['animal_character'];
   $other = $_SESSION['animal']['other'];
-  
-  
-  // var_dump($file1);
-  // var_dump($file2);
-  // var_dump($file3);
-  // var_dump($title);
-  // var_dump($kind);
-  // var_dump($gender);
-  // var_dump($age);
-  // var_dump($area_1);
-  // var_dump($area_2);
-  // var_dump($area_3);
-  // var_dump($animal_area);
-  // var_dump($animal_character);
-  // var_dump($other);
 
 
   /*************************************************************
@@ -85,7 +70,7 @@ if (!empty($_SESSION['animal'])) {
   // 拡張子を文字列としてreturn
   function mine_type($tmp_name)
   {
-    if (strpos($tmp_name, 'jpg') !== false ||strpos($tmp_name, 'jpeg') !== false) {
+    if (strpos($tmp_name, 'jpg') !== false || strpos($tmp_name, 'jpeg') !== false) {
       return "jpg";
     }
     if (strpos($tmp_name, 'png') !== false) {
@@ -95,22 +80,22 @@ if (!empty($_SESSION['animal'])) {
   //画像3枚分繰り返す 
   for ($i = 1; $i <= 3; $i++) {
     // 画像に変更があれば
-    if (!empty(${"file".$i})) {
+    if (!empty(${"file" . $i})) {
       // $mineには拡張子が文字列として入る
-      ${"mine".$i} = mine_type(${"file".$i}['type']);
+      ${"mine" . $i} = mine_type(${"file" . $i}['type']);
       // var_dump(${"mine".$i});
       // var_dump(${"file".$i}['type']);
       // DBに登録するパス名を変数に入れる
-      ${"image_".$i} = "{$animal_id}_image{$i}.{${"mine".$i}}";
+      ${"image_" . $i} = "{$animal_id}_image{$i}.{${"mine" .$i}}";
       // animal_photoフォルダに保存する際に使用する変数に入れる
-      ${"image_data".$i} = $_SESSION['animal']["image_$i"];
-    } else { 
+      ${"image_data" . $i} = $_SESSION['animal']["image_$i"];
+    } else {
       //画像に変更がなければ現在animal_photoフォルダに保存されている画像名を変数に入れる
       $filename1 = "./images/animal_photo/{$animal_id}_image{$i}.jpg";
       $filename2 = "./images/animal_photo/{$animal_id}_image{$i}.jpeg";
       $filename3 = "./images/animal_photo/{$animal_id}_image{$i}.png";
       // var_dump($filename1);
-      
+
       if (file_exists($filename1)) {
         ${"image_" . $i} = "{$animal_id}_image{$i}.jpg";
       }
@@ -126,7 +111,7 @@ if (!empty($_SESSION['animal'])) {
 
   // セッションの削除
   $_SESSION['animal'] = [];
- 
+
   /*************************************************************
    DB接続 基本情報
    ************************************************************/
@@ -137,59 +122,58 @@ if (!empty($_SESSION['animal'])) {
   $host = 'localhost';
   //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
-  
+
   /*************************************************************
  DB接続 UPDATE animalテーブル
-     ************************************************************/
+   ************************************************************/
 
-    try {
-      
-      $pdo = new PDO($dsn, $user, $password);
-      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      
-      // var_dump($pdo);
-      // sql文：アニマルテーブルを更新する
-      $sql = "UPDATE animal SET title=?,kind=?,gender=?,age=?,area_1=?,area_2=?,area_3=?,animal_area=?,animal_character=?,other=?,image_1=?,image_2=?,image_3=? WHERE animal_id=?";
-      $stm = $pdo->prepare($sql);
-      $result = $stm->execute(array($title, $kind, $gender, $age, $area_1, $area_2, $area_3, $animal_area, $animal_character, $other, $image_1, $image_2, $image_3, $animal_id));
-      
-      // var_dump($image_1);
-      // var_dump($image_2);
-      // var_dump($image_3);
-// 画像3枚分繰り返す
-      for ($i = 1; $i <= 3; $i++) {
-        // 画像の変更があった場合
-        if (!empty(${"file" . $i}))   {
+  try {
 
-          $filename1 = "./images/animal_photo/{$animal_id}_image{$i}.jpg";
-          $filename2 = "./images/animal_photo/{$animal_id}_image{$i}.jpeg";
-          $filename3 = "./images/animal_photo/{$animal_id}_image{$i}.png";
-          // var_dump($filename1);
-          // 既存の画像を削除する
-          if (file_exists($filename1)) {
-            unlink($filename1);
-          }
-          if (file_exists($filename2)) {
-            unlink($filename2);
-          }
-          if (file_exists($filename3)) {
-            unlink($filename3);
-          }
-          // var_dump('./images/animal_photo/' . ${"image_".$i});
-// 新しい画像をanimal_photフォルダにアップロードする
-          file_put_contents('./images/animal_photo/'.${"image_".$i},${"image_data".$i});
+    $pdo = new PDO($dsn, $user, $password);
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // var_dump($pdo);
+    // sql文：アニマルテーブルを更新する
+    $sql = "UPDATE animal SET title=?,kind=?,gender=?,age=?,area_1=?,area_2=?,area_3=?,animal_area=?,animal_character=?,other=?,image_1=?,image_2=?,image_3=? WHERE animal_id=?";
+    $stm = $pdo->prepare($sql);
+    $result = $stm->execute(array($title, $kind, $gender, $age, $area_1, $area_2, $area_3, $animal_area, $animal_character, $other, $image_1, $image_2, $image_3, $animal_id));
+
+    // var_dump($image_1);
+    // var_dump($image_2);
+    // var_dump($image_3);
+    // 画像3枚分繰り返す
+    for ($i = 1; $i <= 3; $i++) {
+      // 画像の変更があった場合
+      if (!empty(${"file" . $i})) {
+
+        $filename1 = "./images/animal_photo/{$animal_id}_image{$i}.jpg";
+        $filename2 = "./images/animal_photo/{$animal_id}_image{$i}.jpeg";
+        $filename3 = "./images/animal_photo/{$animal_id}_image{$i}.png";
+        // var_dump($filename1);
+        // 既存の画像を削除する
+        if (file_exists($filename1)) {
+          unlink($filename1);
         }
+        if (file_exists($filename2)) {
+          unlink($filename2);
+        }
+        if (file_exists($filename3)) {
+          unlink($filename3);
+        }
+        // var_dump('./images/animal_photo/' . ${"image_".$i});
+        // 新しい画像をanimal_photフォルダにアップロードする
+        file_put_contents('./images/animal_photo/' . ${"image_" . $i}, ${"image_data" . $i});
       }
-// $_SESSION['token']の削除
-$_SESSION['token'] = [];
-      
-    } catch (Exception $e) {
-      $e->getMessage();
-      echo "変更に失敗しました。再度入力してください。";
-      echo "<form method = 'post' action ='animal_change.php'>";
-      echo "<input type='submit' value='前のページに戻る'>";
-      echo "<input type='hidden' name='animal_id' value='<?= es($animal_id) ;?>'>";
+    }
+    // $_SESSION['token']の削除
+    $_SESSION['token'] = [];
+  } catch (Exception $e) {
+    $e->getMessage();
+    echo "変更に失敗しました。再度入力してください。";
+    echo "<form method = 'post' action ='animal_change.php'>";
+    echo "<input type='submit' value='前のページに戻る'>";
+    echo "<input type='hidden' name='animal_id' value='<?= es($animal_id) ;?>'>";
 echo "<input type='hidden' name='token' value='<?= es($token) ;?>'>";
 echo "</form>";
 exit();
