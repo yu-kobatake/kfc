@@ -105,7 +105,7 @@ header a {
 /*ロゴ画像*/
 header #logo {
 	margin: 0;line-height: 0;
-	width: 300px;		/*幅*/
+	width: 240px;		/*幅*/
 	margin-left: 40px;	/*左に空ける余白*/
 }
 
@@ -1060,6 +1060,11 @@ header ul {
 .login_area{
 	display: block;
 	width: 100%;
+}
+.login_area div{
+	background: #f7f7f7;
+	margin-bottom: 50px;
+	border-radius: 0 0 10px 10px;
 }
 .login_area div:first-child{
 	margin-right: 0;
