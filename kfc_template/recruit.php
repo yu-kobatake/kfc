@@ -172,8 +172,6 @@ $pagetitle = "里親募集ページ"
             $sql = "SELECT animal_id,age,animal_area,gender,age,title,image_1,image_2,image_3,kind
             FROM animal ";
           }
-          $sql = "SELECT animal_id,age,animal_area,gender,age,title,image_1,image_2,image_3,kind
-            FROM animal ";
         }
 
         // keywordあれば追記
@@ -226,6 +224,29 @@ $pagetitle = "里親募集ページ"
         //該当件数
         $hit = count($result);
         echo "<div class='serch_hit'>該当 {$hit}件です。</div>";
+      } catch (Exception $e) {
+        echo '<span class ="error">エラーがありました</span><br>';
+        echo $e->getMessage();
+        exit();
+      }
+    } else {
+      /* --------- 初期表示（検索前の全表示） --------- */
+      // animalテーブルへの接続
+      try {
+        $pdo = new PDO($dsn, $user, $password);
+        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // SQL文でデータ抽出
+        $sql = "SELECT animal_id,age,animal_area,gender,age,title,image_1,image_2,image_3,kind
+        FROM animal LIMIT 0,20";
+        // プリペアドステートメントを作る
+        $stm = $pdo->prepare($sql);
+
+        // SQLクエリを実行してfetchAll
+        $stm->execute();
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+
       } catch (Exception $e) {
         echo '<span class ="error">エラーがありました</span><br>';
         echo $e->getMessage();
