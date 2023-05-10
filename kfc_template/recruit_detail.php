@@ -287,11 +287,14 @@ $pagetitle = "里親募集詳細"
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="./js/good.js">
-  var thumbs = document.querySelectorAll('.thumbnails');
+</script>
+<script>
+    var thumbs = document.querySelectorAll('.thumbnails');
   for (var i = 0; i < thumbs.length; i++) {
     thumbs[i].onclick = function() {
       document.getElementById('main-img').src = this.dataset.imagesrc;
     };
   }
+
 </script>
 <?php include('parts/footer.php'); ?>
