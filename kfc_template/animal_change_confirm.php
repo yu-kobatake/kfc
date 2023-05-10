@@ -204,7 +204,7 @@ if (count($errors) > 0) {
 
 ?>
 
-<div id="container">
+<div id="container" class="c">
     <main>
         <div class="back_btn">
             <button><a href="animal_change.php">戻る</a></button>
@@ -266,8 +266,9 @@ if (count($errors) > 0) {
             </tbody>
         </table>
         <form method="POST" action="#">
-            <input type="submit" value="この内容で変更する" name="send" formaction="animal_change_complet.php">
-            <input type="submit" value="戻る" formaction="animal_change.php">
+            <input type="submit" value="この内容で変更する" name="send" formaction="animal_change_complet.php" class="btn_one">
+            <input type="button" value="戻る" formaction="animal_change.php" class="btn_back_one">
+            <!-- <input type="submit" value="戻る" formaction="animal_change.php"> -->
             <input type="hidden" name="token" value="<?= es($token); ?>">
             <input type="hidden" name="animal_id" value="<?= es($animal_id); ?>">
 

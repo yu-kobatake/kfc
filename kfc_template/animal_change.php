@@ -120,15 +120,18 @@ try {
 
 ?>
 
-<div id="container">
+<div id="container" class="c1">
     <main>
-        <div class="back_btn">
+        <h2 class="c">登録内容の変更</h2>
+        <!-- <div class="back_btn">
             <button><a href="animal_manage.php">戻る</a></button>
-        </div>
-        <h2>登録内容の変更</h2>
-
-        <img src="./images/animal_photo/<?= $result['image_1']; ?>" alt="{$result['kind']}">
-        <p>掲載ID:<?= $result['animal_id']; ?></p>
+        </div> -->
+        <table class="ta1">
+            <tr>
+                <th>掲載ID:<?= $result['animal_id']; ?></th>
+                <td><img src="./images/animal_photo/<?= $result['image_1']; ?>" alt="{$result['kind']}"></td>
+            </tr>
+        </table>
 
         <?php
         // エラーを受け取る処理
@@ -150,7 +153,6 @@ try {
                     <td><textarea name="title">{$title}</textarea></td>
                 </tr>
                 <tr>
-                    <th rowspan="2">掲載画像<br>(3枚選択)</th>
                     <th>現在登録されている画像</th>
                     <td><p>画像1</p><img src ="./images/animal_photo/{$result['image_1']}" alt="{$result['kind']}" width="200px"></td>
                     <td><p>画像2</p><img src ="./images/animal_photo/{$result['image_2']}" alt="{$result['kind']}" width="200px"></td>
@@ -226,8 +228,9 @@ try {
                 </tr>
             </tbody>
         </table>
-        <input type="submit" value="確認ページへ" name="send" formaction="animal_change_confirm.php">
-        
+        <p class="c">
+        <input type="submit" value="確認ページへ" name="send" formaction="animal_change_confirm.php" class="btn_one">
+        </p>
         <input type="hidden" name="token" value="{$token}">
         <input type="hidden" name="animal_id" value="{$animal_id}">
         <input type="hidden" name="send_image1" value="{$send_image1}">
@@ -235,6 +238,9 @@ try {
         <input type="hidden" name="send_image3" value="{$send_image3}">
 
     </form>
+    <div class="back_btn c">
+    <button onclick="location.href='animal_manage.php'" class="btn_back_one">戻る</button>
+    </div>
 </div>
 </main>
 </div>
