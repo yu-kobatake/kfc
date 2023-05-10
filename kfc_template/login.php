@@ -98,7 +98,7 @@ if (isset($_SESSION['user_id'])) {
                                 <input type="text" name="user_id" class="ws"></label></li>
                         <li><label><span class="label_ttl">パスワード</span><br>
                                 <input type="password" name="password" class="wl"></label></li>
-                        <li><input type="submit" value="ログイン" name="login_send"></li>
+                        <li><input type="submit" value="ログイン" name="login_send" class="btn_one login_btn_left"></li>
                         <input type="hidden" name="token" value="<?= es($token); ?>">
                     </ul>
                 </form>
@@ -111,14 +111,14 @@ if (isset($_SESSION['user_id'])) {
                                 <input type="text" name="user_id" class="ws"></label></li>
                         <li><label><span class="label_ttl">パスワード</span><br>
                                 <input type="password" name="password" class="wl"></label></li>
-                        <li><input type="submit" value="ログイン" name="login_send"></li>
+                        <li><input type="submit" value="ログイン" name="login_send" class="btn_one login_btn_right"></li>
                         <input type="hidden" name="token" value="<?= es($token); ?>">
                     </ul>
                 </form>
             </div>
         </div>
         <h3>会員登録がまだの方</h3>
-        <button type="button" onclick="location.href='signup.php'" class="btn_one bw_size100">新規会員登録はこちら</button>
+        <button type="button" onclick="location.href='signup.php'" class="btn_one">新規会員登録はこちら</button>
     </main>
 </div>
 

@@ -904,6 +904,8 @@ button.btn_back_mini:hover{
 	color: #777;
 }
 
+
+
 /* (犬猫管理) */
 .btn_animal{
 	text-decoration: none;
@@ -959,24 +961,47 @@ button.btn_back_mini:hover{
 
 .login_area{
 	display: flex;
+	margin-bottom: 50px;
 }
 .login_area ul{
 	list-style-type: none;
+	padding: 10px 30px;
 }
 .login_area ul li:not(:first-child){
 	margin-top: 20px;
+	border-top: 1px dotted #ccc;
+	padding-top: 15px;
 }
 .login_area ul li:last-child{
-	margin-top: 30px;
+	padding-top: 30px;
 }
 .login_area div{
 	width: 100%;
+	background: #fcfcfc;
 }
 .login_area div:first-child{
 	margin-right: 4%;
 }
 .login_area .label_ttl{
 	font-weight: bold;
+}
+
+/* ボタン */
+.btn_one.login_btn_left{
+	background: #19e9a6  !important;
+	border: 2px solid #19e9a6 !important;
+}
+.btn_one.login_btn_left:hover{
+	background: #fff !important;
+	color:#19e9a6  !important;
+}
+.btn_one.login_btn_right{
+	background: #e9bc19 !important;
+	border: 2px solid #e9bc19 !important;
+}
+.btn_one.login_btn_right:hover{
+	background: #fff !important;
+	color: #e9bc19 !important;
 }
 
 /* 里親募集関係
