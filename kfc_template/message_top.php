@@ -1,6 +1,16 @@
 <?php
 session_start();
 require_once("./lib/util.php");
+
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
 ?>
 <?php
 // titleで読み込むページ名
@@ -8,11 +18,11 @@ $pagetitle = "トークルーム一覧"
 ?>
 <?php include('parts/header_message.php'); ?>
 <div id="container" class='c1' style="display:block">
-  <main>
-    <div class="mypage_btn">
-      <a href="login.php"><button>＜マイページに戻る</button></a>
-    </div>
-    <?php
+    <main>
+        <div class="mypage_btn">
+            <a href="login.php"><button>＜マイページに戻る</button></a>
+        </div>
+        <?php
     $current_user = get_user($_SESSION['user_id']);
     $message_relations = get_message_relations($current_user['user_id']);
 
@@ -25,32 +35,32 @@ $pagetitle = "トークルーム一覧"
       $bottom_message = get_bottom_message($current_user['user_id'], $destination_user['user_id']);
     ?>
 
-      <body>
+        <body>
 
-        <div class="row">
-          <div class="col-8 offset-2">
-            <a href='message.php?user_id=<?= $destination_user['user_id'] ?>'>
-              <div class="destination_user_list">
-                <div class="icon">
-                  <img src="./images/足跡アイコン.png" alt="アイコン" class="icon_image">
-                </div>
-                <div class='destination_user_info'>
-                  <div class="destination_user_name"><?= $destination_user['user_name'] ?></div>
-                  <?php
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <a href='message.php?user_id=<?= $destination_user['user_id'] ?>'>
+                        <div class="destination_user_list">
+                            <div class="icon">
+                                <img src="./images/足跡アイコン.png" alt="アイコン" class="icon_image">
+                            </div>
+                            <div class='destination_user_info'>
+                                <div class="destination_user_name"><?= $destination_user['user_name'] ?></div>
+                                <?php
                   if(isset($bottom_message['text'])){
                     echo"<span class='destination_user_text'>{$bottom_message['text']}</span>";
                   }
                   ?>
+                            </div>
+                            <!-- <span class="bottom_message_time"><?= convert_to_fuzzy_time($bottom_message['created_at']); ?></span> -->
+                        </div>
+                    </a>
                 </div>
-                <!-- <span class="bottom_message_time"><?= convert_to_fuzzy_time($bottom_message['created_at']); ?></span> -->
-              </div>
-            </a>
-          </div>
-        </div>
-      <?php endforeach; ?>
-      </body>
+            </div>
+            <?php endforeach; ?>
+        </body>
 
-      <?php
+        <?php
 
       function get_bottom_message($user_id, $destination_user_id)
       {
@@ -80,7 +90,7 @@ $pagetitle = "トークルーム一覧"
         }
       }
       ?>
-      <?php
+        <?php
       function convert_to_fuzzy_time($time_db)
       {
         date_default_timezone_set('Asia/Tokyo');
@@ -161,7 +171,7 @@ $pagetitle = "トークルーム一覧"
 
 
       ?>
-  </main>
+    </main>
 </div>
 
 <?php include('parts/footer.php'); ?>

@@ -4,6 +4,15 @@ require_once("./lib/util.php");
 // セッション開始
 session_start();
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
 // 変数へSESSIONの値を格納
 $user_id = $_SESSION['user_id'];
 $user_name = $_SESSION['user_name'];
@@ -79,14 +88,14 @@ $pagetitle = "会員情報の変更完了"
 ?>
 <?php include('parts/header.php'); ?>
 <div id="container" class="c1">
-  <main>
-    <h2><?php echo $pagetitle ?></h2>
-    <div class="c">
-      <p>
-        会員情報の内容を変更しました。<br>
-      </p>
-      <p><a href="./login.php">マイページに戻る</a></p>
-    </div>
-  </main>
+    <main>
+        <h2><?php echo $pagetitle ?></h2>
+        <div class="c">
+            <p>
+                会員情報の内容を変更しました。<br>
+            </p>
+            <p><a href="./login.php">マイページに戻る</a></p>
+        </div>
+    </main>
 </div>
 <?php include('parts/footer.php'); ?>

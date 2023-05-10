@@ -11,13 +11,22 @@ if(!isset($_SESSION)){
   session_start();
 }
 
-/* 未ログイン状態のアクセスは、トップへリダイレクトする */
-if(!isset($_POST['user_id'])) {
-  ('Location: ./index.php');
-  exit;
-} else {
-  // ログイン済ならば、POSTされた値をセッション変数に受け渡す
+// /* 未ログイン状態のアクセスは、トップへリダイレクトする */
+// if(!isset($_POST['user_id'])) {
+//   ('Location: ./index.php');
+//   exit;
+// } else {
+//   // ログイン済ならば、POSTされた値をセッション変数に受け渡す
+//   $_SESSION['user_id'] = $_POST['user_id'];
+// }
+
+// ユーザーIDがセッションに入っていればPOSTされた値をセッション変数に受け渡す
+if (!empty($_SESSION['user_id'])) {
   $_SESSION['user_id'] = $_POST['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
 }
 
 // 文字エンコードの検証
@@ -85,44 +94,45 @@ foreach ($userdata as $val) {
 ?>
 
 <div id="container" class="c1">
-  <main>
-    <h2><?php echo $pagetitle ?></h2>
-    <form action="delete_complet.php" method="POST">
-      <table class="ta1">
-        <tr>
-          <th>ユーザーID</th>
-          <td>
-            <?php echo $HIT; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>ユーザー名</th>
-          <td>
-            <?php echo $user_name; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>メールアドレス</th>
-          <td>
-            <?php echo $email; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>退会理由をお聞かせください。（任意）</th>
-          <td>
-            <textarea name="delete_reason" class="ws" rows="5"></textarea>
-          </td>
-        </tr>
-      </table>
-      <p class="c txtred">※退会すると、登録頂いたデータや記録は戻せません。</p>
-      <p class="c">
-        <input type="submit" class="btn_one" value="退会する">
-        <button type="button" class="btn_back_one martop10" onclick="location.href='login.php'">戻る</button>
-        <input type="hidden" name="is_delete" value="1">
-      </p>
-    </form>
-  </main>
+    <main>
+        <h2><?php echo $pagetitle ?></h2>
+        <form action="delete_complet.php" method="POST">
+            <table class="ta1">
+                <tr>
+                    <th>ユーザーID</th>
+                    <td>
+                        <?php echo $HIT; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>ユーザー名</th>
+                    <td>
+                        <?php echo $user_name; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>メールアドレス</th>
+                    <td>
+                        <?php echo $email; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>退会理由をお聞かせください。（任意）</th>
+                    <td>
+                        <textarea name="delete_reason" class="ws" rows="5"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <p class="c txtred">※退会すると、登録頂いたデータや記録は戻せません。</p>
+            <p class="c">
+                <input type="submit" class="btn_one" value="退会する">
+                <button type="button" class="btn_back_one martop10" onclick="location.href='login.php'">戻る</button>
+                <input type="hidden" name="is_delete" value="1">
+            </p>
+        </form>
+    </main>
 </div>
 <?php include('parts/footer.php'); ?>
 </body>
+
 </html>

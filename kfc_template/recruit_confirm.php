@@ -9,6 +9,16 @@ $host = 'localhost';
 $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 ?>
 <?php
+
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
 if (!cken($_POST)) {
   exit("不正な文字コードです。");
 }
@@ -37,14 +47,15 @@ $pagetitle = "里親申し込み確認"
 ?>
 <?php include('parts/header.php'); ?>
 <div id="container" class="c1">
-  <main>
-    <div class="back_btn">
-      <form action="./recruit_form.php" method="get">
-        <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
-        <button type="button" onclick="location.href='recruit_form.php'" class="btn_back_mini">< 戻る</button>
-      </form>
-    </div>
-    <?php
+    <main>
+        <div class="back_btn">
+            <form action="./recruit_form.php" method="get">
+                <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
+                <button type="button" onclick="location.href='recruit_form.php'" class="btn_back_mini">
+                    < 戻る</button>
+            </form>
+        </div>
+        <?php
     if (!empty($_POST['animal_id'])) {
       $animal_id = $_POST['animal_id'];
       $_SESSION['animal_id'] = $animal_id;
@@ -144,7 +155,7 @@ $pagetitle = "里親申し込み確認"
     }
     ?>
 
-    <?php
+        <?php
     // チェックボックス確認
     $errors_agree = [];
     $_SESSION['errors_agree'] = [];
@@ -233,7 +244,7 @@ $pagetitle = "里親申し込み確認"
       header("Location:recruit_form.php");
     }
     ?>
-    <?php
+        <?php
     // エラー無ければ回答内容を表示
     if (count($errors) === 0 && count($errors_agree) === 0) {
       echo <<<"EOL"
@@ -265,12 +276,12 @@ $pagetitle = "里親申し込み確認"
 
     ?>
 
-    <form action="recruit_complet.php" method="POST">
-      <!-- token -->
-      <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
-      <input type="submit" name="submit" value="この内容で申し込みする" class="btn_one">
-    </form>
-  </main>
+        <form action="recruit_complet.php" method="POST">
+            <!-- token -->
+            <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
+            <input type="submit" name="submit" value="この内容で申し込みする" class="btn_one">
+        </form>
+    </main>
 </div>
 
 <?php include('parts/footer.php'); ?>
