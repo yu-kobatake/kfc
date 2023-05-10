@@ -25,8 +25,7 @@ killSession();
 <div id="container" class="c1">
     <main>
         <h2>ログアウトしました。</h2>
-        <p class="c"><a href="index.php"><button class="btn_back_one bw_size30">トップページへ戻る</button></a></p>
+        <p class="c"><button onclick="location.href='index.php'" class="btn_back_one bw_size30">トップページへ戻る</button</p>
     </main>
 </div>
-
 <?php include('parts/footer.php'); ?>

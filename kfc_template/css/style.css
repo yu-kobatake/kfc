@@ -993,7 +993,24 @@ button.btn_back_mini:hover{
 	height: 10em;
 	width: 100%;
 }
+.animal_photo_all{
+	width: 80%;
+	margin: auto;
+}
+/*3列に並べる*/
+.animal_photo{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	margin-top: 0.3rem;
+	margin-bottom: 0.3rem;
+}
 
+.error{
+	background: #ffeded;
+	color: red;
+	padding: 10px;
+	display: block;
+}
 
 
 /*その他
