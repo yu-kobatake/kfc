@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+.btn-good {
+    display: inline-block;
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+.btn-good:hover {
+    color: #f44336;
+}
+
+.active {
+    color: #f44336;
+}
+
+.btn-good .active {
+    color: #f44336;
+}
+
+/* 動物の写真 */
+.cover{
+    text-align: center;
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+.flex li{
+    width: 30%;
+    list-style: none;
+}
+.flex li img{
+    height: 170px;
+    object-fit: cover;
+}
