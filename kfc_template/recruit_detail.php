@@ -299,5 +299,7 @@ $pagetitle = "里親募集詳細"
   if (main_image_height > main_frame_height) {
     main_image.style.width = 'auto';
   }
+  console.log(main_frame_height);
+  console.log(main_image_height);
 </script>
 <?php include('parts/footer.php'); ?>
