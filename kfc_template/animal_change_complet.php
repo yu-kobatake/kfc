@@ -195,6 +195,7 @@ exit();
     <input type="submit" value="ページを確認する" name="<?= $animal_id; ?>"
         formaction="recruit_detail.php?animal_id=<?= es($animal_id); ?>">
     <input type="submit" value="犬猫管理画面へ" formaction="animal_manage.php">
+    <input type="hidden" name="breeder" value="breeder">
 
 </form>
 

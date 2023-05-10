@@ -58,8 +58,8 @@ try {
  ?>
 <div id="container" class="c1">
     <main>
-      <h2>犬猫管理画面</h2>
-    <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">戻る</button>
+        <h2>犬猫管理画面</h2>
+        <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">戻る</button>
         <?php
     // 犬猫を登録していれば表示
     if ($result_count > 0) {
@@ -93,6 +93,7 @@ try {
             <input type="submit" value="修正" class="btn_animal change" formaction="animal_change.php">
             <input type="submit" value="削除" class="btn_animal del" formaction="animal_delete.php">
             <input type="hidden" name="animal_id" value="{$row['animal_id']}">
+            <input type="hidden" name="breeder" value="breeder">
             </form>
           </div>
         </div>
