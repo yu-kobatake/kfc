@@ -269,7 +269,7 @@ $pagetitle = "里親募集詳細"
                                     style="width: 30%;">
                             </div>
                         </div> -->
-
+<p style="color:red">里親申し込みには会員登録が必要です。</p>
       <!-- 申込フォームへ -->
       <form action="./recruit_form.php" method="POST">
         <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
