@@ -1,5 +1,13 @@
 <?php
-session_start();
+// titleで読み込むページ名
+$pagetitle = "里親マイページ"
+?>
+<?php include('parts/header.php'); ?>
+<?php
+// セッション開始
+if (!isset($_SESSION)) {
+  session_start();
+}
 require_once("./lib/util.php");
 // エンコードチェック
 if (!cken($_POST)) {
@@ -8,8 +16,8 @@ if (!cken($_POST)) {
     exit($err);
 }
 
-var_dump($_SESSION);
-var_dump($_POST);
+// var_dump($_SESSION);
+// var_dump($_POST);
 // エスケープ処理
 $_POST = es($_POST);
 
@@ -113,8 +121,7 @@ if (!empty($_POST['login_send'])) {
     }
 }
 
-include('parts/header.php');
-$pagetitle = "里親マイページ";
+
 ?>
 <div id="container" class="c1">
     <main>

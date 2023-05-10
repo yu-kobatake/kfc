@@ -6,8 +6,8 @@ $pagetitle = "犬猫登録削除完了"
 
 <?php
 // セッション開始
-if(!isset($_SESSION)){
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
 }
 
 require_once("./lib/util.php");
@@ -15,8 +15,8 @@ require_once("./lib/util.php");
 
 // セッションにユーザーIDが入っていなければログインページに飛ばす
 if (empty($_SESSION['user_id'])) {
-  header("Location:login.php");
-  exit();
+    header("Location:login.php");
+    exit();
 }
 
 // 不正アクセスチェックとanimal_idの取得
@@ -36,13 +36,13 @@ if (empty($_SESSION['animal_id']) && empty($_POST['animal_id'])) {
 /*************************************************************
  DB接続 基本情報
  ************************************************************/
-  // データベース接続
-  $user = 'shotohlcd31_kfc';
-  $password = 'KFCpassword';
-  $dbName = 'shotohlcd31_kfc';
-  $host = 'localhost';
-  //$host = 'sv14471.xserver.jp';
-  $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+// データベース接続
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
+$host = 'localhost';
+//$host = 'sv14471.xserver.jp';
+$dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
 
 /*************************************************************
@@ -59,9 +59,9 @@ try {
     $stm = $pdo->prepare($sql);
     $stm->execute();
     //削除した行数を取得
-$cnt = $stm->rowCount();
-//削除した行数が1以上なら削除成功、0なら削除できる番号がないとみなす
-// var_dump($cnt);
+    $cnt = $stm->rowCount();
+    //削除した行数が1以上なら削除成功、0なら削除できる番号がないとみなす
+    // var_dump($cnt);
     // var_dump($result);
 
 ?>
@@ -75,10 +75,10 @@ $cnt = $stm->rowCount();
 </div>
 <?php
 } catch (Exception $e) {
-$e->getMessage();
-echo "エラーが発生しました。2";
-// エラーの場合は犬猫管理ページに
-echo "<button><a class='error' href='animal_manage.php'>戻る</a></button>";
+    $e->getMessage();
+    echo "エラーが発生しました。2";
+    // エラーの場合は犬猫管理ページに
+    echo "<button><a class='error' href='animal_manage.php'>戻る</a></button>";
 }
 
 ?>

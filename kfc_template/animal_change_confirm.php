@@ -149,38 +149,7 @@ $errors[] = "【募集対地域は画像】は3つ選択してください。";
        
 }
 
-
-// if (in_array($_POST['area_1'], $prefList)) {
-//     if ($_POST['area_1'] === "選択してください" ||$_POST['area_1'] === "設定しない") {
-//         $errors[] = "【募集対象地域1】は必須です";
-//     } else {
-//         $area_1 = $_POST["area_1"];
-//     }
-// } else {
-//     $errors[] = "【募集対象地域1】に入力エラーがありました。";
-// }
-
-
-// if (in_array($_POST['area_2'], $prefList)) {
-// if ($_POST['area_2'] === "選択してください" || $_POST['area_2'] === "設定しない") {
-//         $area_2 = "未設定";
-//     } else {
-//         $area_2 = $_POST["area_2"];
-//     }
-// } else {
-//     $errors[] = "【募集対象地域2】に入力エラーがありました。";
-// }
-
-// if (in_array($_POST['area_3'], $prefList)) {
-//     if ($_POST['area_3'] === "選択してください" || $_POST['area_3'] === "設定しない") {
-//         $area_3 = "未設定";
-//     } else {
-//         $area_3 = $_POST["area_3"];
-//     }
-// } else {
-//     $errors[] = "【募集対象地域3】に入力エラーがありました。";
-// }
-
+// 動物がいる地域のバリデーション
 if (in_array($_POST['animal_area'], $prefList)) {
     if ($_POST['animal_area'] === "選択してください" || empty($_POST['animal_area'])) {
         $errors[] = "【動物がいる地域】は必須です";
@@ -232,22 +201,6 @@ if (count($errors) > 0) {
     header("Location:animal_change.php");
     exit();
 }
-
-// var_dump($_POST);
-// var_dump($_FILES);
-// var_dump($file1);
-// var_dump($file2);
-// var_dump($file3);
-// var_dump($title);
-// var_dump($kind);
-// var_dump($gender);
-// var_dump($age);
-// var_dump($area_1);
-// var_dump($area_2);
-// var_dump($area_3);
-// var_dump($animal_area);
-// var_dump($animal_character);
-// var_dump($other);
 
 ?>
 

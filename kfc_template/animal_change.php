@@ -6,8 +6,8 @@ $pagetitle = "犬猫情報変更"
 
 <?php
 // セッション開始
-if(!isset($_SESSION)){
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
 }
 
 require_once("./lib/util.php");
@@ -17,12 +17,12 @@ require_once("./lib/util.php");
 // ユーザーIDがセッションに入っていれば$user_idに代入する
 if (!empty($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-  //セッションに入っていなければればログインページに戻す 
-  } else { 
+    //セッションに入っていなければればログインページに戻す 
+} else {
     header("Location:login.php");
     exit();
-  }
-  
+}
+
 // 不正アクセスチェックとanimal_idの取得
 if (empty($_SESSION['animal_id']) && empty($_POST['animal_id'])) {
     echo "不正なアクセスです。err:1";
@@ -44,13 +44,13 @@ $_SESSION['token'] = $token;
 /*************************************************************
  DB接続 基本情報
  ************************************************************/
-  // データベース接続
-  $user = 'shotohlcd31_kfc';
-  $password = 'KFCpassword';
-  $dbName = 'shotohlcd31_kfc';
-  $host = 'localhost';
-  //$host = 'sv14471.xserver.jp';
-  $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
+// データベース接続
+$user = 'shotohlcd31_kfc';
+$password = 'KFCpassword';
+$dbName = 'shotohlcd31_kfc';
+$host = 'localhost';
+//$host = 'sv14471.xserver.jp';
+$dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
 
 /*************************************************************
@@ -91,7 +91,8 @@ try {
     $prefList = array(
         '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
     );
-    function select_option($area){
+    function select_option($area)
+    {
         global $prefList;
         $pref_optionlist = "";
         foreach ($prefList as $pref_option) {
@@ -101,7 +102,6 @@ try {
             $pref_optionlist .= "<option value='{$pref_option}'>{$pref_option}</option>";
         }
         return $pref_optionlist;
-        
     }
     // 都道府県選択のオプション設定
     $area_1_option = select_option($area_1);
@@ -127,8 +127,8 @@ try {
         </div>
         <h2>登録内容の変更</h2>
 
-        <img src="./images/animal_photo/<?= $result['image_1'] ;?>" alt="{$result['kind']}">
-        <p>掲載ID:<?= $result['animal_id'] ;?></p>
+        <img src="./images/animal_photo/<?= $result['image_1']; ?>" alt="{$result['kind']}">
+        <p>掲載ID:<?= $result['animal_id']; ?></p>
 
         <?php
         // エラーを受け取る処理

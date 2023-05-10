@@ -1,5 +1,14 @@
 <?php
-session_start();
+// titleで読み込むページ名
+$pagetitle = "里親申し込み確認"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if (!isset($_SESSION)) {
+  session_start();
+}
 require_once("./lib/util.php");
 
 $user = 'shotohlcd31_kfc';
@@ -41,11 +50,7 @@ $_POST = es($_POST);
 
 ?>
 
-<?php
-// titleで読み込むページ名
-$pagetitle = "里親申し込み確認"
-?>
-<?php include('parts/header.php'); ?>
+
 <div id="container" class="c1">
     <main>
         <div class="back_btn">

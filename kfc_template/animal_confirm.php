@@ -6,8 +6,8 @@ $pagetitle = "犬猫登録確認"
 
 <?php
 // セッション開始
-if(!isset($_SESSION)){
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
 }
 
 require_once("./lib/util.php");
@@ -15,11 +15,11 @@ require_once("./lib/util.php");
 // ユーザーIDがセッションに入っていれば$user_idに代入する
 if (!empty($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-  //セッションに入っていなければればログインページに戻す 
-  } else { 
+    //セッションに入っていなければればログインページに戻す 
+} else {
     header("Location:login.php");
     exit();
-  }
+}
 
 // エンコードチェック
 if (!cken($_POST)) {
@@ -63,26 +63,28 @@ if (empty($title)) {
 // $file1,$file2,$file3($_FILEの連想配列が入っている)
 //  画像のバリデーション
 // ファイルがアップロードされているか
-if(!is_uploaded_file($_FILES["image_1"]['tmp_name']) || 
-!is_uploaded_file($_FILES["image_2"]['tmp_name']) || 
-!is_uploaded_file($_FILES["image_3"]['tmp_name'])){
+if (
+    !is_uploaded_file($_FILES["image_1"]['tmp_name']) ||
+    !is_uploaded_file($_FILES["image_2"]['tmp_name']) ||
+    !is_uploaded_file($_FILES["image_3"]['tmp_name'])
+) {
     $errors[] = "【掲載画像】は3枚選択してください。";
-}else{
-    
-    for($i = 1; $i<= 3; $i++){
-            $allow_ext = array('jpg','jpeg','png');
-            $file_ext = pathinfo($_FILES["image_{$i}"]['name'],PATHINFO_EXTENSION);
-            // 拡張子が正しいかの確認
-            if(!in_array(strtolower($file_ext),$allow_ext)){
-                $errors[] = "【画像{$i}】は画像ファイルを添付してください";
-            } else{
-                ${"file".$i} = $_FILES["image_{$i}"];
-                //選択した犬猫画像を読み込む 
-                $_SESSION['animal']["image_{$i}"]['data'] = file_get_contents($_FILES["image_{$i}"]['tmp_name']);
-                $_SESSION['animal']["image_{$i}"]['type'] = exif_imagetype($_FILES["image_{$i}"]['tmp_name']);
-            } 
+} else {
+
+    for ($i = 1; $i <= 3; $i++) {
+        $allow_ext = array('jpg', 'jpeg', 'png');
+        $file_ext = pathinfo($_FILES["image_{$i}"]['name'], PATHINFO_EXTENSION);
+        // 拡張子が正しいかの確認
+        if (!in_array(strtolower($file_ext), $allow_ext)) {
+            $errors[] = "【画像{$i}】は画像ファイルを添付してください";
+        } else {
+            ${"file" . $i} = $_FILES["image_{$i}"];
+            //選択した犬猫画像を読み込む 
+            $_SESSION['animal']["image_{$i}"]['data'] = file_get_contents($_FILES["image_{$i}"]['tmp_name']);
+            $_SESSION['animal']["image_{$i}"]['type'] = exif_imagetype($_FILES["image_{$i}"]['tmp_name']);
         }
-    } 
+    }
+}
 
 // 犬種/猫種のバリデーション
 $kind = preg_replace('/^[　]+|[　]+$/u', "", $_POST["kind"]);
@@ -114,25 +116,25 @@ if (empty($age)) {
 
 // 募集地域/犬猫がいる地域のバリデーション
 $prefList = array(
-    '選択してください','北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県',
+    '選択してください', '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県',
     '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
 );
 
-if(($_POST["area_1"] === "選択してください" || empty($_POST["area_1"]))|| 
-($_POST["area_2"] === "選択してください" || empty($_POST["area_2"]))|| 
-($_POST["area_3"] === "選択してください" || empty($_POST["area_3"]))){
-$errors[] = "【募集対象地域】は3つ選択してください。";
+if (($_POST["area_1"] === "選択してください" || empty($_POST["area_1"])) ||
+    ($_POST["area_2"] === "選択してください" || empty($_POST["area_2"])) ||
+    ($_POST["area_3"] === "選択してください" || empty($_POST["area_3"]))
+) {
+    $errors[] = "【募集対象地域】は3つ選択してください。";
 } else {
-    
-    for($i = 1; $i<= 3; $i++){
-        
+
+    for ($i = 1; $i <= 3; $i++) {
+
         if (in_array($_POST["area_{$i}"], $prefList)) {
-            ${"area_".$i} = $_POST["area_{$i}"];
+            ${"area_" . $i} = $_POST["area_{$i}"];
         } else {
             $errors[] = "【募集対象地域{$i}】に入力エラーがありました。";
-        } 
+        }
     }
-       
 }
 
 

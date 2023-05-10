@@ -1,5 +1,14 @@
 <?php
-session_start();
+// titleで読み込むページ名
+$pagetitle = "ブリーダーマイページ"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if (!isset($_SESSION)) {
+    session_start();
+}
 require_once("./lib/util.php");
 // エンコードチェック
 if (!cken($_POST)) {
@@ -113,10 +122,7 @@ if (!empty($_POST['login_send'])) {
     }
 }
 ?>
-<?php
-$pagetitle = "ブリーダーマイページ";
- include('parts/header.php');
-?>
+
 <div id="container" class="c1">
     <main>
         <div>
