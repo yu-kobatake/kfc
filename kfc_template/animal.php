@@ -113,9 +113,10 @@ $_SESSION['token'] = $token;
         $_SESSION['error'] = [];
         $errors = [];
         ?>
-        <div class="back_btn">
-            <button><a href="breeder_mypage.php">戻る</a></button>
-        </div>
+        <!-- <div class="back_btn">
+            <button><a href="">戻る</a></button>
+        </div> -->
+        <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">戻る</button>
         <h2>犬猫の登録</h2>
         <div>
             <h3>ご注意</h3>
@@ -170,7 +171,7 @@ $_SESSION['token'] = $token;
         </div>
         <h3>犬猫情報の入力</h3>
         <p>同意事項に同意の上、下記フォームに入力していただき確認ページへお進みください。</p>
-        <p>全て入力必須</p>
+        <p>※全て入力必須項目です。</p>
         <?php
         // 入力内容に不備があった場合のエラー表示
         if (!empty($_SESSION['animal']['error'])) {
@@ -182,9 +183,8 @@ $_SESSION['token'] = $token;
         ?>
 
         <form method="POST" action="animal_confirm.php" enctype="multipart/form-data">
-            <table class="ta1">
-                <tbody>
-
+            <table class="ta1 animal_post">
+                <!-- <tbody> -->
                     <tr>
                         <th>掲載タイトル<br></th>
                         <td><textarea name="title" placeholder="例）マイペースで優しい柴犬の男の子"><?= es($title); ?></textarea></td>
@@ -263,10 +263,14 @@ $_SESSION['token'] = $token;
                             <textarea name="other"><?= $other; ?></textarea>
                         </td>
                     </tr>
-                </tbody>
+                <!-- </tbody> -->
             </table>
-            <input type="submit" value="確認ページへ" name="send" formaction="animal_confirm.php">
-            <input type="submit" value="戻る" formaction="login.php">
+            <p class="c">
+                <input type="submit" value="確認ページへ" name="send" formaction="animal_confirm.php" class="btn_one">
+            </p>
+            <p class="c">
+                <input type="submit" value="戻る" formaction="login.php" class="btn_back_one">
+            </p>
             <input type="hidden" name="token" value="<?= es($token); ?>">
 
 

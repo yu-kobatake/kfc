@@ -1,5 +1,12 @@
 <?php
-session_start();
+$pagetitle = "犬猫管理ページ";
+include('parts/header.php');
+
+// セッション開始
+if(!isset($_SESSION)){
+  session_start();
+}
+
 require_once("./lib/util.php");
 
 // ユーザーIDがセッションに入っていれば$user_idに代入する
@@ -48,11 +55,11 @@ try {
   exit();
 }
 
-$pagetitle = "犬猫管理ページ";
-include('parts/header.php'); ?>
-<div id="container">
-
+ ?>
+<div id="container" class="c1">
     <main>
+      <h2>犬猫管理画面</h2>
+    <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">戻る</button>
         <?php
     // 犬猫を登録していれば表示
     if ($result_count > 0) {
@@ -71,22 +78,20 @@ include('parts/header.php'); ?>
           
           // 
           echo "<div class='animal list-container'>";
-          echo "<div class='back_btn'>";
-             echo" <button><a href='breeder_mypage.php'>戻る</a></button>";
-          echo "</div>";
+
       foreach ($result as $row) {
         echo <<<"EOL"
         <div class="list">
         <figure><img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}"></figure>
         <div class="text">
-        <p>{$row['title']}</p>
-            <p>年齢：{$row['age']}&nbsp;{$row['gender']}</p>
+        <h4>{$row['title']}</h4>
+            <p class="name">年齢：{$row['age']}&nbsp;{$row['gender']}</p>
             <p>{$row['animal_area']}</p>
             <p>掲載ID：{$row['animal_id']}</p>
-            <form method="POST" action="#">
-            <input type="submit" value="確認" formaction="recruit_detail.php?animal_id={$row['animal_id']}">
-            <input type="submit" value="修正" formaction="animal_change.php">
-            <input type="submit" value="削除" formaction="animal_delete.php">
+            <form method="POST" action="#" class="c martop10">
+            <input type="submit" value="確認" class="btn_animal conf" formaction="recruit_detail.php?animal_id={$row['animal_id']}">
+            <input type="submit" value="修正" class="btn_animal change" formaction="animal_change.php">
+            <input type="submit" value="削除" class="btn_animal del" formaction="animal_delete.php">
             <input type="hidden" name="animal_id" value="{$row['animal_id']}">
             </form>
           </div>
@@ -108,7 +113,7 @@ include('parts/header.php'); ?>
     
     ?>
         <form method="POST" action="breeder_mypage.php">
-            <input type="submit" value="マイページへ戻る">
+            <input type="submit" value="マイページへ戻る" class="btn_back_one">
         </form>
     </main>
 </div>

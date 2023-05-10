@@ -813,9 +813,6 @@ select{
 
 
 
-.martop6{
-	margin-top: 6px;
-}
 
 
 /* 独立submitボタン */
@@ -850,6 +847,7 @@ button.btn_one:hover{
 }
 /* 戻るボタン（大） */
 a.btn_back_one,
+input[type="submit"].btn_back_one,
 input[type="button"].btn_back_one,
 button.btn_back_one{
 	display: block;
@@ -869,6 +867,7 @@ button.btn_back_one{
 	width: 50%;
 }
 a.btn_back_one:hover,
+input[type="submit"].btn_back_one:hover,
 input[type="button"].btn_back_one:hover,
 button.btn_back_one:hover{
 	background: #fff;
@@ -876,6 +875,14 @@ button.btn_back_one:hover{
 }
 
 /* 小さい戻るボタン */
+.btn_back_mini a{
+	text-decoration: none;
+	color: #fff;
+}
+.btn_back_mini a:hover{
+	opacity: 1;
+	color: #777;
+}
 input.btn_back_mini,
 button.btn_back_mini{
     text-decoration: none;
@@ -897,6 +904,42 @@ button.btn_back_mini:hover{
 	color: #777;
 }
 
+/* (犬猫管理) */
+.btn_animal{
+	text-decoration: none;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	color: #fff;
+	padding: 6px 10px;
+	cursor: pointer;
+	transition: 0.5s;
+	border-radius: 6px;
+}
+.btn_animal.conf{
+	background: #e94019;
+	border: 2px solid #e94019;
+}
+.btn_animal.conf:hover{
+	background: #fff;
+	color: #e94019;
+}
+.btn_animal.change{
+	background: #1993e9;
+	border: 2px solid #1993e9;
+}
+.btn_animal.change:hover{
+	background: #fff;
+	color: #1993e9;
+}
+.btn_animal.del{
+	background: #777;
+	border: 2px solid #777;
+}
+.btn_animal.del:hover{
+	background: #fff;
+	color: #777;
+}
 
 
 /* ボタンサイズ変更時（デフォルト100%） */
@@ -943,6 +986,15 @@ button.btn_back_mini:hover{
 	width: 70%;
 }
 
+/* 犬猫管理関係
+---------------------------------------------------------------------------*/
+/* 犬猫登録 */
+.animal_post textarea{
+	height: 10em;
+	width: 100%;
+}
+
+
 
 /*その他
 ---------------------------------------------------------------------------*/
@@ -960,6 +1012,11 @@ button.btn_back_mini:hover{
 .small {font-size: 0.6em;}
 .large {font-size: 2.5em; letter-spacing: 0.1em;}
 .thumbnail {width: 70px;}
+/* 追記 */
+.txtred{ color:red; }
+.martop6{ margin-top: 6px !important; }
+.martop10{ margin-top: 10px !important; }
+.marbtm10{ margin-bottom: 10px !important; }
 
 
 
@@ -1123,6 +1180,9 @@ ul.submenu:not(.btn) li a:hover {
 .list {
 	width: 24%;				/*幅*/
 	margin-right: 1.33%;	/*右側に空けるスペース*/
+}
+.list img{
+	width: 100%;
 }
 
 /*２の倍数のlistブロックへの追加設定。小さな端末用で0と指定しているので、改めて大きな端末用のマージンを指定。*/
