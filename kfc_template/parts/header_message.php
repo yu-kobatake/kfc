@@ -56,6 +56,6 @@
     </div>
     <?php
 // セッションの削除
-session_destroy();
+//session_destroy();
     ?>
     <!--/#menubar-->
