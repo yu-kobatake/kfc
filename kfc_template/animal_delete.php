@@ -1,5 +1,16 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "犬猫登録削除"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if(!isset($_SESSION)){
 session_start();
+}
+
+
 require_once("./lib/util.php");
 // var_dump($_SESSION);
 // var_dump($_POST);
@@ -54,10 +65,7 @@ try {
     // var_dump($result);
     // エスケープ処理
     $result = es($result);
-    
-    // titleで読み込むページ名
-    $pagetitle = "犬猫登録削除";
-    include('parts/header.php');
+
     foreach ($result as $row) {
         echo <<<"EOL"
         <div id="container">

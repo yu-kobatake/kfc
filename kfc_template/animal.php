@@ -1,8 +1,18 @@
 <?php
-session_start();
-require_once("./lib/util.php");
 // titleで読み込むページ名
-$pagetitle = "ペット情報登録画面";
+$pagetitle = "犬猫登録"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if(!isset($_SESSION)){
+session_start();
+}
+
+
+require_once("./lib/util.php");
+
 // var_dump($_SESSION);
 // var_dump($_POST);
 
@@ -22,7 +32,7 @@ $_SESSION['token'] = $token;
 
 
 ?>
-<?php include('parts/header.php'); ?>
+
 <div id="container" class="c1">
     <main>
 

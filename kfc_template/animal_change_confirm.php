@@ -1,8 +1,16 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "犬猫情報変更確認"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if(!isset($_SESSION)){
 session_start();
+}
+
 require_once("./lib/util.php");
-var_dump($_SESSION);
-var_dump($_POST);
 
 
 // ユーザーIDがセッションに入っていれば$user_idに代入する
@@ -243,13 +251,6 @@ if (count($errors) > 0) {
 
 ?>
 
-
-
-<?php
-// titleで読み込むページ名
-$pagetitle = "犬猫登録確認"
-?>
-<?php include('parts/header.php'); ?>
 <div id="container">
     <main>
         <div class="back_btn">

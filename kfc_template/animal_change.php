@@ -1,5 +1,15 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "犬猫情報変更"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if(!isset($_SESSION)){
 session_start();
+}
+
 require_once("./lib/util.php");
 // var_dump($_SESSION);
 // var_dump($_POST);
@@ -108,10 +118,6 @@ try {
     $send_image2 =  "./images/animal_photo/{$result['image_2']}";
     $send_image3 =  "./images/animal_photo/{$result['image_3']}";
 
-
-    // titleで読み込むページ名
-    $pagetitle = "ここはタイトル";
-    include('parts/header.php');
 ?>
 
 <div id="container">
