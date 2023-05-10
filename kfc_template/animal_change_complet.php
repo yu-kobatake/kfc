@@ -1,9 +1,15 @@
 <?php
-session_start();
-require_once("./lib/util.php");
 // titleで読み込むページ名
-$pagetitle = "ペット情報変更完了";
+$pagetitle = "犬猫情報変更完了"
+?>
 
+<?php include('parts/header.php'); ?>
+<?php
+// セッション開始
+if(!isset($_SESSION)){
+session_start();
+}
+require_once("./lib/util.php");
 
 // ユーザーIDがセッションに入っていれば$user_idに代入する
 if (!empty($_SESSION['user_id'])) {
@@ -38,7 +44,7 @@ if (!empty($_SESSION['animal'])) {
   $_SESSION['animal']['error'] = [];
 ?>
 
-<?php include('parts/header.php'); ?>
+
 <?php
 
   // セッションの変更情報を変数に入れる

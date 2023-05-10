@@ -1,5 +1,15 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "犬猫登録削除完了"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if(!isset($_SESSION)){
 session_start();
+}
+
 require_once("./lib/util.php");
 
 
@@ -54,10 +64,8 @@ $cnt = $stm->rowCount();
 // var_dump($cnt);
     // var_dump($result);
 
-  // titleで読み込むページ名
-  $pagetitle = "犬猫登録情報削除完了"
 ?>
-<?php include('parts/header.php'); ?>
+
 <div id="container">
     <main>
         <?php echo "<p>掲載ID:$animal_id の登録情報を削除しました。</p>" ?>

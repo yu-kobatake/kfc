@@ -1,5 +1,15 @@
 <?php
+// titleで読み込むページ名
+$pagetitle = "犬猫登録完了"
+?>
+<?php include('parts/header.php'); ?>
+
+<?php
+// セッション開始
+if(!isset($_SESSION)){
 session_start();
+}
+
 require_once("./lib/util.php");
 
 // ユーザーIDがセッションに入っていれば$user_idに代入する
@@ -212,9 +222,7 @@ file_put_contents('./images/animal_photo/'.$image_3,$image_data3);
 // $animal_idをセッションに保存
 $_SESSION['animal_id'] = $animal_id;
 }
-// titleで読み込むページ名
-$pagetitle = "ペット情報登録完了";
-include('parts/header.php');
+
 // リロード後に確認ページに飛ぶための$animal_id設定
 $animal_id = $_SESSION['animal_id'];
 // var_dump($_SESSION['animal_id']);
