@@ -258,18 +258,7 @@ $pagetitle = "里親募集詳細"
       }
     }
       ?>
-                        <!-- <div>
-                            <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
-                            <div style="display:flex">
-                                <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}"
-                                    style="width: 30%;">
-                                <img src="./images/animal_photo/{$row['image_2']}" alt="{$row['kind']}"
-                                    style="width: 30%;">
-                                <img src="./images/animal_photo/{$row['image_3']}" alt="{$row['kind']}"
-                                    style="width: 30%;">
-                            </div>
-                        </div> -->
-<p style="color:red">里親申し込みには会員登録が必要です。</p>
+      <p style="color:red">里親申し込みには会員登録が必要です。</p>
       <!-- 申込フォームへ -->
       <form action="./recruit_form.php" method="POST">
         <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
@@ -292,5 +281,34 @@ $pagetitle = "里親募集詳細"
     };
   }
 
+$(window).load(function (){
+// ↓ここに幅を変更したいクラスなど入れる
+$('.mainimage img').each(function(){
+var img_height = $(this).height();
+var img_width = $(this).width();
+var img = new Image();
+img.src = $(this).attr('src');
+var _width = img.width;
+var device_width = $(window).width();
+//横÷縦の値が１以上、つまり横長の場合
+if((img_width / img_height) >= 1){
+//.css(ここに挿入以下サンプル）
+if(_width <= device_width){
+$(this).css("width", "auto");
+}else{
+$(this).css("width", "100%");
+}
+$(this).css("max-width", "100%");
+}else{
+// そのほかの場合（縦長の場合）こんな感じ
+$(this).css({"max-height": "400px","margin":"0 auto","width":"auto","display":"block"});
+if($(this).width() >= device_width){
+$(this).css("width", "100%");
+}else{
+$(this).css("width", "auto");
+}
+}
+});
+});
 </script>
 <?php include('parts/footer.php'); ?>
