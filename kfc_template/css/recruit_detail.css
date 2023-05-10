@@ -28,7 +28,7 @@ justify-content: center;
 .main-frame img{
     object-fit: cover;
      height: 400px;
-    width: 100%; 
+    width: 90%; 
     max-height: 100%;
 }
 .flex{
