@@ -194,17 +194,13 @@ $pagetitle = "里親募集詳細"
                         <img id='main-img' src='./images/animal_photo/{$row['image_1']}'>
                         </div>
                         
-                        
                         <!--サムネイル部分-->
-                        <ul class='thumbspace'>
+                        <ul class='thumbspace flex'>
                         <li>
                         <img class='thumbnails' src='./images/animal_photo/{$row['image_1']}' data-imagesrc='./images/animal_photo/{$row['image_1']}' >
                         </li>
                         <li>
                         <img class='thumbnails' src='./images/animal_photo/{$row['image_2']}' data-imagesrc='./images/animal_photo/{$row['image_2']}' >
-                        </li>
-                        <li>
-                        <img class='thumbnails' src='./images/animal_photo/{$row['image_3']}' data-imagesrc='./images/animal_photo/{$row['image_3']}' >
                         </li>
                         <li>
                         <img class='thumbnails' src='./images/animal_photo/{$row['image_3']}' data-imagesrc='./images/animal_photo/{$row['image_3']}' >

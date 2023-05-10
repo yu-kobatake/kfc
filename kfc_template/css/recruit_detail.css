@@ -18,3 +18,11 @@
     color: #f44336;
 }
 
+/* 動物の写真 */
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+.flex li{
+    width: 30%;
+}
