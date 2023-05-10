@@ -281,44 +281,5 @@ $pagetitle = "里親募集詳細"
     };
   }
 
-$(window).load(function (){
-// ↓ここに幅を変更したいクラスなど入れる
-$('.mainimage img').each(function(){
-var img_height = $(this).height();
-var img_width = $(this).width();
-var img = new Image();
-img.src = $(this).attr('src');
-var _width = img.width;
-var device_width = $(window).width();
-//横÷縦の値が１以上、つまり横長の場合
-if((img_width / img_height) >= 1){
-  console.log('aaa');
-//.css(ここに挿入以下サンプル）
-if(_width <= device_width){
-  //画像幅が画面幅以下の時
-$(this).css("width", "auto");
-console.log('iii');
-}else{
-  //画像幅が画面幅より大きい時
-$(this).css("width", "100%");
-console.log('uuu');
-}
-$(this).css("max-width", "100%");
-}else{
-// そのほかの場合（縦長の場合）こんな感じ
-$(this).css({"max-height":"400px","margin":"0 auto","width":"auto","display":"block"});
-console.log('eee');
-if($(this).width() >= device_width){
-    //画像幅が画面幅以下の時
-$(this).css("width", "100%");
-console.log('ooo');
-}else{
-    //画像幅が画面幅より大きい時
-$(this).css("width", "auto");
-console.log('kkk');
-}
-}
-});
-});
 </script>
 <?php include('parts/footer.php'); ?>
