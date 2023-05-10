@@ -2,6 +2,15 @@
 session_start();
 require_once("./lib/util.php");
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
 // titleで読み込むページ名
 $pagetitle = "メッセージ"
 ?>
@@ -9,8 +18,8 @@ $pagetitle = "メッセージ"
 
 
 <div id="container" class="c1" style="display:block">
-  <main>
-    <?php
+    <main>
+        <?php
     // メッセージ送信先のユーザー情報
     if (!isset($_GET['user_id'])) {
       echo "送信先ユーザーが未選択です<br>";
@@ -26,53 +35,55 @@ $pagetitle = "メッセージ"
     $messages = get_messages($current_user['user_id'], $destination_user['user_id']);
     ?>
 
-    <body>
-      <div class="message">
-        <div class="user_flex">
-          <div class="back_btn">
-            <a href="message_top.php"><button>＜ 戻る</button></a>
-          </div>
-          <div class="user_name">
-            <h2><?= $destination_user['user_name'] ?></h2>
-          </div>
-          <div class="textarea_btn">
-            <a href="#text4">
-              <div class="arrow">
-              </div>
-            </a>
-          </div>
-        </div>
-        <?php foreach ($messages as $message) : ?>
-          <div class="my_message">
-            <?php if ($message['user_id'] == $current_user['user_id']) : ?>
-              <div class="mycomment right">
-                <span class="message_created_at"><?= convert_to_fuzzy_time($message['created_at']) ?></span>
-                <p><?= $message['text'] ?></p>
-              </div>
-          </div>
-        <?php else : ?>
-          <div class="left"><img src="./images/足跡アイコン.png" class="icon_image">
-            <div class="says">
-              <p><?= $message['text'] ?></p>
-            </div>
-            <span class="message_created_at"><?= convert_to_fuzzy_time($message['created_at']) ?>
-            </span>
-          </div>
-        <?php endif; ?>
-      <?php endforeach ?>
+        <body>
+            <div class="message">
+                <div class="user_flex">
+                    <div class="back_btn">
+                        <a href="message_top.php"><button>＜ 戻る</button></a>
+                    </div>
+                    <div class="user_name">
+                        <h2><?= $destination_user['user_name'] ?></h2>
+                    </div>
+                    <div class="textarea_btn">
+                        <a href="#text4">
+                            <div class="arrow">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <?php foreach ($messages as $message) : ?>
+                <div class="my_message">
+                    <?php if ($message['user_id'] == $current_user['user_id']) : ?>
+                    <div class="mycomment right">
+                        <span class="message_created_at"><?= convert_to_fuzzy_time($message['created_at']) ?></span>
+                        <p><?= $message['text'] ?></p>
+                    </div>
+                </div>
+                <?php else : ?>
+                <div class="left"><img src="./images/足跡アイコン.png" class="icon_image">
+                    <div class="says">
+                        <p><?= $message['text'] ?></p>
+                    </div>
+                    <span class="message_created_at"><?= convert_to_fuzzy_time($message['created_at']) ?>
+                    </span>
+                </div>
+                <?php endif; ?>
+                <?php endforeach ?>
 
-      <div class="message_process">
-        <!-- message_add.phpにPOSTするフォーム -->
-        <form method="post" action="./message_add.php">
-          <textarea class="textarea form-control" placeholder="メッセージを入力ください" name="text" id="text4" autocomplete="off"></textarea>
-          <input type="hidden" name="destination_user_ID" value="<?= $destination_user['user_id']; ?>">
-          <div class="message_btn">
-            <button class="btn btn-outline-primary btn_03" type="submit" name="post" value="post" id="post">送信</button>
-          </div>
-        </form>
-      </div>
-      </div>
-      <?php
+                <div class="message_process">
+                    <!-- message_add.phpにPOSTするフォーム -->
+                    <form method="post" action="./message_add.php">
+                        <textarea class="textarea form-control" placeholder="メッセージを入力ください" name="text" id="text4"
+                            autocomplete="off"></textarea>
+                        <input type="hidden" name="destination_user_ID" value="<?= $destination_user['user_id']; ?>">
+                        <div class="message_btn">
+                            <button class="btn btn-outline-primary btn_03" type="submit" name="post" value="post"
+                                id="post">送信</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <?php
       // 里親申し込み完了後のトークルーム作成
 
       $user_id = $_SESSION['user_id'];
@@ -83,7 +94,7 @@ $pagetitle = "メッセージ"
         // echo "relation_messageにデータを挿入";
       }
       ?>
-      <?php
+            <?php
       function insert_message($user_id, $destination_user_ID)
       {
         try {
@@ -130,32 +141,32 @@ $pagetitle = "メッセージ"
       }
       ?>
 
-      <script>
-        // テキストエリア入力したら送信ボタン有効
-        window.addEventListener('DOMContentLoaded', function() {
-          document.getElementById('post').disabled = true;
-          document.getElementById('text4').addEventListener('keyup', function() {
-            if (this.value.length < 1) {
-              document.getElementById('post').disabled = true;
-            } else {
-              document.getElementById('post').disabled = false;
-            }
-          }, false);
+            <script>
+            // テキストエリア入力したら送信ボタン有効
+            window.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('post').disabled = true;
+                document.getElementById('text4').addEventListener('keyup', function() {
+                    if (this.value.length < 1) {
+                        document.getElementById('post').disabled = true;
+                    } else {
+                        document.getElementById('post').disabled = false;
+                    }
+                }, false);
 
-          // postしたら*ms後にdisabledにする
-          let btn = document.getElementById('post');
-          btn.addEventListener('click', function() {
-            window.setTimeout(click_disabled, 10);
-          });
-          //post無効の自作関数
-          function click_disabled() {
-            document.getElementById('post').disabled = true;
-          }
-        }, false);
-      </script>
-    </body>
+                // postしたら*ms後にdisabledにする
+                let btn = document.getElementById('post');
+                btn.addEventListener('click', function() {
+                    window.setTimeout(click_disabled, 10);
+                });
+                //post無効の自作関数
+                function click_disabled() {
+                    document.getElementById('post').disabled = true;
+                }
+            }, false);
+            </script>
+        </body>
 
-    <?php
+        <?php
     function get_user($user_id)
     {
       try {
@@ -208,7 +219,7 @@ $pagetitle = "メッセージ"
     ?>
 
 
-    <?php
+        <?php
     function convert_to_fuzzy_time($time_db)
     {
       date_default_timezone_set('Asia/Tokyo');
@@ -243,7 +254,7 @@ $pagetitle = "メッセージ"
     }
     ?>
 
-  </main>
+    </main>
 </div>
 
 <?php include('parts/footer.php'); ?>

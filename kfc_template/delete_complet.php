@@ -11,10 +11,19 @@ if(!isset($_SESSION)){
   session_start();
 }
 
-/* 未ログイン状態のアクセスは、トップへリダイレクトする */
-if (!isset($_SESSION['user_id'])) {
-  header('Location: ./index.php');
-  exit;
+// /* 未ログイン状態のアクセスは、トップへリダイレクトする */
+// if (!isset($_SESSION['user_id'])) {
+//   header('Location: ./index.php');
+//   exit;
+// }
+
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
 }
 
 // 文字エンコードの検証

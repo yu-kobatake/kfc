@@ -1,6 +1,13 @@
 <?php
 session_start();
 require_once("./lib/util.php");
+
+// ユーザーIDがセッションに入っていなければログインページに飛ばす
+if (empty($_SESSION['user_id'])) { 
+  header("Location:login.php");
+  exit();
+}
+
 killSession();
   // titleで読み込むページ名
   $pagetitle = "ログアウトページ"

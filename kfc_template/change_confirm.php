@@ -11,6 +11,15 @@ if(!isset($_SESSION)){
   session_start();
 }
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
 // トークン発行・登録
 $bytes2 = openssl_random_pseudo_bytes(16);
 $token2 = bin2hex($bytes2);
@@ -157,85 +166,86 @@ else :
 endif;
 ?>
 <div id="container" class="c1">
-  <main>
-    <h2><?php echo $pagetitle ?></h2>
-    <p>以下の情報で登録します。よろしければページ下の「登録」ボタンを押してください。</p>
-    <form action="change_complet.php" method="POST">
-      <table class="ta1">
-        <tr>
-          <th>里親希望 or ブリーダー※</th>
-          <td>
-            <?php echo $_SESSION['kind']; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>ユーザー名※</th>
-          <td>
-            <?php echo $user_name; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>氏名※</th>
-          <td>
-            <?php echo $name; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>ふりがな※</th>
-          <td>
-            <?php echo $furigana; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>メールアドレス※</th>
-          <td>
-            <?php echo $email; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>パスワード※</th>
-          <td>
-            <?php echo $password; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>ご住所※</th>
-          <td>
-            〒<?php echo $zip; ?><br>
-            <?php echo $address; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>生年月日※</th>
-          <td>
-            <?php echo $birth; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>性別※</th>
-          <td>
-            <?php echo $gender; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>職業</th>
-          <td>
-            <?php echo $job; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>利用規約※</th>
-          <td>
-            利用規約に同意します。
-          </td>
-        </tr>
-      </table>
-      <p class="c"><input type="submit" value="この内容で登録する" class="btn_one"></p>
-      <p class="c"><input type="button" value="戻る" onclick="location.href='mypage_change.php'" class="btn_back_one"></p>
-      <input type="hidden" name="token2" value="<?php echo es($token2); ?>">
-    </form>
+    <main>
+        <h2><?php echo $pagetitle ?></h2>
+        <p>以下の情報で登録します。よろしければページ下の「登録」ボタンを押してください。</p>
+        <form action="change_complet.php" method="POST">
+            <table class="ta1">
+                <tr>
+                    <th>里親希望 or ブリーダー※</th>
+                    <td>
+                        <?php echo $_SESSION['kind']; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>ユーザー名※</th>
+                    <td>
+                        <?php echo $user_name; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>氏名※</th>
+                    <td>
+                        <?php echo $name; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>ふりがな※</th>
+                    <td>
+                        <?php echo $furigana; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>メールアドレス※</th>
+                    <td>
+                        <?php echo $email; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>パスワード※</th>
+                    <td>
+                        <?php echo $password; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>ご住所※</th>
+                    <td>
+                        〒<?php echo $zip; ?><br>
+                        <?php echo $address; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>生年月日※</th>
+                    <td>
+                        <?php echo $birth; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>性別※</th>
+                    <td>
+                        <?php echo $gender; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>職業</th>
+                    <td>
+                        <?php echo $job; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>利用規約※</th>
+                    <td>
+                        利用規約に同意します。
+                    </td>
+                </tr>
+            </table>
+            <p class="c"><input type="submit" value="この内容で登録する" class="btn_one"></p>
+            <p class="c"><input type="button" value="戻る" onclick="location.href='mypage_change.php'"
+                    class="btn_back_one"></p>
+            <input type="hidden" name="token2" value="<?php echo es($token2); ?>">
+        </form>
 
-  </main>
+    </main>
 </div>
 
 <?php include('parts/footer.php'); ?>

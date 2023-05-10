@@ -2,13 +2,23 @@
 session_start();
 require_once("./lib/util.php");
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
+
 // titleで読み込むページ名
 $pagetitle = "message_add.php"
 ?>
 <?php include('parts/header_message.php'); ?>
 <div id="container">
-  <main>
-    <?php
+    <main>
+        <?php
     $_POST = es($_POST);
 
     try {
@@ -53,8 +63,8 @@ $pagetitle = "message_add.php"
 
     ?>
 
-    <a href="message.php">戻る</a>
-    <?php
+        <a href="message.php">戻る</a>
+        <?php
     function insert_message($user_id, $destination_user_ID)
     {
       try {
@@ -100,7 +110,7 @@ $pagetitle = "message_add.php"
       echo "ERR_MSG1";
     }
     ?>
-  </main>
+    </main>
 </div>
 
 <?php include('parts/footer.php'); ?>

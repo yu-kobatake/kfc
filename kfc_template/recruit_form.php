@@ -14,6 +14,16 @@ $host = 'localhost';
 $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 ?>
 <?php
+
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
 if (!cken($_POST)) {
   exit("不正な文字コードです。");
 }

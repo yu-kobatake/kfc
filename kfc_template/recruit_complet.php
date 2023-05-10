@@ -7,6 +7,15 @@ $dbName = 'shotohlcd31_kfc';
 $host = 'localhost';
 $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
 ?>
 <?php
 if (!cken($_POST)) {
@@ -59,13 +68,13 @@ $pagetitle = "里親申し込み完了"
 ?>
 <?php include('parts/header.php'); ?>
 <div id="container" class="c1">
-  <main>
-    <p class="c">申し込みが完了しました。</p>
-    <form action="./message.php" method="get">
-      <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
-      <input type="submit" value="ブリーダーへメッセージを送信する" class="btn_one">
-    </form>
-  </main>
+    <main>
+        <p class="c">申し込みが完了しました。</p>
+        <form action="./message.php" method="get">
+            <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+            <input type="submit" value="ブリーダーへメッセージを送信する" class="btn_one">
+        </form>
+    </main>
 </div>
 
 <?php include('parts/footer.php'); ?>

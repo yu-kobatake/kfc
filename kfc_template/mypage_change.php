@@ -11,6 +11,15 @@ if(!isset($_SESSION)){
   session_start();
 }
 
+// ユーザーIDがセッションに入っていれば$user_idに代入する
+if (!empty($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+//セッションに入っていなければればログインページに戻す 
+} else { 
+  header("Location:login.php");
+  exit();
+}
+
 // トークン発行・登録
 $bytes = openssl_random_pseudo_bytes(16);
 $token = bin2hex($bytes);
@@ -140,94 +149,102 @@ function selected($value, $select){
 ?>
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <div id="container" class="c1">
-  <main>
-    <h2><?php echo $pagetitle ?></h2>
-    <!-- エラー文があれば表示 -->
-    <div class="error" style="color:red;">
-      <?php
+    <main>
+        <h2><?php echo $pagetitle ?></h2>
+        <!-- エラー文があれば表示 -->
+        <div class="error" style="color:red;">
+            <?php
       if (!empty($_SESSION['error'])) {
         foreach ($error as $value) {
           echo $value . "<br>";
         }
       }
       ?>
-    </div>
-    <p>変更したい項目を修正し、確認ページへ進んでください。</p>
-    <form action="change_confirm.php" method="POST">
-      <table class="ta1">
-        <tr>
-          <th>里親希望 or ブリーダー※</th>
-          <td>
-            <?php echo $_SESSION['kind']; ?>
-          </td>
-        </tr>
-        <tr>
-          <th>ユーザー名※</th>
-          <td><input type="text" name="user_name" class="ws" placeholder="例）太郎" value="<?php echo es($user_name); ?>"></td>
-        </tr>
-        <tr>
-          <th>氏名※</th>
-          <td><input type="text" name="name" class="ws" placeholder="例）田中太郎" value="<?php echo es($name); ?>"></td>
-        </tr>
-        <tr>
-          <th>ふりがな※</th>
-          <td><input type="text" name="furigana" class="ws" placeholder="例）たなかたろう" value="<?php echo es($furigana); ?>"></td>
-        </tr>
-        <tr>
-          <th>メールアドレス※</th>
-          <td><input type="email" name="email" class="wl" placeholder="例）test@test.com" value="<?php echo es($email); ?>"></td>
-        </tr>
-        <tr>
-          <th>パスワード※</th>
-          <td><input type="password" name="password" class="ws" placeholder="※半角英数字で入力" value="<?php echo es($password); ?>"></td>
-        </tr>
-        <tr>
-          <th>ご住所※</th>
-          <td>
-            〒<input type="text" id="zip" name="zip" onKeyUp="AjaxZip3.zip2addr(this,'','address','address');" placeholder="郵便番号7桁" value="<?php echo es($zip); ?>">
-            <span class="text_r">郵便番号が入力されると住所が自動表示されます。</span>
-            <input type="text" name="address" class="martop6 wl" placeholder="例）石川県金沢市●●1-1-1 イヌネコマンション101" value="<?php echo es($address); ?>">
-          </td>
-        </tr>
-        <tr>
-          <th>生年月日※</th>
-          <td><input type="date" name="birth" value="<?php echo es($birth); ?>"></td>
-        </tr>
-        <tr>
-          <th>性別※</th>
-          <td>
-            <label>
-              <input type="radio" name="gender" value="男" <?php checked("男", $gender); ?>>男
-            </label>
-            <label>
-              <input type="radio" name="gender" value="女" <?php checked("女", $gender); ?>>女
-            </label>
-            <label>
-              <input type="radio" name="gender" value="回答しない" <?php checked("回答しない", $gender); ?>>回答しない
-            </label>
-          </td>
-        </tr>
-        <tr>
-          <th>職業</th>
-          <td>
-            <select name="job">
-              <option value="会社員" <?php selected("会社員", $job); ?>>会社員</option>
-              <option value="パート・アルバイト" <?php selected("パート・アルバイト", $job); ?>>パート・アルバイト</option>
-              <option value="経営者・役員" <?php selected("経営者・役員", $job); ?>>経営者・役員</option>
-              <option value="自営業" <?php selected("自営業", $job); ?>>自営業</option>
-              <option value="その他" <?php selected("その他", $job); ?>>その他</option>
-            </select>
-          </td>
-        </tr>
-      </table>
-      <p class="c">
-        <input type="submit" value="修正内容を確認する" id="submit-btn" class="btn_one">
-        <input type="hidden" name="token" value="<?php echo es($token); ?>">
-      </p>
-      <p class="c">
-        <button type="button" onclick="location.href='login.php'" class="btn_back_one">戻る</button>
-      </p>
-    </form>
-  </main>
+        </div>
+        <p>変更したい項目を修正し、確認ページへ進んでください。</p>
+        <form action="change_confirm.php" method="POST">
+            <table class="ta1">
+                <tr>
+                    <th>里親希望 or ブリーダー※</th>
+                    <td>
+                        <?php echo $_SESSION['kind']; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>ユーザー名※</th>
+                    <td><input type="text" name="user_name" class="ws" placeholder="例）太郎"
+                            value="<?php echo es($user_name); ?>"></td>
+                </tr>
+                <tr>
+                    <th>氏名※</th>
+                    <td><input type="text" name="name" class="ws" placeholder="例）田中太郎" value="<?php echo es($name); ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>ふりがな※</th>
+                    <td><input type="text" name="furigana" class="ws" placeholder="例）たなかたろう"
+                            value="<?php echo es($furigana); ?>"></td>
+                </tr>
+                <tr>
+                    <th>メールアドレス※</th>
+                    <td><input type="email" name="email" class="wl" placeholder="例）test@test.com"
+                            value="<?php echo es($email); ?>"></td>
+                </tr>
+                <tr>
+                    <th>パスワード※</th>
+                    <td><input type="password" name="password" class="ws" placeholder="※半角英数字で入力"
+                            value="<?php echo es($password); ?>"></td>
+                </tr>
+                <tr>
+                    <th>ご住所※</th>
+                    <td>
+                        〒<input type="text" id="zip" name="zip"
+                            onKeyUp="AjaxZip3.zip2addr(this,'','address','address');" placeholder="郵便番号7桁"
+                            value="<?php echo es($zip); ?>">
+                        <span class="text_r">郵便番号が入力されると住所が自動表示されます。</span>
+                        <input type="text" name="address" class="martop6 wl" placeholder="例）石川県金沢市●●1-1-1 イヌネコマンション101"
+                            value="<?php echo es($address); ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>生年月日※</th>
+                    <td><input type="date" name="birth" value="<?php echo es($birth); ?>"></td>
+                </tr>
+                <tr>
+                    <th>性別※</th>
+                    <td>
+                        <label>
+                            <input type="radio" name="gender" value="男" <?php checked("男", $gender); ?>>男
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="女" <?php checked("女", $gender); ?>>女
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="回答しない" <?php checked("回答しない", $gender); ?>>回答しない
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>職業</th>
+                    <td>
+                        <select name="job">
+                            <option value="会社員" <?php selected("会社員", $job); ?>>会社員</option>
+                            <option value="パート・アルバイト" <?php selected("パート・アルバイト", $job); ?>>パート・アルバイト</option>
+                            <option value="経営者・役員" <?php selected("経営者・役員", $job); ?>>経営者・役員</option>
+                            <option value="自営業" <?php selected("自営業", $job); ?>>自営業</option>
+                            <option value="その他" <?php selected("その他", $job); ?>>その他</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <p class="c">
+                <input type="submit" value="修正内容を確認する" id="submit-btn" class="btn_one">
+                <input type="hidden" name="token" value="<?php echo es($token); ?>">
+            </p>
+            <p class="c">
+                <button type="button" onclick="location.href='login.php'" class="btn_back_one">戻る</button>
+            </p>
+        </form>
+    </main>
 </div>
 <?php include('parts/footer.php'); ?>
