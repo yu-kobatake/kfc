@@ -66,11 +66,12 @@ try {
 
 ?>
 
-<div id="container">
+<div id="container" class="c1">
     <main>
+        <div class="c">
         <?php echo "<p>掲載ID:$animal_id の登録情報を削除しました。</p>" ?>
-        <button><a href="animal_manage.php">犬猫管理画面に戻る</a></button>
-
+        <button onclick="location.href='animal_manage.php'" class="btn_one">犬猫管理画面に戻る</button>
+        </div>
     </main>
 </div>
 <?php

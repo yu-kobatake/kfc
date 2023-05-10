@@ -68,51 +68,57 @@ try {
 
     foreach ($result as $row) {
         echo <<<"EOL"
-        <div id="container">
+        <div id="container" class="c1">
             <main>
+            <h2>{$pagetitle}</h2>
             <div class="back_btn">
-            <button><a href="animal_manage.php">戻る</a></button>
+            <button onclick="location.href='animal_manage.php'" class="btn_back_mini marbtm10">戻る</button>
         </div>
 
-  <h2>{$row['title']}</h2>
-  <div>
-  <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
-  <div style="display:flex">
-  <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}" style="width: 30%;">
-  <img src="./images/animal_photo/{$row['image_2']}" alt="{$row['kind']}"style="width: 30%;">
-  <img src="./images/animal_photo/{$row['image_3']}" alt="{$row['kind']}"style="width: 30%;">
-  </div>
+  <h3>{$row['title']}</h3>
+  <div class="animal_photo_all">
+    <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
+    <div class="animal_photo">
+    <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
+    <img src="./images/animal_photo/{$row['image_2']}" alt="{$row['kind']}">
+    <img src="./images/animal_photo/{$row['image_3']}" alt="{$row['kind']}">
+    </div>
   </div>
   <table class='ta1'>
-    <tr><th>性別</th></tr>
-    <tr><td>{$row['gender']}</td></tr>
-    <tr><th>年齢</th></tr>
-    <tr><td>{$row['age']}</td></tr>
-    <tr><th>募集対象地域</th></tr>
-    <tr><td>{$row['area_1']}</td></tr>
-    <tr><td>{$row['area_2']}</td></tr>
-    <tr><td>{$row['area_3']}</td></tr>
-    <tr><th>動物がいる地域</th></tr>
-    <tr><td>{$row['animal_area']}</td></tr>
-    <tr><th>特徴（性格等）</th></tr>
-    <tr><td>{$row['animal_character']}</td></tr>
-    <tr><th>特記事項</th></tr>
-    <tr><td>{$row['other']}</td></tr>
+    <tr>
+    <th>性別</th>
+    <td>{$row['gender']}</td>
+    </tr>
+    <tr>
+    <th>年齢</th>
+    <td>{$row['age']}</td>
+    </tr>
+    <tr>
+    <th>募集対象地域</th>
+    <td>{$row['area_1']}</td>
+    <td>{$row['area_2']}</td>
+    <td>{$row['area_3']}</td>
+    </tr>
+    <tr>
+    <th>動物がいる地域</th>
+    <td>{$row['animal_area']}</td>
+    </tr>
+    <tr>
+    <th>特徴（性格等）</th>
+    <td>{$row['animal_character']}</td>
+    <tr>
+    <th>特記事項</th>
+    <td>{$row['other']}</td>
+    </tr>
       </table>
-     </div>
     <div>
-    <h4>掲載ID{$row['animal_id']}の登録を削除しますか？</h4>
+    <h4 class="c">掲載ID{$row['animal_id']}の登録を削除しますか？</h4>
     <form method="POST" action="#">
-    <input type="submit" formaction="animal_delete_complet.php" value="削除">
-    
+    <input type="submit" formaction="animal_delete_complet.php" value="削除" class="btn_one marbtm10">
     <input type="hidden" name="animal_id" value="{$row['animal_id']}">
 </div>
-
-
 EOL;
 }
-
-
 
 } catch (Exception $e) {
 $e->getMessage();
@@ -122,8 +128,6 @@ echo "<a class='error' href='animal_manage.php'>戻る</a>";
 }
 
 ?>
-
-
 
 </main>
 </div>

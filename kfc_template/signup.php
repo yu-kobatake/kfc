@@ -72,15 +72,15 @@ function agreeChecked(){
     <h2><?php echo $pagetitle ?></h2>
     <p>ご利用には会員登録が必要です。（※のついている項目は入力必須）</p>
     <!-- エラー文があれば表示 -->
-    <div class="error" style="color:red;">
       <?php
       if (!empty($_SESSION['error'])) {
+        echo '<div class="error">';
         foreach ($error as $value) {
           echo $value . "<br>";
         }
+        echo '</div>';
       }
       ?>
-    </div>
     <form action="signup_comfirm.php" method="POST">
       <table class="ta1">
         <tr>

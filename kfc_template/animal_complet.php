@@ -228,18 +228,21 @@ $animal_id = $_SESSION['animal_id'];
 $_SESSION['animal_id'] = [];
 
 ?>
-<div id="container">
+<div id="container" class="c1">
     <main>
+      <div class="c">
         <h2>犬猫情報登録完了</h2>
         <p>内容を登録しました。</p>
+      </div>
+        <form method="POST" action="#">
+          <p class="c">
+            <input class="btn_one" type="submit" value="ページを確認する" name="<?= es($animal_id); ?>"
+                  formaction="recruit_detail.php?animal_id=<?= es($animal_id); ?>">
+          </p>
+          <p class="c">
+            <input class="btn_back_one" type="submit" value="マイページトップへ" formaction="breeder_mypage.php">
+          </p>
+        </form>
     </main>
 </div>
-
-
-<form method="POST" action="#">
-    <input type="submit" value="ページを確認する" name="<?= es($animal_id); ?>"
-        formaction="recruit_detail.php?animal_id=<?= es($animal_id); ?>">
-    <input type="submit" value="マイページトップへ" formaction="breeder_mypage.php">
-
-</form>
 <?php include('parts/footer.php'); ?>

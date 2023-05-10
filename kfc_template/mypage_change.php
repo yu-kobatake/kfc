@@ -151,16 +151,16 @@ function selected($value, $select){
 <div id="container" class="c1">
     <main>
         <h2><?php echo $pagetitle ?></h2>
-        <!-- エラー文があれば表示 -->
-        <div class="error" style="color:red;">
-            <?php
-      if (!empty($_SESSION['error'])) {
-        foreach ($error as $value) {
-          echo $value . "<br>";
-        }
-      }
-      ?>
-        </div>
+          <?php
+          //　エラー文があれば表示
+          if (!empty($_SESSION['error'])) {
+            echo '<div class="error" style="color:red;">';
+            foreach ($error as $value) {
+              echo $value . "<br>";
+            }
+            echo '</div>';
+          }
+        ?>
         <p>変更したい項目を修正し、確認ページへ進んでください。</p>
         <form action="change_confirm.php" method="POST">
             <table class="ta1">
