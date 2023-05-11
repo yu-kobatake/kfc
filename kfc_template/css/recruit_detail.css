@@ -1,22 +1,48 @@
 @charset "utf-8";
 
+/* タイトル */
+.recruit_ttl{
+	display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-bottom: 1px dotted #ccc;
+    margin-bottom: 40px;
+}
+.recruit_ttl h2{
+    margin: 0px 30px 10px 0;
+}
+@media screen and (max-width:700px) {
+    .recruit_ttl h2{
+        text-align: left !important;
+    }
+}
+
 /* いいねボタン */
 .btn-good {
+    color: #f44336;
     display: inline-block;
-    padding: 0 8px;
+    padding: 8px 20px;
     cursor: pointer;
+    border: 2px solid #f44336;
+    border-radius: 50px;
+    transition: 0.3s;
 }
-
 .btn-good:hover {
-    color: #f44336;
+    color: #fff;
+    background: #f44336;
+    opacity: 1;
 }
-
 .active {
-    color: #f44336;
+    color: #fff;
+    background: #f44336;
+}
+.active :hover{
+    opacity: 1;
 }
 
 .btn-good .active {
-    color: #f44336;
+    color: #fff;
 }
 
 /* 動物の写真 */
@@ -50,3 +76,4 @@ justify-content: center;
     cursor: pointer;
     opacity: 0.8;
 }
+

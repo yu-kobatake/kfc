@@ -792,34 +792,32 @@ form.searchf .label{
 form.searchf .label:not(:first-child){
 	margin-left: 2rem;
 }
-form.searchf p:not(:last-child){
-	border-bottom: 1px dotted #ccc;
+form.searchf .search_list{
+	padding-top: 1rem;
 	padding-bottom: 1rem;
 }
-
+form.searchf .search_list:first-child{
+	padding-top: 0;
+}
+form.searchf .search_list:not(:last-child){
+	border-bottom: 1px dotted #ccc;
+}
 input,
 textarea,
 select{
 	border: 2px solid #ccc;
   padding: 0.4rem;
-	/* appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none; */
 }
-/* input:checked {
-	border: 1px solid rgb(33, 150, 243);
-	background-color: rgb(33, 150, 243);
-} */
 
+form.searchf div.sp_set{
+	display: inline-block;
+	margin-left: 2rem;
+}
+form.searchf div.sp_set:first-child{
+	margin-left: 0;
+}
 
-
-
-
-/* 独立submitボタン */
-
-
-
-
+/* 統一ボタン */
 a.btn_one,
 input[type="submit"].btn_one,
 button.btn_one{
@@ -1047,14 +1045,12 @@ button.btn_back_mini:hover{
 	opacity: 1;
 }
 
-
 /* 里親募集関係
 ---------------------------------------------------------------------------*/
 .question_area textarea{
 	height: 10em;
 	width: 70%;
 }
-
 
 
 /* 犬猫管理関係
@@ -1154,8 +1150,14 @@ header ul {
 	grid-template-columns: 1fr;
 }
 
-/* 犬猫管理関係（スマホ）
+/* 里親募集・犬猫管理関係（スマホ）
 ---------------------------------------------------------------------------*/
+form.searchf div.sp_set{
+	display: block;
+	margin-bottom: 1rem;
+	margin-left: 0;
+}
+
 .animal_post .column3 td{
 	display: block;
 }

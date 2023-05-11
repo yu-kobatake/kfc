@@ -46,7 +46,7 @@ $_SESSION['question_7'] = [];
 ?>
 
 
-<div id="container">
+<div id="container" class="c1">
     <main>
         <?php
     if (!empty($_GET['animal_id'])) {
@@ -157,18 +157,21 @@ $_SESSION['question_7'] = [];
     if (isset($result)) {
       $destination_user_id = $result[0]['user_id'];
     ?>
-        <div class="back_btn">
+        <!-- <div class="back_btn">
             <a href="recruit.php"><button>＜ 戻る</button></a>
-        </div>
+        </div> -->
 
-        <?php
-      foreach ($result as $row) {
-        echo "<h2>{$row['title']}</h2>";
-        // ログイン済みの場合のみいいねを表示させる
-        if (!empty($_SESSION['user_id'])) {
-      ?>
         <!-- いいねの表示 -->
         <div class="post" data-postid="<?= es($animal_id); ?>">
+          <div class="recruit_ttl">
+            <div>
+              <?php
+                foreach ($result as $row) {
+                  echo "<h2 class='c'>{$row['title']}</h2>";
+                  // ログイン済みの場合のみいいねを表示させる
+                  if (!empty($_SESSION['user_id'])) {
+              ?>
+            </div>
             <div class="btn-good <?php if (isGood($user_id, $animal_id)) { //いいねの状態文字色ピンク
                                     echo 'active ';
                                   } else { //未いいねの状態文字色指定なし
@@ -184,9 +187,12 @@ $_SESSION['question_7'] = [];
                     }; ?>"></i>
                 <span class="goodcount"><?php echo $dbPostGoodNum; ?></span>
             </div>
+          </div><!-- recruit_ttl -->
             <!-- いいねの表示終わり -->
             <?php
-        } // いいねif修了
+        } // いいねif終了
+
+
         echo <<<"EOL"
                         
 
@@ -213,48 +219,32 @@ $_SESSION['question_7'] = [];
                         
                         </div>
 
-                        <table class='ta1'>
+                        <table class='ta1 ta_fixed'>
                             <tr>
                                 <th>性別</th>
-                            </tr>
-                            <tr>
-                                <td>{$row['gender']}</td>
+                                <td colspan="3">{$row['gender']}</td>
                             </tr>
                             <tr>
                                 <th>年齢</th>
-                            </tr>
-                            <tr>
-                                <td>{$row['age']}</td>
+                                <td colspan="3">{$row['age']}</td>
                             </tr>
                             <tr>
                                 <th>募集対象地域</th>
-                            </tr>
-                            <tr>
                                 <td>{$row['area_1']}</td>
-                            </tr>
-                            <tr>
                                 <td>{$row['area_2']}</td>
-                            </tr>
-                            <tr>
                                 <td>{$row['area_3']}</td>
                             </tr>
                             <tr>
                                 <th>動物がいる地域</th>
-                            </tr>
-                            <tr>
-                                <td>{$row['animal_area']}</td>
+                                <td colspan="3">{$row['animal_area']}</td>
                             </tr>
                             <tr>
                                 <th>特徴（性格等）</th>
-                            </tr>
-                            <tr>
-                                <td>{$row['animal_character']}</td>
+                                <td colspan="3">{$row['animal_character']}</td>
                             </tr>
                             <tr>
                                 <th>特記事項</th>
-                            </tr>
-                            <tr>
-                                <td>{$row['other']}</td>
+                                <td colspan="3">{$row['other']}</td>
                             </tr>
                         </table>
                 </div>
@@ -273,15 +263,16 @@ $_SESSION['question_7'] = [];
                                     style="width: 30%;">
                             </div>
                         </div> -->
-            <p style="color:red">里親申し込みには会員登録が必要です。</p>
+            <p class="c" style="color:red">※里親申し込みには会員登録が必要です。</p>
             <!-- 申込フォームへ -->
             <form action="./recruit_form.php" method="POST">
                 <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
                 <?php
-        if ($user_id !== $destination_user_id) {
-          echo "<input type='submit' name='submit' value='申し込みフォームへ'>";
-        }
-        ?>
+                if ($user_id !== $destination_user_id) {
+                  echo "<input type='submit' name='submit' value='申し込みフォームへ' class='btn_one'>";
+                }
+                ?>
+                <button type="button" class="btn_back_one martop10" onclick="location.href='recruit.php'">戻る</button>
             </form>
     </main>
 </div>
