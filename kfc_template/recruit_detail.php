@@ -5,8 +5,8 @@ $pagetitle = "里親募集詳細";
 include('parts/header.php');
 
 // セッション開始
-if(!isset($_SESSION)){
-session_start();
+if (!isset($_SESSION)) {
+  session_start();
 }
 require_once("./lib/util.php");
 // $user = 'testuser';
@@ -163,37 +163,37 @@ $_SESSION['question_7'] = [];
 
         <!-- いいねの表示 -->
         <div class="post" data-postid="<?= es($animal_id); ?>">
-          <div class="recruit_ttl">
-            <div>
-              <?php
-                foreach ($result as $row) {
-                  echo "<h2 class='c'>{$row['title']}</h2>";
-                  // ログイン済みの場合のみいいねを表示させる
-                  if (!empty($_SESSION['user_id'])) {
-              ?>
-            </div>
-            <div class="btn-good <?php if (isGood($user_id, $animal_id)) { //いいねの状態文字色ピンク
-                                    echo 'active ';
-                                  } else { //未いいねの状態文字色指定なし
-                                    echo '';
-                                  }; ?>">
+            <div class="recruit_ttl">
+                <div>
+                    <?php
+            foreach ($result as $row) {
+              echo "<h2 class='c'>{$row['title']}</h2>";
+              // ログイン済みの場合のみいいねを表示させる
+              if (!empty($_SESSION['user_id'])) {
+            ?>
+                </div>
+                <div class="btn-good <?php if (isGood($user_id, $animal_id)) { //いいねの状態文字色ピンク
+                                  echo 'active ';
+                                } else { //未いいねの状態文字色指定なし
+                                  echo '';
+                                }; ?>">
 
-                <span>いいね</span>
-                <i class=" fa-heart 
+                    <span>いいね</span>
+                    <i class=" fa-heart 
                     <?php if (isGood($user_id, $animal_id)) { //いいねの状態ハート塗りつぶし
                       echo 'fas active  ';
                     } else { //未いいねの時ハート空洞
                       echo 'far';
                     }; ?>"></i>
-                <span class="goodcount"><?php echo $dbPostGoodNum; ?></span>
-            </div>
-          </div><!-- recruit_ttl -->
+                    <span class="goodcount"><?php echo $dbPostGoodNum; ?></span>
+                </div>
+            </div><!-- recruit_ttl -->
             <!-- いいねの表示終わり -->
             <?php
-        } // いいねif終了
+              } // いいねif終了
 
 
-        echo <<<"EOL"
+              echo <<<"EOL"
                         
 
                         <!--全体の枠-->
@@ -249,9 +249,9 @@ $_SESSION['question_7'] = [];
                         </table>
                 </div>
                 EOL;
-      }
-    }
-      ?>
+            }
+          }
+  ?>
             <!-- <div>
                             <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
                             <div style="display:flex">
@@ -268,11 +268,20 @@ $_SESSION['question_7'] = [];
             <form action="./recruit_form.php" method="POST">
                 <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
                 <?php
-                if ($user_id !== $destination_user_id) {
-                  echo "<input type='submit' name='submit' value='申し込みフォームへ' class='btn_one'>";
-                }
-                ?>
-                <button type="button" class="btn_back_one martop10" onclick="location.href='recruit.php'">戻る</button>
+    if ($user_id !== $destination_user_id) {
+      echo "<input type='submit' name='submit' value='申し込みフォームへ' class='btn_one'>";
+    }
+    ?>
+                <?php
+    $send_filename = "";
+    if (!empty($_POST['breeder'])) {
+      $send_filename = "animal_manage.php";
+    } else {
+      $send_filename = "recruit.php";
+    }
+    ?>
+                <button type="button" class="btn_back_one martop10"
+                    onclick="location.href='<?= $send_filename ;?>'">戻る</button>
             </form>
     </main>
 </div>
