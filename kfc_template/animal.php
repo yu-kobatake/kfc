@@ -190,9 +190,10 @@ $_SESSION['token'] = $token;
                 <!-- <tbody> -->
                 <tr>
                     <th>掲載タイトル<br></th>
-                    <td><textarea name="title" placeholder="例）マイペースで優しい柴犬の男の子"><?= es($title); ?></textarea></td>
+                    <td colspan="3"><textarea name="title" placeholder="例）マイペースで優しい柴犬の男の子"><?= es($title); ?></textarea>
+                    </td>
                 </tr>
-                <tr>
+                <tr class="column3">
                     <th>掲載画像<br>(3枚選択)</th>
                     <td>
                         <div class="preview-area"></div><input type="file" name="image_1" accept="image/png, image/jpeg"
@@ -209,21 +210,21 @@ $_SESSION['token'] = $token;
 
                 <tr>
                     <th>犬or猫</th>
-                    <td>
+                    <td colspan="3">
                         <label>犬<input type="radio" name="kind" value="犬" <?= $kind_check1; ?>></label>
                         <label>猫<input type="radio" name="kind" value="猫" <?= $kind_check2; ?>></label>
                     </td>
                 </tr>
                 <tr>
                     <th>性別</th>
-                    <td>
+                    <td colspan="3">
                         <label>♂<input type="radio" name="gender" value="♂" <?= $gender_check1; ?>></label>
                         <label>♀<input type="radio" name="gender" value="♀" <?= $gender_check2; ?>></label>
                     </td>
                 </tr>
                 <tr>
                     <th>年齢</th>
-                    <td colspan="2"><input type="text" name="age" placeholder="例）5才3ヶ月" value="<?= $age; ?>"></td>
+                    <td colspan="3"><input type="text" name="age" placeholder="例）5才3ヶ月" value="<?= $age; ?>"></td>
                 </tr>
                 <tr>
                     <th rowspan="3">募集対象地域<br>(3つ選択)</th>
@@ -248,21 +249,21 @@ $_SESSION['token'] = $token;
                 </tr>
                 <tr>
                     <th>動物がいる地域</th>
-                    <td><select name="animal_area">
+                    <td colspan="3"><select name="animal_area">
                             <?= $animal_area_option; ?>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th>特徴（色柄、性格など)</th>
-                    <td>
+                    <td colspan="3">
                         <textarea name="animal_character"
                             placeholder="【毛色】【体重】【状態】【性格】など"><?= $animal_character; ?></textarea>
                     </td>
                 </tr>
                 <tr>
                     <th>特記事項</th>
-                    <td>
+                    <td colspan="3">
                         <textarea name="other" placeholder="特になければ「無し」とご入力ください"><?= $other; ?></textarea>
                     </td>
                 </tr>

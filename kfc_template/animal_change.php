@@ -178,9 +178,7 @@ try {
                 </tr>     
                 <tr>
                     <th>犬or猫</th>
-                    <td colspan="3"><input type="text" name="kind" value="{$kind}"></td>
-                    <th>犬or猫</th>
-                    <td>
+                    <td colspan="3">
                         <label>犬<input type="radio" name="kind" value="犬" {$kind_check1}></label>
         <label>猫<input type="radio" name="kind" value="猫" {$kind_check2}></label>
         </td>

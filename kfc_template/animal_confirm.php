@@ -239,9 +239,9 @@ if (count($errors) > 0) {
 
                 <tr>
                     <th>掲載タイトル</th>
-                    <td><?= es($title); ?></td>
+                    <td colspan="3"><?= es($title); ?></td>
                 </tr>
-                <tr>
+                <tr class="column3">
                     <th>掲載画像（3枚選択）</th>
                     <td><img src="./lib/image_1.php" width="200px"></td>
                     <td><img src="./lib/image_2.php" width="200px"></td>
@@ -249,14 +249,14 @@ if (count($errors) > 0) {
                 </tr>
                 <tr>
                     <th>犬or猫</th>
-                    <td><?= es($kind); ?></td>
+                    <td colspan="3"><?= es($kind); ?></td>
                 </tr>
                 <tr>
                     <th>性別</th>
-                    <td><?= es($gender); ?>
+                    <td colspan="3"><?= es($gender); ?>
                 <tr>
                     <th>年齢</th>
-                    <td><?= es($age); ?></td>
+                    <td colspan="3"><?= es($age); ?></td>
                 </tr>
 
                 <tr>
@@ -272,15 +272,15 @@ if (count($errors) > 0) {
                 </tr>
                 <tr>
                     <th>動物がいる地域</th>
-                    <td><?= es($animal_area); ?></td>
+                    <td colspan="3"><?= es($animal_area); ?></td>
                 </tr>
                 <tr>
                     <th>特徴（性格）</th>
-                    <td><?= es($animal_character); ?></td>
+                    <td colspan="3"><?= es($animal_character); ?></td>
                 </tr>
                 <tr>
                     <th>特記事項</th>
-                    <td><?= es($other); ?></td>
+                    <td colspan="3"><?= es($other); ?></td>
                 </tr>
             </tbody>
         </table>
