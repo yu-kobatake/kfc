@@ -13,15 +13,12 @@ session_start();
     <?php
 
 $uri = rtrim($_SERVER["SCRIPT_NAME"], '/');
-var_dump($uri);
 $uri = substr($uri, strrpos($uri, '/') + 1);
-var_dump($uri);
     if($uri === "message_top.php" ||$uri === "message.php" ){
         echo '<link rel="stylesheet" href="css/message.css">';
     } elseif($uri === "recruit_detail.php"){
-        echo '<link rel="stylesheet" href="css/recruit_detail.css">';
-        
-    }
+        echo '<link rel="stylesheet" href="css/recruit_detail.css">';    
+    } 
     
     ?>
 
@@ -36,11 +33,14 @@ var_dump($uri);
             <li><a href="./recruit.php">里親募集</a></li>
             <li><a href="./event.php">イベント</a></li>
             <li><a href="./about.php">当サイトについて</a></li>
-            <?php if(!empty($_SESSION['user_id'])){
+            <?php if($uri === "logout.php"){
+                echo '<li><a href="./login.php">ログイン</a></li>'; 
+            } elseif(!empty($_SESSION['user_id']) ||$uri === "parent_mypage.php" || $uri === "breeder_mypage.php") {
                 echo '<li><a href="./login.php">マイページ</a></li>';
                 echo '<li><a href="./logout.php">ログアウト</a></li>';
             } else {
               echo '<li><a href="./login.php">ログイン</a></li>';   
+                
             }
 
 ?>

@@ -2,24 +2,22 @@
 // titleで読み込むページ名
 $pagetitle = "ブリーダーマイページ"
 ?>
-<?php include('parts/header.php'); ?>
-
-<?php
+<?php include('parts/header.php');
 // セッション開始
 if (!isset($_SESSION)) {
-    session_start();
+session_start();
 }
 require_once("./lib/util.php");
 // エンコードチェック
 if (!cken($_POST)) {
-    $encoding = mb_internal_encoding();
-    $err = "encoding Err! {$encoding}";
-    exit($err);
+$encoding = mb_internal_encoding();
+$err = "encoding Err! {$encoding}";
+exit($err);
 }
 // エスケープ処理
 $_POST = es($_POST);
 
-//ログインページに戻って表示させるエラー文を入れる配列の初期化 
+//ログインページに戻って表示させるエラー文を入れる配列の初期化
 $errors = [];
 // 動物登録・変更関係のセッション削除
 $_SESSION['animal'] = [];
@@ -32,7 +30,7 @@ $_SESSION['animal'] = [];
 <?php
 
 /*************************************************************
-         不正アクセスチェック
+ 不正アクセスチェック
  ************************************************************/
 
 // 未ログイン状態で（$_SESSION['user_id']がない）遷移してきた場合で、トークンチェック（POSTによる遷移かどうか）
@@ -129,7 +127,7 @@ if (!empty($_POST['login_send'])) {
 
         <div class="mypage_set">
 
-        <?php
+            <?php
 /*************************************************************
  DB接続 userテーブルから会員情報を表示
 ************************************************************/
@@ -188,21 +186,22 @@ if (!empty($_POST['login_send'])) {
             echo "<a class ='error' href='login.php'>戻る</a>";
         }
         ?>
-        <?php
+            <?php
         /*************************************************************
  メッセージエリア
          ************************************************************/
         ?>
-        <div>
-            <h3>登録ペット</h3>
-            <a href="animal.php" class="animal_mana_btn_add">犬猫新規登録</a>
-            <a href="animal_manage.php" class="animal_mana_btn_con">犬猫管理画面</a>    
+            <div>
+                <h3>登録ペット</h3>
+                <a href="animal.php" class="animal_mana_btn_add">犬猫新規登録</a>
+                <a href="animal_manage.php" class="animal_mana_btn_con">犬猫管理画面</a>
 
-            <h3 class="martop10">メッセージ</h3>
-            <!-- 新規メッセージ的なコメント未設定 -->
-            <p>犬猫についてのメッセージのやり取りを確認・送信したい場合はこちら。</p>
-            <button type="button" class="btn_one martop10" onclick="location.href='message_top.php'">メッセージ一覧へ</button>
-        </div>
+                <h3 class="martop10">メッセージ</h3>
+                <!-- 新規メッセージ的なコメント未設定 -->
+                <p>犬猫についてのメッセージのやり取りを確認・送信したい場合はこちら。</p>
+                <button type="button" class="btn_one martop10"
+                    onclick="location.href='message_top.php'">メッセージ一覧へ</button>
+            </div>
 
         </div><!-- mypage_set -->
 
