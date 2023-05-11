@@ -125,12 +125,10 @@ if (!empty($_POST['login_send'])) {
 
 <div id="container" class="c1">
     <main>
-        <div>
+        <h2>マイページ</h2>
 
-            <h3>登録ペット</h3>
-            <a href=" animal.php"><button>犬猫新規登録</button></a>
-            <a href="animal_manage.php"><button>犬猫管理画面</button></a>
-        </div>
+        <div class="mypage_set">
+
         <?php
 /*************************************************************
  DB接続 userテーブルから会員情報を表示
@@ -175,7 +173,7 @@ if (!empty($_POST['login_send'])) {
             </table>
     
             <form method="POST" action="mypage_change.php">
-            <input type="submit" value="会員情報の変更">
+            <input type="submit" value="会員情報の変更" class="btn_one martop10">
             <input type="hidden" name="user_id" value="{$user_id}">
             </form>
             </div>
@@ -196,19 +194,26 @@ if (!empty($_POST['login_send'])) {
          ************************************************************/
         ?>
         <div>
-            <h3>メッセージ</h3>
+            <h3>登録ペット</h3>
+            <a href="animal.php" class="animal_mana_btn_add">犬猫新規登録</a>
+            <a href="animal_manage.php" class="animal_mana_btn_con">犬猫管理画面</a>    
+
+            <h3 class="martop10">メッセージ</h3>
             <!-- 新規メッセージ的なコメント未設定 -->
-            <button><a href="message_top.php">メッセージ一覧へ</a></button>
+            <p>犬猫についてのメッセージのやり取りを確認・送信したい場合はこちら。</p>
+            <button type="button" class="btn_one martop10" onclick="location.href='message_top.php'">メッセージ一覧へ</button>
         </div>
+
+        </div><!-- mypage_set -->
 
         <?php
         /************************************************************
              退会
          ************************************************************/
         ?>
-        <h3>退会</h3>
+        <h3 class=" martop50">退会</h3>
         <form method="POST" action="delete.php">
-            <input type="submit" value="退会ページへ">
+            <input type="submit" value="退会ページへ" class="btn_back_mini">
             <input type="hidden" name="user_id" value="<?= $user_id; ?>">
         </form>
 
