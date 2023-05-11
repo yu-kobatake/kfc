@@ -1,14 +1,14 @@
 <?php
-session_start();
-require_once("./lib/util.php");
-
 // titleで読み込むページ名
-$pagetitle = "メッセージ";
-
-
+$pagetitle = "メッセージ"
 ?>
 <?php include('parts/header.php'); ?>
-
+<?php
+// セッション開始
+if (!isset($_SESSION)) {
+  session_start();
+}
+?>
 
 <div id="container" class="c1" style="display:block">
     <main>

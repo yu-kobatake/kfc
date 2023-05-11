@@ -11,9 +11,14 @@ session_start();
     <meta name="robots" content="noindex, nofollow" />
     <link rel="stylesheet" href="css/style.css">
     <?php
-    if($_SERVER['SCRIPT_NAME'] === "/kfc_template/message_top.php" ||$_SERVER['SCRIPT_NAME'] === "/kfc_template/message.php" ){
+
+$uri = rtrim($_SERVER["SCRIPT_NAME"], '/');
+var_dump($uri);
+$uri = substr($uri, strrpos($uri, '/') + 1);
+var_dump($uri);
+    if($uri === "message_top.php" ||$uri === "message.php" ){
         echo '<link rel="stylesheet" href="css/message.css">';
-    } elseif($_SERVER['SCRIPT_NAME'] === "/kfc_template/recruit_detail.php"){
+    } elseif($uri === "recruit_detail.php"){
         echo '<link rel="stylesheet" href="css/recruit_detail.css">';
         
     }
