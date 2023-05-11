@@ -5,7 +5,6 @@ require_once("./lib/util.php");
 // titleで読み込むページ名
 $pagetitle = "message_add.php";
 
-var_dump($_SERVER['REQUEST_URI']);
 
 ?>
 <?php include('parts/header.php'); ?>

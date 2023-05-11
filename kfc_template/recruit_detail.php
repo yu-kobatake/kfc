@@ -121,7 +121,7 @@ $_SESSION['question_7'] = [];
         // クエリ実行
         $stm = $pdo->prepare($sql);
         $result = $stm->execute(array(':user_id' => $user_id, ':animal_id' => $animal_id));
-        var_dump($result);
+        // var_dump($result);
         if ($stm->rowCount()) {
           return true;
         } else {
