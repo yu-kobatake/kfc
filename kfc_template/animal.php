@@ -6,8 +6,8 @@ $pagetitle = "犬猫登録"
 
 <?php
 // セッション開始
-if(!isset($_SESSION)){
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
 }
 
 
@@ -19,11 +19,11 @@ require_once("./lib/util.php");
 // ユーザーIDがセッションに入っていれば$user_idに代入する
 if (!empty($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-  //セッションに入っていなければればログインページに戻す 
-  } else { 
+    //セッションに入っていなければればログインページに戻す 
+} else {
     header("Location:login.php");
     exit();
-  }
+}
 
 // トークンの発行
 $bytes = openssl_random_pseudo_bytes(16);
@@ -51,18 +51,18 @@ $_SESSION['token'] = $token;
         // 一度入力した値がSESSIONに存在すればその値、無ければ空文字を入れる 
         $title =  !empty($_SESSION['animal']['title']) ? $_SESSION['animal']['title'] : "";
         $kind =  !empty($_SESSION['animal']['kind']) ? $_SESSION['animal']['kind'] : "";
-        $gender =  !empty($_SESSION['animal']['gender']) ? $_SESSION['animal']['gender']: "";
-        $age = !empty($_SESSION['animal']['age']) ?$_SESSION['animal']['age'] : "";
-        $area_1 = !empty($_SESSION['animal']['area_1'] ) ? $_SESSION['animal']['area_1']: "";
+        $gender =  !empty($_SESSION['animal']['gender']) ? $_SESSION['animal']['gender'] : "";
+        $age = !empty($_SESSION['animal']['age']) ? $_SESSION['animal']['age'] : "";
+        $area_1 = !empty($_SESSION['animal']['area_1']) ? $_SESSION['animal']['area_1'] : "";
         $area_2 = !empty($_SESSION['animal']['area_2']) ? $_SESSION['animal']['area_2'] : "";
-        $area_3 =  !empty($_SESSION['animal']['area_3'])? $_SESSION['animal']['area_3'] : "";
+        $area_3 =  !empty($_SESSION['animal']['area_3']) ? $_SESSION['animal']['area_3'] : "";
         $animal_area =  !empty($_SESSION['animal']['animal_area']) ? $_SESSION['animal']['animal_area'] : "";
         $animal_character = !empty($_SESSION['animal']['animal_character']) ? $_SESSION['animal']['animal_character'] : "";
-        $other =  !empty($_SESSION['animal']['other'])? $_SESSION['animal']['other'] : "";
+        $other =  !empty($_SESSION['animal']['other']) ? $_SESSION['animal']['other'] : "";
 
         // 都道府県のセレクトボックスオプションの作成
         $prefList = array(
-            '選択してください','北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
+            '選択してください', '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
         );
         //セレクトボックスのオプションタグを作成
         // 必須のセレクトボックス
@@ -86,7 +86,8 @@ $_SESSION['token'] = $token;
         // }
 
 
-        function select_option($area){
+        function select_option($area)
+        {
             global $prefList;
             $pref_optionlist = "";
             foreach ($prefList as $pref_option) {
@@ -96,7 +97,6 @@ $_SESSION['token'] = $token;
                 $pref_optionlist .= "<option value='{$pref_option}'>{$pref_option}</option>";
             }
             return $pref_optionlist;
-            
         }
         // 都道府県選択のオプション設定
         $area_1_option = select_option($area_1);
@@ -104,10 +104,13 @@ $_SESSION['token'] = $token;
         $area_3_option = select_option($area_3);
         $animal_area_option = select_option($animal_area);
 
+        // 犬or猫checkedの設定
+        $kind_check1 = $kind === "犬" ? "checked" : "";
+        $kind_check2 = $kind === "猫" ? "checked" : "";
+
         // 性別入力値checkedの設定
         $gender_check1 = $gender === "♂" ? "checked" : "";
         $gender_check2 = $gender === "♀" ? "checked" : "";
-
 
         // セッションエラーの削除
         $_SESSION['error'] = [];
@@ -185,87 +188,87 @@ $_SESSION['token'] = $token;
         <form method="POST" action="animal_confirm.php" enctype="multipart/form-data">
             <table class="ta1 animal_post">
                 <!-- <tbody> -->
-                    <tr>
-                        <th>掲載タイトル<br></th>
-                        <td><textarea name="title" placeholder="例）マイペースで優しい柴犬の男の子"><?= es($title); ?></textarea></td>
-                    </tr>
-                    <tr>
-                        <th>掲載画像(3枚選択)</th>
-                        <td>
-                            <div class="preview-area"></div><input type="file" name="image_1"
-                                accept="image/png, image/jpeg" onchange="preview(this)">
-                        </td>
-                        <td>
-                            <div class="preview-area"></div><input type="file" name="image_2"
-                                accept="image/png, image/jpeg" onchange="preview(this)">
-                        </td>
-                        <td>
-                            <div class="preview-area"></div><input type="file" name="image_3"
-                                accept="image/png, image/jpeg" onchange="preview(this)">
-                        </td>
+                <tr>
+                    <th>掲載タイトル<br></th>
+                    <td><textarea name="title" placeholder="例）マイペースで優しい柴犬の男の子"><?= es($title); ?></textarea></td>
+                </tr>
+                <tr>
+                    <th>掲載画像<br>(3枚選択)</th>
+                    <td>
+                        <div class="preview-area"></div><input type="file" name="image_1" accept="image/png, image/jpeg"
+                            onchange="preview(this)">
+                    </td>
+                    <td>
+                        <div class="preview-area"></div><input type="file" name="image_2" accept="image/png, image/jpeg"
+                            onchange="preview(this)">
+                    </td>
+                    <td>
+                        <div class="preview-area"></div><input type="file" name="image_3" accept="image/png, image/jpeg"
+                            onchange="preview(this)">
+                    </td>
 
-                    <tr>
-                        <th>犬種/猫種</th>
-                        <td><input type="text" name="kind" placeholder="柴犬" value="<?= es($kind); ?>"></td>
-                    </tr>
-                    <tr>
-                        <th>性別</th>
-                        <td>
-                            <label>♂<input type="radio" name="gender" value="♂" <?= $gender_check1; ?>></label>
-                            <label>♀<input type="radio" name="gender" value="♀" <?= $gender_check2; ?>></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>年齢</th>
-                        <td colspan="2"><input type="text" name="age" placeholder="例）5才3ヶ月" value="<?= $age; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th rowspan="3">募集対象地域<br>(3つ選択)</th>
-                        <td>募集対象地域1
-                            <select name="area_1">
-                                <?= $area_1_option; ?></select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>募集対象地域2
-                            <select name="area_2">
-                                <?= $area_2_option; ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>募集対象地域3
-                            <select name="area_3">
-                                <?= $area_3_option; ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>動物がいる地域</th>
-                        <td><select name="animal_area">
-                                <?= $animal_area_option; ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>特徴（色柄、性格など)</th>
-                        <td>
-                            <textarea name="animal_character" placeholder="【毛色】 茶・白
-                        【体重】 8.6㎏
-                        【状態】ワクチン接種済、狂犬病予防接種済、ノミ・ダニ駆除済、歯石除去済、一般血液検査済、マイクロチップ装着済
-                        【人馴】 問題なし
-                        【性格・その他】 穏やかな男の子です。"><?= $animal_character;?></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>特記事項</th>
-                        <td>
-                            <textarea name="other"><?= $other; ?></textarea>
-                        </td>
-                    </tr>
+                <tr>
+                    <th>犬or猫</th>
+                    <td>
+                        <label>犬<input type="radio" name="kind" value="犬" <?= $kind_check1; ?>></label>
+                        <label>猫<input type="radio" name="kind" value="猫" <?= $kind_check2; ?>></label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>性別</th>
+                    <td>
+                        <label>♂<input type="radio" name="gender" value="♂" <?= $gender_check1; ?>></label>
+                        <label>♀<input type="radio" name="gender" value="♀" <?= $gender_check2; ?>></label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>年齢</th>
+                    <td colspan="2"><input type="text" name="age" placeholder="例）5才3ヶ月" value="<?= $age; ?>"></td>
+                </tr>
+                <tr>
+                    <th rowspan="3">募集対象地域<br>(3つ選択)</th>
+                    <td>募集対象地域1
+                        <select name="area_1">
+                            <?= $area_1_option; ?></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>募集対象地域2
+                        <select name="area_2">
+                            <?= $area_2_option; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>募集対象地域3
+                        <select name="area_3">
+                            <?= $area_3_option; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>動物がいる地域</th>
+                    <td><select name="animal_area">
+                            <?= $animal_area_option; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>特徴（色柄、性格など)</th>
+                    <td>
+                        <textarea name="animal_character"
+                            placeholder="【毛色】【体重】【状態】【性格】など"><?= $animal_character; ?></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>特記事項</th>
+                    <td>
+                        <textarea name="other" placeholder="特になければ「無し」とご入力ください"><?= $other; ?></textarea>
+                    </td>
+                </tr>
                 <!-- </tbody> -->
             </table>
-            <p class="c">
+            <p class=" c">
                 <input type="submit" value="確認ページへ" name="send" formaction="animal_confirm.php" class="btn_one">
             </p>
             <p class="c">

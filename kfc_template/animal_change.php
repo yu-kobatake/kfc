@@ -109,6 +109,11 @@ try {
     $area_3_option = select_option($area_3);
     $animal_area_option = select_option($animal_area);
 
+    // 犬or猫checkedの設定
+    $kind_check1 = $kind === "犬" ? "checked" : "";
+    $kind_check2 = $kind === "猫" ? "checked" : "";
+
+
     // 性別入力値checkedの設定
     $gender_check1 = $gender === "♂" ? "checked" : "";
     $gender_check2 = $gender === "♀" ? "checked" : "";
@@ -146,7 +151,7 @@ try {
                     <td colspan="3"><img src="./images/animal_photo/{$result['image_1']}" alt="{$result['kind']}"></td>
                 </tr>
                 <tr>
-                    <th>タイトル</th>
+                    <th>掲載タイトル</th>
                     <td colspan="3"><textarea name="title" class="txtareamini">{$title}</textarea></td>
                 </tr>
                 <tr class="column3">
@@ -172,71 +177,76 @@ try {
                         <input type="hidden" name="MAX_FILE_SIZE" value="4194304">
                 </tr>     
                 <tr>
-                    <th>犬種猫種</th>
+                    <th>犬or猫</th>
                     <td colspan="3"><input type="text" name="kind" value="{$kind}"></td>
-                </tr>
-                <tr>
-                    <th>性別</th>
-                    <td colspan="3"><label>♂<input type="radio" name="gender" value="♂" {$gender_check1}></label>
-                        <label>♀<input type="radio" name="gender" value="♀" {$gender_check2}></label>
-                    </td>
-                </tr>
-                <tr>
-                    <th>年齢</th>
-                    <td colspan="3"><input type=" text" name="age" value="{$age}"></td>
-                </tr>
-                <tr>
-                    <th rowspan="3">募集対象地域<br>3つ選択</th>
-                    <td>募集対象地域1
-                        <select name="area_1">
-                            {$area_1_option}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>募集対象地域2
-                        <select name="area_2">
-                            {$area_2_option}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>募集対象地域3
-                    <select name="area_3">
-                        {$area_3_option}
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>動物がいる地域※</th>
-                    <td colspan="3"><select name="animal_area">
-                            {$animal_area_option}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>特徴（性格）</th>
-                    <td colspan="3"><textarea name="animal_character">{$animal_character}</textarea>
-                </tr>
-                <tr>
-                    <th>特記事項</th>
-                    <td colspan="3"><textarea name="other">{$other}</textarea>
-                    </td>
-                </tr>
-            </tbody>
+                    <th>犬or猫</th>
+                    <td>
+                        <label>犬<input type="radio" name="kind" value="犬" {$kind_check1}></label>
+        <label>猫<input type="radio" name="kind" value="猫" {$kind_check2}></label>
+        </td>
+        </tr>
+        <tr>
+            <th>性別</th>
+            <td colspan="3"><label>♂<input type="radio" name="gender" value="♂" {$gender_check1}></label>
+                <label>♀<input type="radio" name="gender" value="♀" {$gender_check2}></label>
+            </td>
+        </tr>
+        <tr>
+            <th>年齢</th>
+            <td colspan="3"><input type=" text" name="age" value="{$age}"></td>
+        </tr>
+        <tr>
+            <th rowspan="3">募集対象地域<br>3つ選択</th>
+            <td>募集対象地域1
+                <select name="area_1">
+                    {$area_1_option}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>募集対象地域2
+                <select name="area_2">
+                    {$area_2_option}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>募集対象地域3
+                <select name="area_3">
+                    {$area_3_option}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>動物がいる地域※</th>
+            <td colspan="3"><select name="animal_area">
+                    {$animal_area_option}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>特徴（性格）</th>
+            <td colspan="3"><textarea name="animal_character">{$animal_character}</textarea>
+        </tr>
+        <tr>
+            <th>特記事項</th>
+            <td colspan="3"><textarea name="other">{$other}</textarea>
+            </td>
+        </tr>
+        </tbody>
         </table>
         <p class="c">
-        <input type="submit" value="確認ページへ" name="send" formaction="animal_change_confirm.php" class="btn_one">
+            <input type="submit" value="確認ページへ" name="send" formaction="animal_change_confirm.php" class="btn_one">
         </p>
         <p class="c">
-        <input type="submit" value="戻る" formaction="animal_manage.php" class="btn_back_one">
+            <input type="submit" value="戻る" formaction="animal_manage.php" class="btn_back_one">
         </p>
         <input type="hidden" name="token" value="{$token}">
         <input type="hidden" name="animal_id" value="{$animal_id}">
         <input type="hidden" name="send_image1" value="{$send_image1}">
         <input type="hidden" name="send_image2" value="{$send_image2}">
         <input type="hidden" name="send_image3" value="{$send_image3}">
-    </form>
+        </form>
 </div>
 </main>
 </div>

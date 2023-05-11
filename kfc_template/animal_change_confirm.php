@@ -98,13 +98,26 @@ for ($i = 1; $i <= 3; $i++) {
 }
 
 
-// 犬種/猫種のバリデーション
-$kind = preg_replace('/^[　]+|[　]+$/u', "", $_POST["kind"]);
-if (empty($kind)) {
-    $errors[] = "【犬種/猫種】は必須です";
-} else if (mb_strlen($kind) > 40) {
-    $errors[] = "【犬種/猫種】は40文字以内で入力して下さい";
+// // 犬種/猫種のバリデーション
+// $kind = preg_replace('/^[　]+|[　]+$/u', "", $_POST["kind"]);
+// if (empty($kind)) {
+//     $errors[] = "【犬種/猫種】は必須です";
+// } else if (mb_strlen($kind) > 40) {
+//     $errors[] = "【犬種/猫種】は40文字以内で入力して下さい";
+// }
+
+// 犬or猫のバリデーション
+if (empty($_POST["kind"])) {
+    $errors[] = "【犬or猫】は必須です";
+} else {
+    $kind_value = ["犬", "猫"];
+    if (in_array($_POST['kind'], $kind_value)) {
+        $kind = $_POST["kind"];
+    } else {
+        $errors[] = "【犬or猫】に入力エラーがありました。";
+    }
 }
+
 
 // 性別のバリデーション
 if (empty($_POST["gender"])) {
@@ -217,7 +230,7 @@ if (count($errors) > 0) {
                     <td colspan="3"><img src="<?= es($send_image1); ?>"></td>
                 </tr>
                 <tr>
-                    <th>タイトル</th>
+                    <th>掲載タイトル</th>
                     <td colspan="3"><?= es($title); ?>
                     </td>
                 </tr>
@@ -266,7 +279,8 @@ if (count($errors) > 0) {
         </table>
         <form method="POST" action="#">
             <p class="c">
-                <input type="submit" value="この内容で変更する" name="send" formaction="animal_change_complet.php" class="btn_one">
+                <input type="submit" value="この内容で変更する" name="send" formaction="animal_change_complet.php"
+                    class="btn_one">
             </p>
             <p class="c">
                 <input type="submit" value="戻る" formaction="animal_change.php" class="btn_back_one">

@@ -86,13 +86,26 @@ if (
     }
 }
 
-// 犬種/猫種のバリデーション
-$kind = preg_replace('/^[　]+|[　]+$/u', "", $_POST["kind"]);
-if (empty($kind)) {
-    $errors[] = "【犬種/猫種】は必須です";
-} else if (mb_strlen($kind) > 40) {
-    $errors[] = "【犬種/猫種】は40文字以内で入力して下さい";
+// // 犬種/猫種のバリデーション
+// $kind = preg_replace('/^[　]+|[　]+$/u', "", $_POST["kind"]);
+// if (empty($kind)) {
+//     $errors[] = "【犬種/猫種】は必須です";
+// } else if (mb_strlen($kind) > 40) {
+//     $errors[] = "【犬種/猫種】は40文字以内で入力して下さい";
+// }
+
+// 犬or猫のバリデーション
+if (empty($_POST["kind"])) {
+    $errors[] = "【犬or猫】は必須です";
+} else {
+    $kind_value = ["犬", "猫"];
+    if (in_array($_POST['kind'], $kind_value)) {
+        $kind = $_POST["kind"];
+    } else {
+        $errors[] = "【犬or猫】に入力エラーがありました。";
+    }
 }
+
 
 // 性別のバリデーション
 if (empty($_POST["gender"])) {
@@ -138,36 +151,6 @@ if (($_POST["area_1"] === "選択してください" || empty($_POST["area_1"]))
 }
 
 
-// if (in_array($_POST['area_1'], $prefList)) {
-//     if ($_POST['area_1'] === "選択してください" ||$_POST['area_1'] === "設定しない") {
-//         $errors[] = "【募集対象地域1】は必須です";
-//     } else {
-//         $area_1 = $_POST["area_1"];
-//     }
-// } else {
-//     $errors[] = "【募集対象地域1】に入力エラーがありました。";
-// }
-
-
-// if (in_array($_POST['area_2'], $prefList)) {
-// if ($_POST['area_2'] === "選択してください" || $_POST['area_2'] === "設定しない") {
-//         $area_2 = "未設定";
-//     } else {
-//         $area_2 = $_POST["area_2"];
-//     }
-// } else {
-//     $errors[] = "【募集対象地域2】に入力エラーがありました。";
-// }
-
-// if (in_array($_POST['area_3'], $prefList)) {
-//     if ($_POST['area_3'] === "選択してください" || $_POST['area_3'] === "設定しない") {
-//         $area_3 = "未設定";
-//     } else {
-//         $area_3 = $_POST["area_3"];
-//     }
-// } else {
-//     $errors[] = "【募集対象地域3】に入力エラーがありました。";
-// }
 
 
 
@@ -255,29 +238,29 @@ if (count($errors) > 0) {
             <tbody>
 
                 <tr>
-                    <th>タイトル※</th>
+                    <th>掲載タイトル</th>
                     <td><?= es($title); ?></td>
                 </tr>
                 <tr>
-                    <th>画像選択（3枚）※</th>
+                    <th>掲載画像（3枚選択）</th>
                     <td><img src="./lib/image_1.php" width="200px"></td>
                     <td><img src="./lib/image_2.php" width="200px"></td>
                     <td><img src="./lib/image_3.php" width="200px"> </td>
                 </tr>
                 <tr>
-                    <th>犬種/猫種※</th>
+                    <th>犬or猫</th>
                     <td><?= es($kind); ?></td>
                 </tr>
                 <tr>
-                    <th>性別※</th>
+                    <th>性別</th>
                     <td><?= es($gender); ?>
                 <tr>
-                    <th>年齢※</th>
+                    <th>年齢</th>
                     <td><?= es($age); ?></td>
                 </tr>
 
                 <tr>
-                    <th rowspan="3">募集対象地域<br>3つまで選択可</th>
+                    <th rowspan="3">募集対象地域(3つ選択)</th>
                     <td>募集対象地域1：<?= es($area_1); ?> </td>
                     </td>
                 </tr>
@@ -288,15 +271,15 @@ if (count($errors) > 0) {
                     <td>募集対象地域3：<?= es($area_3); ?></td>
                 </tr>
                 <tr>
-                    <th>動物がいる地域※</th>
+                    <th>動物がいる地域</th>
                     <td><?= es($animal_area); ?></td>
                 </tr>
                 <tr>
-                    <th>特徴（性格）※</th>
+                    <th>特徴（性格）</th>
                     <td><?= es($animal_character); ?></td>
                 </tr>
                 <tr>
-                    <th>特記事項※</th>
+                    <th>特記事項</th>
                     <td><?= es($other); ?></td>
                 </tr>
             </tbody>
