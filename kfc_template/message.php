@@ -4,11 +4,10 @@ require_once("./lib/util.php");
 
 // titleで読み込むページ名
 $pagetitle = "メッセージ";
-var_dump($_SERVER['REQUEST_URI']);
-var_dump($_SERVER['SCRIPT_NAME']);
+
 
 ?>
-<?php include('parts/header_message.php'); ?>
+<?php include('parts/header.php'); ?>
 
 
 <div id="container" class="c1" style="display:block">
@@ -33,7 +32,8 @@ var_dump($_SERVER['SCRIPT_NAME']);
             <div class="message">
                 <div class="user_flex">
                     <div class="back_btn">
-                        <a href="message_top.php"><button>< 戻る</button></a>
+                        <a href="message_top.php"><button>
+                                < 戻る</button></a>
                     </div>
                     <div class="user_name">
                         <h2><?= $destination_user['user_name'] ?></h2>
