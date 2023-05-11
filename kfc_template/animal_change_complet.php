@@ -183,21 +183,23 @@ exit();
 ?>
 
 
-<div id="container">
+<div id="container" class="c1">
     <main>
+      <div class="c">
         <h2>犬猫情報変更完了</h2>
         <p>内容を変更しました。</p>
+      </div>
+      <form method="POST" action="#">
+          <p class="c">
+            <input type="submit" value="ページを確認する" name="<?= $animal_id; ?>"
+              formaction="recruit_detail.php?animal_id=<?= es($animal_id); ?>" class="btn_one">
+          </p>
+          <p class="c">
+            <input type="submit" value="犬猫管理画面へ" formaction="animal_manage.php" class="btn_back_one">
+          </p>
+          <input type="hidden" name="breeder" value="breeder">
+      </form>
     </main>
 </div>
-
-
-<form method="POST" action="#">
-    <input type="submit" value="ページを確認する" name="<?= $animal_id; ?>"
-        formaction="recruit_detail.php?animal_id=<?= es($animal_id); ?>">
-    <input type="submit" value="犬猫管理画面へ" formaction="animal_manage.php">
-    <input type="hidden" name="breeder" value="breeder">
-
-</form>
-
 
 <?php include('parts/footer.php'); ?>

@@ -59,7 +59,7 @@ try {
 <div id="container" class="c1">
     <main>
         <h2>犬猫管理画面</h2>
-        <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">戻る</button>
+        <!-- <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">戻る</button> -->
         <?php
     // 犬猫を登録していれば表示
     if ($result_count > 0) {

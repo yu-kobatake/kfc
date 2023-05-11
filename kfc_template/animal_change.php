@@ -126,12 +126,6 @@ try {
         <!-- <div class="back_btn">
             <button><a href="animal_manage.php">戻る</a></button>
         </div> -->
-        <table class="ta1">
-            <tr>
-                <th>掲載ID:<?= $result['animal_id']; ?></th>
-                <td><img src="./images/animal_photo/<?= $result['image_1']; ?>" alt="{$result['kind']}"></td>
-            </tr>
-        </table>
 
         <?php
         // エラーを受け取る処理
@@ -143,22 +137,25 @@ try {
             $_SESSION['animal'] = [];
         }
 
-
         echo <<<EOL
     <form method="POST" action="animal_confirm.php" enctype="multipart/form-data">
-        <table class="ta1">
+        <table class="ta1 animal_post">
             <tbody>
                 <tr>
+                    <th>掲載ID:{$result['animal_id']}</th>
+                    <td colspan="3"><img src="./images/animal_photo/{$result['image_1']}" alt="{$result['kind']}"></td>
+                </tr>
+                <tr>
                     <th>タイトル</th>
-                    <td><textarea name="title">{$title}</textarea></td>
+                    <td colspan="3"><textarea name="title" class="txtareamini">{$title}</textarea></td>
                 </tr>
-                <tr>
+                <tr class="column3">
                     <th>現在登録されている画像</th>
-                    <td><p>画像1</p><img src ="./images/animal_photo/{$result['image_1']}" alt="{$result['kind']}" width="200px"></td>
-                    <td><p>画像2</p><img src ="./images/animal_photo/{$result['image_2']}" alt="{$result['kind']}" width="200px"></td>
-                    <td><p>画像3</p><img src ="./images/animal_photo/{$result['image_3']}" alt="{$result['kind']}" width="200px"></td>
+                    <td><p>画像1</p><img src ="./images/animal_photo/{$result['image_1']}" alt="{$result['kind']}"></td>
+                    <td><p>画像2</p><img src ="./images/animal_photo/{$result['image_2']}" alt="{$result['kind']}"></td>
+                    <td><p>画像3</p><img src ="./images/animal_photo/{$result['image_3']}" alt="{$result['kind']}"></td>
                 </tr>
-                <tr>
+                <tr class="column3">
                     <th>差し替えたい画像を選択</th>
                     <td>
                     <div class="preview-area"></div><input type="file" name="image_1"
@@ -176,17 +173,17 @@ try {
                 </tr>     
                 <tr>
                     <th>犬種猫種</th>
-                    <td><input type="text" name="kind" value="{$kind}"></td>
+                    <td colspan="3"><input type="text" name="kind" value="{$kind}"></td>
                 </tr>
                 <tr>
                     <th>性別</th>
-                    <td><label>♂<input type="radio" name="gender" value="♂" {$gender_check1}></label>
+                    <td colspan="3"><label>♂<input type="radio" name="gender" value="♂" {$gender_check1}></label>
                         <label>♀<input type="radio" name="gender" value="♀" {$gender_check2}></label>
                     </td>
                 </tr>
                 <tr>
                     <th>年齢</th>
-                    <td><input type=" text" name="age" value="{$age}"></td>
+                    <td colspan="3"><input type=" text" name="age" value="{$age}"></td>
                 </tr>
                 <tr>
                     <th rowspan="3">募集対象地域<br>3つ選択</th>
@@ -212,18 +209,18 @@ try {
                 </tr>
                 <tr>
                     <th>動物がいる地域※</th>
-                    <td><select name="animal_area">
+                    <td colspan="3"><select name="animal_area">
                             {$animal_area_option}
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th>特徴（性格）</th>
-                    <td><textarea name="animal_character">{$animal_character}</textarea>
+                    <td colspan="3"><textarea name="animal_character">{$animal_character}</textarea>
                 </tr>
                 <tr>
                     <th>特記事項</th>
-                    <td><textarea name="other">{$other}</textarea>
+                    <td colspan="3"><textarea name="other">{$other}</textarea>
                     </td>
                 </tr>
             </tbody>
@@ -231,16 +228,15 @@ try {
         <p class="c">
         <input type="submit" value="確認ページへ" name="send" formaction="animal_change_confirm.php" class="btn_one">
         </p>
+        <p class="c">
+        <input type="submit" value="戻る" formaction="animal_manage.php" class="btn_back_one">
+        </p>
         <input type="hidden" name="token" value="{$token}">
         <input type="hidden" name="animal_id" value="{$animal_id}">
         <input type="hidden" name="send_image1" value="{$send_image1}">
         <input type="hidden" name="send_image2" value="{$send_image2}">
         <input type="hidden" name="send_image3" value="{$send_image3}">
-
     </form>
-    <div class="back_btn c">
-    <button onclick="location.href='animal_manage.php'" class="btn_back_one">戻る</button>
-    </div>
 </div>
 </main>
 </div>

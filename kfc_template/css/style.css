@@ -1004,6 +1004,50 @@ button.btn_back_mini:hover{
 	color: #e9bc19 !important;
 }
 
+/* マイページ関係
+---------------------------------------------------------------------------*/
+.mypage_set{
+	display: grid;
+	gap: 30px;
+  grid-template-columns: 2fr 1fr;
+}
+/*犬猫管理・登録ボタン*/
+.animal_mana_btn_add,
+.animal_mana_btn_con{
+	color: #e94019;
+	text-align: center;
+	text-decoration: none;
+	display: block;
+	border: 2px solid #e94019;
+	padding: 12px;
+	border-radius: 15px;
+	margin-bottom: 20px;
+	transition: 0.5s;
+}
+.animal_mana_btn_add:hover,
+.animal_mana_btn_con:hover{
+	background: #e94019;
+	color: #fff;
+	opacity: 1;
+}
+.animal_mana_btn_add::before,
+.animal_mana_btn_con::before {
+	display: block;
+	font-family: "Font Awesome 5 Free";	/*Font Awesomeを使う指定*/
+	font-weight: bold;
+	padding-right: 5px;	/*アイコンと名前の間に空ける余白*/
+	color: #e94019;		/*アイコンの色*/
+	transition: 0.5s;
+}
+.animal_mana_btn_add::before{ content: "\f1b0"; }
+.animal_mana_btn_con::before{ content: "\f022"; }
+.animal_mana_btn_add:hover::before,
+.animal_mana_btn_con:hover::before {
+	color: #fff;
+	opacity: 1;
+}
+
+
 /* 里親募集関係
 ---------------------------------------------------------------------------*/
 .question_area textarea{
@@ -1011,12 +1055,20 @@ button.btn_back_mini:hover{
 	width: 70%;
 }
 
+
+
 /* 犬猫管理関係
 ---------------------------------------------------------------------------*/
 /* 犬猫登録 */
+.ta_fixed{
+	table-layout: fixed;
+}
 .animal_post textarea{
 	height: 10em;
-	width: 100%;
+	width: 80%;
+}
+.animal_post textarea.txtareamini{
+	height: 4em;
 }
 .animal_photo_all{
 	width: 80%;
@@ -1058,6 +1110,7 @@ button.btn_back_mini:hover{
 .txtred{ color:red; }
 .martop6{ margin-top: 6px !important; }
 .martop10{ margin-top: 10px !important; }
+.martop50{ margin-top: 50px !important; }
 .marbtm10{ margin-bottom: 10px !important; }
 
 
@@ -1077,6 +1130,8 @@ header ul {
 }
 
 
+/* 会員登録・ログイン・マイページ（スマホ）
+---------------------------------------------------------------------------*/
 /* 住所フォーム */
 .text_r{
 	display: block;	
@@ -1095,12 +1150,23 @@ header ul {
 	margin-right: 0;
 }
 
-/*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
+.mypage_set {
+	grid-template-columns: 1fr;
+}
 
+/* 犬猫管理関係（スマホ）
+---------------------------------------------------------------------------*/
+.animal_post .column3 td{
+	display: block;
 }
 
 
 
+
+
+/*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
+
+}
 
 
 /*---------------------------------------------------------------------------

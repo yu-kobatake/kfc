@@ -125,6 +125,10 @@ if (!empty($_POST['login_send'])) {
 ?>
 <div id="container" class="c1">
     <main>
+        <h2>マイページ</h2>
+
+        <div class="mypage_set">
+
         <?php
         /*************************************************************
 DB接続 userテーブルから会員情報を取り出して表示
@@ -153,27 +157,26 @@ DB接続 userテーブルから会員情報を取り出して表示
             //  該当するユーザーの情報を表示
             echo <<<EOL
             <div>
-            <h3>会員情報</h3>
-            <table class= "ta1">
-            <tbody>
-            <tr><th>会員ID</th><td>{$result['user_id']}</td></tr>
-            <tr><th>里親orブリーダー</th><td>{$result['kind']}</td></tr>
-            <tr><th>ユーザー名</th><td>{$result['user_name']}</td></tr>
-            <tr><th>氏名</th><td>{$result['name']}</td></tr>
-            <tr><th>フリガナ</th><td>{$result['furigana']}</td></tr>
-            <tr><th>性別</th><td>{$result['gender']}</td></tr>
-            <tr><th>メールアドレス</th><td>{$result['email']}</td></tr>
-            <tr><th>郵便番号</th><td>{$result['zip']}</td></tr>
-            <tr><th>住所</th><td>{$result['address']}</td></tr>
-            <tr><th>生年月日</th><td>{$result['birth']}</td></tr>
-            <tr><th>職業</th><td>{$result['job']}</td></tr>
-            </tbody>
-            </table>
-
-            <form method="POST" action="mypage_change.php">
-            <input type="submit" value="会員情報の変更" class="btn_one">
-            <input type="hidden" name="user_id" value="{$user_id}">
-            </form>
+                <h3>会員情報</h3>
+                <table class= "ta1">
+                <tbody>
+                <tr><th>会員ID</th><td>{$result['user_id']}</td></tr>
+                <tr><th>里親orブリーダー</th><td>{$result['kind']}</td></tr>
+                <tr><th>ユーザー名</th><td>{$result['user_name']}</td></tr>
+                <tr><th>氏名</th><td>{$result['name']}</td></tr>
+                <tr><th>フリガナ</th><td>{$result['furigana']}</td></tr>
+                <tr><th>性別</th><td>{$result['gender']}</td></tr>
+                <tr><th>メールアドレス</th><td>{$result['email']}</td></tr>
+                <tr><th>郵便番号</th><td>{$result['zip']}</td></tr>
+                <tr><th>住所</th><td>{$result['address']}</td></tr>
+                <tr><th>生年月日</th><td>{$result['birth']}</td></tr>
+                <tr><th>職業</th><td>{$result['job']}</td></tr>
+                </tbody>
+                </table>
+                <form method="POST" action="mypage_change.php">
+                <input type="submit" value="会員情報の変更" class="btn_one martop10">
+                <input type="hidden" name="user_id" value="{$user_id}">
+                </form>
             </div>
             EOL;
         } catch (Exception $e) {
@@ -193,8 +196,11 @@ DB接続 userテーブルから会員情報を取り出して表示
         <div>
             <h3>メッセージ</h3>
             <!-- 新規メッセージ的なコメント未設定 -->
-            <button><a href="message_top.php">メッセージ一覧へ</a></button>
+            <p>犬猫についてのメッセージのやり取りを確認・送信したい場合はこちら。</p>
+            <button type="button" class="btn_one martop10" onclick="location.href='message_top.php'">メッセージ一覧へ</button>
         </div>
+
+        </div><!-- mypage_set -->
 
         <?php
         /*************************************************************
@@ -216,7 +222,7 @@ DB接続 userテーブルから会員情報を取り出して表示
             // var_dump($result);
             
             // いいね一覧表示
-            echo "<h3>いいね一覧</h3>";
+            echo "<h3 class='martop50'>いいね一覧</h3>";
             
             if($result){
                 echo "<div class='animal list-container'>";
@@ -278,6 +284,11 @@ DB接続 userテーブルから会員情報を取り出して表示
             <input type="submit" value="退会ページへ" class="btn_back_mini">
             <input type="hidden" name="user_id" value="<?= $user_id; ?>">
         </form>
+
+
+
+
+
     </main>
 </div>
 
