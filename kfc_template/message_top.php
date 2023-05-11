@@ -2,7 +2,7 @@
 // titleで読み込むページ名
 $pagetitle = "トークルーム一覧"
 ?>
-<?php include('parts/header.php'); ?>
+<?php include('parts/header_message.php'); ?>
 <?php
 // セッション開始
 if (!isset($_SESSION)) {
@@ -17,9 +17,10 @@ require_once("./lib/util.php");
 
 <div id="container" class='c1' style="display:block">
     <main>
-        <div class="mypage_btn">
+      <h2>トークルーム一覧</h2>
+        <!-- <div class="mypage_btn">
             <a href="login.php"><button>＜マイページに戻る</button></a>
-        </div>
+        </div> -->
         <?php
     $current_user = get_user($_SESSION['user_id']);
     $message_relations = get_message_relations($current_user['user_id']);
@@ -169,6 +170,11 @@ require_once("./lib/util.php");
 
 
       ?>
+
+      <p class="c martop50">
+      <button type="button" class="btn_back_one martop10" onclick="location.href='login.php'">マイページへ戻る</button>
+      </p>
+
     </main>
 </div>
 

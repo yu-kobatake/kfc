@@ -38,13 +38,22 @@ form{
   text-align: center;
 }
 .back_btn button{
-  background-color: #eee;
+    text-decoration: none;
+    font-size: 15px;
+    background: #777;
+    color: #fff;
+    border: 2px solid #777;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 30px;
+  /* background-color: #eee;
   color: #555;
   width: 100px;
 height: 35px;
 font-weight: 500;
 font-size: 150%;
-border: none;
+border: none; */
 }
 .back_btn button:hover{
   opacity: 0.7;
@@ -75,15 +84,19 @@ border: none;
 .btn_03 {
 	display: block;
 	text-decoration: none;
-	width: 100px;
-	margin: 10px auto auto auto;
-	padding: 0.5rem 2rem;
+	width: 200px;
+	margin: 20px auto auto auto;
+	padding: 1rem 2rem;
+  font-size: 15px;
 	font-weight: bold;
 	border: 2px solid #000;
 	color: #000;
   background-color: #fff;
 	border-radius: 100vh;
 	transition: 0.5s;
+}
+textarea::placeholder{
+  color: #ccc;
 }
 .btn_03:hover {
 	color: #fff;
@@ -183,9 +196,10 @@ background-color: #fff;
 
 .col-8{
   width: 70%;
-  height: 100px;
-  margin: 10px auto;
-  padding: 0 3% 0 3%;
+  /*height: 100px;*/
+  margin: 20px auto;
+  padding: 1.7% 3%;
+  /*padding: 0 3% 0 3%;*/
   background-color: #eee;
   border-radius: 20px;
 }

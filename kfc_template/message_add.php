@@ -8,7 +8,7 @@ $pagetitle = "message_add.php";
 
 ?>
 <?php include('parts/header.php'); ?>
-<div id="container">
+<div id="container" class="c1 c">
     <main>
         <?php
     $_POST = es($_POST);
