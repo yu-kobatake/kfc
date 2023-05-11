@@ -236,9 +236,9 @@ if (count($errors) > 0) {
                 </tr>
                 <tr class="column3">
                     <th>掲載画像（3枚選択）</th>
-                    <td><img src="<?= !empty($file1) ? "./lib/image_1.php" : es($send_image1); ?>"></td>
-                    <td><img src="<?= !empty($file2) ? "./lib/image_2.php" : es($send_image2); ?>"></td>
-                    <td><img src="<?= !empty($file3) ? "./lib/image_3.php" : es($send_image3); ?>"></td>
+                    <td valign="top"><img src="<?= !empty($file1) ? "./lib/image_1.php" : es($send_image1); ?>"></td>
+                    <td valign="top"><img src="<?= !empty($file2) ? "./lib/image_2.php" : es($send_image2); ?>"></td>
+                    <td valign="top"><img src="<?= !empty($file3) ? "./lib/image_3.php" : es($send_image3); ?>"></td>
                 </tr>
                 <tr>
                     <th>犬種/猫種</th>

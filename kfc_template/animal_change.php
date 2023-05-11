@@ -156,9 +156,9 @@ try {
                 </tr>
                 <tr class="column3">
                     <th>現在登録されている画像</th>
-                    <td><p>画像1</p><img src ="./images/animal_photo/{$result['image_1']}" alt="{$result['kind']}"></td>
-                    <td><p>画像2</p><img src ="./images/animal_photo/{$result['image_2']}" alt="{$result['kind']}"></td>
-                    <td><p>画像3</p><img src ="./images/animal_photo/{$result['image_3']}" alt="{$result['kind']}"></td>
+                    <td valign="top"><p>画像1</p><img src ="./images/animal_photo/{$result['image_1']}" alt="{$result['kind']}"></td>
+                    <td valign="top"><p>画像2</p><img src ="./images/animal_photo/{$result['image_2']}" alt="{$result['kind']}"></td>
+                    <td valign="top"><p>画像3</p><img src ="./images/animal_photo/{$result['image_3']}" alt="{$result['kind']}"></td>
                 </tr>
                 <tr class="column3">
                     <th>差し替えたい画像を選択</th>
