@@ -1014,9 +1014,15 @@ button.btn_back_mini:hover{
 /* 犬猫管理関係
 ---------------------------------------------------------------------------*/
 /* 犬猫登録 */
+.ta_fixed{
+	table-layout: fixed;
+}
 .animal_post textarea{
 	height: 10em;
-	width: 100%;
+	width: 80%;
+}
+.animal_post textarea.txtareamini{
+	height: 4em;
 }
 .animal_photo_all{
 	width: 80%;
@@ -1094,6 +1100,14 @@ header ul {
 .login_area div:first-child{
 	margin-right: 0;
 }
+
+/* 犬猫管理関係
+---------------------------------------------------------------------------*/
+.animal_post .column3 td{
+	display: block;
+}
+
+
 
 /*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
 

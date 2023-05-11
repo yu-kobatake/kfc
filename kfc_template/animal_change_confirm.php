@@ -204,40 +204,39 @@ if (count($errors) > 0) {
 
 ?>
 
-<div id="container" class="c">
+<div id="container" class="c1">
     <main>
-        <div class="back_btn">
+        <!-- <div class="back_btn">
             <button><a href="animal_change.php">戻る</a></button>
-        </div>
+        </div> -->
         <h2>犬猫情報変更確認画面</h2>
-
-        <img src="<?= es($send_image1); ?>">
-        <p>掲載ID:
-            <?= es($animal_id); ?></p>
-        <table class="ta1">
+        <table class="ta1 animal_post ta_fixed">
             <tbody>
-
                 <tr>
-                    <th>タイトル</th>
-                    <td><?= es($title); ?>
-                    </td>
+                    <th>掲載ID:<?= es($animal_id); ?></th>
+                    <td colspan="3"><img src="<?= es($send_image1); ?>"></td>
                 </tr>
                 <tr>
+                    <th>タイトル</th>
+                    <td colspan="3"><?= es($title); ?>
+                    </td>
+                </tr>
+                <tr class="column3">
                     <th>掲載画像（3枚選択）</th>
-                    <td><img src="<?= !empty($file1) ? "./lib/image_1.php" : es($send_image1); ?>" width="200px"></td>
-                    <td><img src="<?= !empty($file2) ? "./lib/image_2.php" : es($send_image2); ?>" width="200px"></td>
-                    <td><img src="<?= !empty($file3) ? "./lib/image_3.php" : es($send_image3); ?>" width="200px"></td>
+                    <td><img src="<?= !empty($file1) ? "./lib/image_1.php" : es($send_image1); ?>"></td>
+                    <td><img src="<?= !empty($file2) ? "./lib/image_2.php" : es($send_image2); ?>"></td>
+                    <td><img src="<?= !empty($file3) ? "./lib/image_3.php" : es($send_image3); ?>"></td>
                 </tr>
                 <tr>
                     <th>犬種/猫種</th>
-                    <td><?= es($kind); ?></td>
+                    <td colspan="3"><?= es($kind); ?></td>
                 </tr>
                 <tr>
                     <th>性別</th>
-                    <td><?= es($gender); ?>
+                    <td colspan="3"><?= es($gender); ?>
                 <tr>
                     <th>年齢</th>
-                    <td><?= es($age); ?></td>
+                    <td colspan="3"><?= es($age); ?></td>
                 </tr>
 
                 <tr>
@@ -253,21 +252,25 @@ if (count($errors) > 0) {
                 </tr>
                 <tr>
                     <th>動物がいる地域</th>
-                    <td><?= es($animal_area); ?></td>
+                    <td colspan="3"><?= es($animal_area); ?></td>
                 </tr>
                 <tr>
                     <th>特徴（性格）</th>
-                    <td><?= es($animal_character); ?></td>
+                    <td colspan="3"><?= es($animal_character); ?></td>
                 </tr>
                 <tr>
                     <th>特記事項</th>
-                    <td><?= es($other); ?></td>
+                    <td colspan="3"><?= es($other); ?></td>
                 </tr>
             </tbody>
         </table>
         <form method="POST" action="#">
-            <input type="submit" value="この内容で変更する" name="send" formaction="animal_change_complet.php" class="btn_one">
-            <input type="button" value="戻る" formaction="animal_change.php" class="btn_back_one">
+            <p class="c">
+                <input type="submit" value="この内容で変更する" name="send" formaction="animal_change_complet.php" class="btn_one">
+            </p>
+            <p class="c">
+                <input type="submit" value="戻る" formaction="animal_change.php" class="btn_back_one">
+            </p>
             <!-- <input type="submit" value="戻る" formaction="animal_change.php"> -->
             <input type="hidden" name="token" value="<?= es($token); ?>">
             <input type="hidden" name="animal_id" value="<?= es($animal_id); ?>">
