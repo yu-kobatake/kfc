@@ -61,6 +61,7 @@ try {
 <!-- ---------------------------
   スライドショー（slick）
 ---------------------------- -->
+<div id="index_page">
 <aside id="mainimg">
     <div class="mainimg">
         <div><img src="images/1.jpg" alt=""></div>
@@ -123,5 +124,6 @@ try {
         </section>
     </main>
 </div>
+</div><!--index_page-->
 
 <?php include('parts/footer.php'); ?>

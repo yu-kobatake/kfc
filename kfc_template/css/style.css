@@ -39,6 +39,32 @@ body {
 	overflow-x: hidden;
 }
 
+/* ふわっとアニメーション表示 */
+#index_page,
+#container {
+	-webkit-animation: fadeIn 1s ease 0s 1 normal;
+	animation: fadeIn 1s ease 0s 1 normal;
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0
+	}
+
+	100% {
+		opacity: 1
+	}
+}
+
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0
+	}
+
+	100% {
+		opacity: 1
+	}
+}
+
 /*リセット*/
 figure {margin: 0;}
 dd {margin: 0;}
@@ -1298,6 +1324,8 @@ ul.submenu:not(.btn) li a:hover {
 }
 .list img{
 	width: 100%;
+	height: 200px;
+	object-fit: cover;
 }
 
 /*２の倍数のlistブロックへの追加設定。小さな端末用で0と指定しているので、改めて大きな端末用のマージンを指定。*/
