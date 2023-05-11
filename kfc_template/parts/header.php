@@ -10,6 +10,16 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="stylesheet" href="css/style.css">
+    <?php
+    if($_SERVER['SCRIPT_NAME'] === "/kfc_template/message_top.php" ||$_SERVER['SCRIPT_NAME'] === "/kfc_template/message.php" ){
+        echo '<link rel="stylesheet" href="css/message.css">';
+    } elseif($_SERVER['SCRIPT_NAME'] === "/kfc_template/recruit_detail.php"){
+        echo '<link rel="stylesheet" href="css/recruit_detail.css">';
+        
+    }
+    
+    ?>
+
 </head>
 
 <body>

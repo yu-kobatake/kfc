@@ -1,5 +1,13 @@
 <?php
+
+// titleで読み込むページ名
+$pagetitle = "里親募集詳細";
+include('parts/header.php');
+
+// セッション開始
+if(!isset($_SESSION)){
 session_start();
+}
 require_once("./lib/util.php");
 // $user = 'testuser';
 // $password = 'pw4testuser';
@@ -37,145 +45,135 @@ $_SESSION['question_7'] = [];
 
 ?>
 
-<?php
-// titleで読み込むページ名
-$pagetitle = "里親募集詳細"
-?>
-<?php include('parts/header_animal_detail.php'); ?>
+
 <div id="container">
     <main>
         <?php
-      if (!empty($_GET['animal_id'])) {
-        $animal_id = $_GET['animal_id'];
-        // var_dump($animal_id);      
-      } else {
-        echo "<p>無効な掲載IDです。</p>";
-        echo "<a href='recruit.php'><button>前ページに戻る</button></a><br>";
-        exit();
-      }
-      /******************************************* 
+    if (!empty($_GET['animal_id'])) {
+      $animal_id = $_GET['animal_id'];
+      // var_dump($animal_id);      
+    } else {
+      echo "<p>無効な掲載IDです。</p>";
+      echo "<a href='recruit.php'><button>前ページに戻る</button></a><br>";
+      exit();
+    }
+    /******************************************* 
  いいね用コード
-       *******************************************/
-      $dbPostData = ''; //投稿内容
-      $dbPostGoodNum = ''; //いいねの数
-      $user_id = $_SESSION['user_id'];
+     *******************************************/
+    $dbPostData = ''; //投稿内容
+    $dbPostGoodNum = ''; //いいねの数
+    $user_id = $_SESSION['user_id'];
 
-      // get送信がある場合
-      if (!empty($_GET['animal_id'])) {
-        // DBから投稿データを取得
-        // $dbPostData = getPostData($animal_id);
-        // DBからいいねの数を取得
-        $dbPostGoodNum = count(getGood($animal_id));
-        // var_dump($dbPostGoodNum);
-        // var_dump(getGood($animal_id));
-      }
+    // get送信がある場合
+    if (!empty($_GET['animal_id'])) {
+      // DBから投稿データを取得
+      // $dbPostData = getPostData($animal_id);
+      // DBからいいねの数を取得
+      $dbPostGoodNum = count(getGood($animal_id));
+      // var_dump($dbPostGoodNum);
+      // var_dump(getGood($animal_id));
+    }
 
-      // いいね用関数
+    // いいね用関数
 
-      // anima_idについたいいねレコード 全てを取得する
-      function getGood($animal_id)
-      {
-        try {
-          global $dsn;
-          global $user;
-          global $password;
-          global $animal_id;
-          $pdo = new PDO($dsn, $user, $password);
-          $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = 'SELECT * FROM good WHERE animal_id = :animal_id';
-          // クエリ実行
-          $stm = $pdo->prepare($sql);
-          $result = $stm->execute(array(':animal_id' => $animal_id));
-          if ($stm) {
-            return $stm->fetchAll();
-          } else {
-            return false;
-          }
-        } catch (Exception $e) {
-          error_log('エラー発生：' . $e->getMessage());
-        }
-      }
-
-      // 訪れたユーザーがいいね済みかどうか調べる関数
-      function isGood($u_id, $p_id)
-      {
-
-        try {
-          global $dsn;
-          global $user;
-          global $password;
-          global $animal_id;
-          global $user_id;
-          $pdo = new PDO($dsn, $user, $password);
-          $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          // SELECTで得た結果に対してもrowCountメソッドを使えるようにする
-          $pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-          $sql = 'SELECT * FROM good WHERE animal_id = :animal_id AND user_id = :user_id';
-          // $data = array(':user_id' => $user_id, ':animal_id' => $animal_id);
-          // クエリ実行
-          $stm = $pdo->prepare($sql);
-          $result = $stm->execute(array(':user_id' => $user_id, ':animal_id' => $animal_id));
-          var_dump($result);
-          if ($stm->rowCount()) {
-            return true;
-          } else {
-            return false;
-          }
-        } catch (Exception $e) {
-          error_log('エラー発生:' . $e->getMessage());
-        }
-      }
-
-      // animalテーブルへの接続
+    // anima_idについたいいねレコード 全てを取得する
+    function getGood($animal_id)
+    {
       try {
+        global $dsn;
+        global $user;
+        global $password;
+        global $animal_id;
         $pdo = new PDO($dsn, $user, $password);
         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-        // echo "データベース{$dbName}に接続しました", "<br>"; //確認用
-        if (!empty($animal_id)) {
-          $sql = "SELECT * FROM animal WHERE animal_id = :animal_id ";
-          $stm = $pdo->prepare($sql);
-          $stm->bindValue(':animal_id', $animal_id, PDO::PARAM_STR);
-
-          $stm->execute();
-          $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-          // var_dump($result);
+        $sql = 'SELECT * FROM good WHERE animal_id = :animal_id';
+        // クエリ実行
+        $stm = $pdo->prepare($sql);
+        $result = $stm->execute(array(':animal_id' => $animal_id));
+        if ($stm) {
+          return $stm->fetchAll();
+        } else {
+          return false;
         }
       } catch (Exception $e) {
-        echo '<span class ="error">エラーがありました</span><br>';
-        echo $e->getMessage();
-        exit();
+        error_log('エラー発生：' . $e->getMessage());
       }
-      if (isset($result)) {
-        $destination_user_id=$result[0]['user_id'];
-      ?>
+    }
+
+    // 訪れたユーザーがいいね済みかどうか調べる関数
+    function isGood($u_id, $p_id)
+    {
+
+      try {
+        global $dsn;
+        global $user;
+        global $password;
+        global $animal_id;
+        global $user_id;
+        $pdo = new PDO($dsn, $user, $password);
+        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // SELECTで得た結果に対してもrowCountメソッドを使えるようにする
+        $pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+        $sql = 'SELECT * FROM good WHERE animal_id = :animal_id AND user_id = :user_id';
+        // $data = array(':user_id' => $user_id, ':animal_id' => $animal_id);
+        // クエリ実行
+        $stm = $pdo->prepare($sql);
+        $result = $stm->execute(array(':user_id' => $user_id, ':animal_id' => $animal_id));
+        var_dump($result);
+        if ($stm->rowCount()) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (Exception $e) {
+        error_log('エラー発生:' . $e->getMessage());
+      }
+    }
+
+    // animalテーブルへの接続
+    try {
+      $pdo = new PDO($dsn, $user, $password);
+      $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+      // echo "データベース{$dbName}に接続しました", "<br>"; //確認用
+      if (!empty($animal_id)) {
+        $sql = "SELECT * FROM animal WHERE animal_id = :animal_id ";
+        $stm = $pdo->prepare($sql);
+        $stm->bindValue(':animal_id', $animal_id, PDO::PARAM_STR);
+
+        $stm->execute();
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($result);
+      }
+    } catch (Exception $e) {
+      echo '<span class ="error">エラーがありました</span><br>';
+      echo $e->getMessage();
+      exit();
+    }
+    if (isset($result)) {
+      $destination_user_id = $result[0]['user_id'];
+    ?>
         <div class="back_btn">
-            <?php 
-            if(!empty($_POST['breeder'])){
-              echo "<a href='animal_manage.php'><button>＜ 戻る</button></a>";
-            } else { 
-              echo' <a href="recruit.php"><button>＜ 戻る</button></a>';
-            }
-            ?>
+            <a href="recruit.php"><button>＜ 戻る</button></a>
         </div>
 
         <?php
-        foreach ($result as $row) {
-          echo "<h2>{$row['title']}</h2>";
-          // ログイン済みの場合のみいいねを表示させる
-          if(!empty($_SESSION['user_id'])){
-        ?>
+      foreach ($result as $row) {
+        echo "<h2>{$row['title']}</h2>";
+        // ログイン済みの場合のみいいねを表示させる
+        if (!empty($_SESSION['user_id'])) {
+      ?>
         <!-- いいねの表示 -->
         <div class="post" data-postid="<?= es($animal_id); ?>">
             <div class="btn-good <?php if (isGood($user_id, $animal_id)) { //いいねの状態文字色ピンク
-                      echo 'active ';
-                    } else { //未いいねの状態文字色指定なし
-                      echo '';
-                    }; ?>">
+                                    echo 'active ';
+                                  } else { //未いいねの状態文字色指定なし
+                                    echo '';
+                                  }; ?>">
 
                 <span>いいね</span>
                 <i class=" fa-heart 
@@ -188,20 +186,33 @@ $pagetitle = "里親募集詳細"
             </div>
             <!-- いいねの表示終わり -->
             <?php
-          } // いいねif修了
-          echo <<<"EOL"
+        } // いいねif修了
+        echo <<<"EOL"
                         
-                        <div>
-                            <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
-                            <div style="display:flex">
-                                <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}"
-                                    style="width: 30%;">
-                                <img src="./images/animal_photo/{$row['image_2']}" alt="{$row['kind']}"
-                                    style="width: 30%;">
-                                <img src="./images/animal_photo/{$row['image_3']}" alt="{$row['kind']}"
-                                    style="width: 30%;">
-                            </div>
+
+                        <!--全体の枠-->
+                        <div id='cover'>
+                        
+                        <!--メイン画像-->
+                        <div class='main-frame'>
+                        <img id='main-img' src='./images/animal_photo/{$row['image_1']}'>
                         </div>
+                        
+                        <!--サムネイル部分-->
+                        <ul class='thumbspace flex'>
+                        <li>
+                        <img class='thumbnails' src='./images/animal_photo/{$row['image_1']}' data-imagesrc='./images/animal_photo/{$row['image_1']}' >
+                        </li>
+                        <li>
+                        <img class='thumbnails' src='./images/animal_photo/{$row['image_2']}' data-imagesrc='./images/animal_photo/{$row['image_2']}' >
+                        </li>
+                        <li>
+                        <img class='thumbnails' src='./images/animal_photo/{$row['image_3']}' data-imagesrc='./images/animal_photo/{$row['image_3']}' >
+                        </li>
+                        </ul>
+                        
+                        </div>
+
                         <table class='ta1'>
                             <tr>
                                 <th>性別</th>
@@ -248,21 +259,42 @@ $pagetitle = "里親募集詳細"
                         </table>
                 </div>
                 EOL;
-        }
       }
-        ?>
+    }
+      ?>
+            <!-- <div>
+                            <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
+                            <div style="display:flex">
+                                <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}"
+                                    style="width: 30%;">
+                                <img src="./images/animal_photo/{$row['image_2']}" alt="{$row['kind']}"
+                                    style="width: 30%;">
+                                <img src="./images/animal_photo/{$row['image_3']}" alt="{$row['kind']}"
+                                    style="width: 30%;">
+                            </div>
+                        </div> -->
+            <p style="color:red">里親申し込みには会員登録が必要です。</p>
             <!-- 申込フォームへ -->
             <form action="./recruit_form.php" method="POST">
                 <input type="hidden" name='animal_id' value="<?php echo $animal_id ?>">
                 <?php
-                if($user_id!==$destination_user_id){
-                  echo"<input type='submit' name='submit' value='申し込みフォームへ'>";
-                }
-                ?>
+        if ($user_id !== $destination_user_id) {
+          echo "<input type='submit' name='submit' value='申し込みフォームへ'>";
+        }
+        ?>
             </form>
     </main>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="./js/good.js"></script>
+<script src="./js/good.js">
+</script>
+<script>
+var thumbs = document.querySelectorAll('.thumbnails');
+for (var i = 0; i < thumbs.length; i++) {
+    thumbs[i].onclick = function() {
+        document.getElementById('main-img').src = this.dataset.imagesrc;
+    };
+}
+</script>
 <?php include('parts/footer.php'); ?>

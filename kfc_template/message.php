@@ -3,9 +3,12 @@ session_start();
 require_once("./lib/util.php");
 
 // titleで読み込むページ名
-$pagetitle = "メッセージ"
+$pagetitle = "メッセージ";
+var_dump($_SERVER['REQUEST_URI']);
+var_dump($_SERVER['SCRIPT_NAME']);
+
 ?>
-<?php include('parts/header_message.php'); ?>
+<?php include('parts/header.php'); ?>
 
 
 <div id="container" class="c1" style="display:block">
