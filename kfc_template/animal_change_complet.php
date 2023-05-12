@@ -89,6 +89,8 @@ if (!empty($_SESSION['animal'])) {
       ${"image_" . $i} = "{$animal_id}_image{$i}.{${"mine" .$i}}";
       // animal_photoフォルダに保存する際に使用する変数に入れる
       ${"image_data" . $i} = $_SESSION['animal']["image_$i"];
+
+      
     } else {
       //画像に変更がなければ現在animal_photoフォルダに保存されている画像名を変数に入れる
       $filename1 = "./images/animal_photo/{$animal_id}_image{$i}.jpg";
@@ -185,20 +187,20 @@ exit();
 
 <div id="container" class="c1">
     <main>
-      <div class="c">
-        <h2>犬猫情報変更完了</h2>
-        <p>内容を変更しました。</p>
-      </div>
-      <form method="POST" action="#">
-          <p class="c">
-            <input type="submit" value="ページを確認する" name="<?= $animal_id; ?>"
-              formaction="recruit_detail.php?animal_id=<?= es($animal_id); ?>" class="btn_one">
-          </p>
-          <p class="c">
-            <input type="submit" value="犬猫管理画面へ" formaction="animal_manage.php" class="btn_back_one">
-          </p>
-          <input type="hidden" name="breeder" value="breeder">
-      </form>
+        <div class="c">
+            <h2>犬猫情報変更完了</h2>
+            <p>内容を変更しました。</p>
+        </div>
+        <form method="POST" action="#">
+            <p class="c">
+                <input type="submit" value="ページを確認する" name="<?= $animal_id; ?>"
+                    formaction="recruit_detail.php?animal_id=<?= es($animal_id); ?>" class="btn_one">
+            </p>
+            <p class="c">
+                <input type="submit" value="犬猫管理画面へ" formaction="animal_manage.php" class="btn_back_one">
+            </p>
+            <input type="hidden" name="breeder" value="breeder">
+        </form>
     </main>
 </div>
 
