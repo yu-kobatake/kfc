@@ -46,22 +46,30 @@
 }
 
 /* 動物の写真 */
+#cover{
+    width: 90%; /* 追記：画像サムネエリア全体の横幅 */
+    margin-left: auto;
+    margin-right: auto;
+}
 .cover{
-justify-content: center;
+    justify-content: center;
 }
 .main-frame{
     text-align: center;
 }
 .main-frame img{
     object-fit: cover;
-     height: 400px;
-    width: 90%; 
+    height: 600px;
+    width: 100%; /*width: 90%;*/ 
     max-height: 100%;
 }
 .flex{
     padding: 0;
     display: flex;
     justify-content: space-between;
+    margin: 0px 0 30px 0; /* 追記 */
+    background: #f1f1f1; /* 追記 */
+    padding: 1rem 1rem; /* 追記 */
 }
 .flex li{
     width: calc(100% / 3);
@@ -69,6 +77,7 @@ justify-content: center;
     text-align: center;
 }
 .flex li img{
+    /* width: 100%; 追記 */
     height: 170px;
     object-fit: cover;
 }
