@@ -157,10 +157,9 @@ $_SESSION['question_7'] = [];
     if (isset($result)) {
       $destination_user_id = $result[0]['user_id'];
     ?>
-        <!-- <div class="back_btn">
-            <a href="recruit.php"><button>＜ 戻る</button></a>
-        </div> -->
-
+        <div class="back_btn marbtm20">
+            <a href="recruit.php" class="btn_back_mini">< 戻る</a>
+        </div>
         <!-- いいねの表示 -->
         <div class="post" data-postid="<?= es($animal_id); ?>">
             <div class="recruit_ttl">
@@ -199,23 +198,23 @@ $_SESSION['question_7'] = [];
                         <!--全体の枠-->
                         <div id='cover'>
                         
-                        <!--メイン画像-->
-                        <div class='main-frame'>
-                        <img id='main-img' src='./images/animal_photo/{$row['image_1']}'>
-                        </div>
-                        
-                        <!--サムネイル部分-->
-                        <ul class='thumbspace flex'>
-                        <li>
-                        <img class='thumbnails' src='./images/animal_photo/{$row['image_1']}' data-imagesrc='./images/animal_photo/{$row['image_1']}' >
-                        </li>
-                        <li>
-                        <img class='thumbnails' src='./images/animal_photo/{$row['image_2']}' data-imagesrc='./images/animal_photo/{$row['image_2']}' >
-                        </li>
-                        <li>
-                        <img class='thumbnails' src='./images/animal_photo/{$row['image_3']}' data-imagesrc='./images/animal_photo/{$row['image_3']}' >
-                        </li>
-                        </ul>
+                          <!--メイン画像-->
+                          <div class='main-frame'>
+                            <img id='main-img' src='./images/animal_photo/{$row['image_1']}'>
+                          </div>
+                          
+                          <!--サムネイル部分-->
+                          <ul class='thumbspace flex'>
+                            <li>
+                            <img class='thumbnails' src='./images/animal_photo/{$row['image_1']}' data-imagesrc='./images/animal_photo/{$row['image_1']}' >
+                            </li>
+                            <li>
+                            <img class='thumbnails' src='./images/animal_photo/{$row['image_2']}' data-imagesrc='./images/animal_photo/{$row['image_2']}' >
+                            </li>
+                            <li>
+                            <img class='thumbnails' src='./images/animal_photo/{$row['image_3']}' data-imagesrc='./images/animal_photo/{$row['image_3']}' >
+                            </li>
+                          </ul>
                         
                         </div>
 

@@ -908,7 +908,8 @@ button.btn_back_one:hover{
 	color: #777;
 }
 input.btn_back_mini,
-button.btn_back_mini{
+button.btn_back_mini,
+a.btn_back_mini{
     text-decoration: none;
     appearance: none;
     -webkit-appearance: none;
@@ -923,12 +924,11 @@ button.btn_back_mini{
     border-radius: 30px;
 }
 input.btn_back_mini:hover,
-button.btn_back_mini:hover{
+button.btn_back_mini:hover,
+a.btn_back_mini:hover{
 	background: #fff;
 	color: #777;
 }
-
-
 
 /* (犬猫管理) */
 .btn_animal{
@@ -951,12 +951,12 @@ button.btn_back_mini:hover{
 	color: #e94019;
 }
 .btn_animal.change{
-	background: #1993e9;
-	border: 2px solid #1993e9;
+	background: #739059;
+	border: 2px solid #739059;
 }
 .btn_animal.change:hover{
 	background: #fff;
-	color: #1993e9;
+	color: #739059;
 }
 .btn_animal.del{
 	background: #777;
@@ -966,7 +966,6 @@ button.btn_back_mini:hover{
 	background: #fff;
 	color: #777;
 }
-
 
 /* ボタンサイズ変更時（デフォルト100%） */
 .bw_size100{
@@ -1012,20 +1011,20 @@ button.btn_back_mini:hover{
 
 /* ボタン */
 .btn_one.login_btn_left{
-	background: #19e9a6  !important;
-	border: 2px solid #19e9a6 !important;
+	background: #739059  !important;
+	border: 2px solid #739059 !important;
 }
 .btn_one.login_btn_left:hover{
 	background: #fff !important;
-	color:#19e9a6  !important;
+	color:#739059  !important;
 }
 .btn_one.login_btn_right{
-	background: #e9bc19 !important;
-	border: 2px solid #e9bc19 !important;
+	background: #E9AF19 !important;
+	border: 2px solid #E9AF19 !important;
 }
 .btn_one.login_btn_right:hover{
 	background: #fff !important;
-	color: #e9bc19 !important;
+	color: #E9AF19 !important;
 }
 
 /* マイページ関係
@@ -1038,19 +1037,29 @@ button.btn_back_mini:hover{
 /*犬猫管理・登録ボタン*/
 .animal_mana_btn_add,
 .animal_mana_btn_con{
-	color: #e94019;
 	text-align: center;
 	text-decoration: none;
 	display: block;
-	border: 2px solid #e94019;
 	padding: 12px;
 	border-radius: 15px;
 	margin-bottom: 20px;
 	transition: 0.5s;
 }
-.animal_mana_btn_add:hover,
-.animal_mana_btn_con:hover{
+.animal_mana_btn_add{
+	color: #e94019;
+	border: 2px solid #e94019;
+}
+.animal_mana_btn_con{
+	color:#739059;
+	border: 2px solid #739059;
+}
+.animal_mana_btn_add:hover{
 	background: #e94019;
+	color: #fff;
+	opacity: 1;
+}
+.animal_mana_btn_con:hover{
+	background: #739059;
 	color: #fff;
 	opacity: 1;
 }
@@ -1059,12 +1068,17 @@ button.btn_back_mini:hover{
 	display: block;
 	font-family: "Font Awesome 5 Free";	/*Font Awesomeを使う指定*/
 	font-weight: bold;
-	padding-right: 5px;	/*アイコンと名前の間に空ける余白*/
-	color: #e94019;		/*アイコンの色*/
+	/* padding-right: 5px; */
 	transition: 0.5s;
 }
-.animal_mana_btn_add::before{ content: "\f1b0"; }
-.animal_mana_btn_con::before{ content: "\f022"; }
+.animal_mana_btn_add::before{
+	content: "\f1b0";
+	color: #e94019;
+}
+.animal_mana_btn_con::before{
+	 content: "\f022";
+	 color:#739059; 
+}
 .animal_mana_btn_add:hover::before,
 .animal_mana_btn_con:hover::before {
 	color: #fff;
@@ -1134,6 +1148,7 @@ button.btn_back_mini:hover{
 .martop10{ margin-top: 10px !important; }
 .martop50{ margin-top: 50px !important; }
 .marbtm10{ margin-bottom: 10px !important; }
+.marbtm20{ margin-bottom: 20px !important; }
 
 
 
