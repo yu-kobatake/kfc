@@ -417,7 +417,12 @@ if (!empty($_POST['animal_id'])) {
             <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
             <!-- animal_id -->
             <input type='hidden' name='animal_id' value='<?php echo $animal_id; ?>'>
-            <button name="submit" name="submit" class="btn_one">入力内容を確認する</button>
+            <p class="c">
+              <button name="submit" name="submit" class="btn_one">入力内容を確認する</button>
+            </p>
+            <p class="c">
+              <button type="button" class="btn_back_one" onclick="location.href='./recruit_detail.php'">戻る</button>
+            </p>
         </form>
 
     </main>

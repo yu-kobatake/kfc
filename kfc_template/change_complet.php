@@ -99,7 +99,9 @@ endif;
             <p>
                 会員情報の内容を変更しました。<br>
             </p>
-            <p><a href="./login.php">マイページに戻る</a></p>
+            <p class="c">
+                <button type="button" class="btn_one" onclick="location.href='./login.php'">マイページへ戻る</button>
+            </p>
         </div>
     </main>
 </div>

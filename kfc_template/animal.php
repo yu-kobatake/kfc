@@ -119,7 +119,7 @@ $_SESSION['token'] = $token;
         <!-- <div class="back_btn">
             <button><a href="">戻る</a></button>
         </div> -->
-        <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">戻る</button>
+        <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">< 戻る</button>
         <h2>犬猫の登録</h2>
         <div>
             <h3>ご注意</h3>
@@ -190,7 +190,7 @@ $_SESSION['token'] = $token;
                 <!-- <tbody> -->
                 <tr>
                     <th>掲載タイトル<br></th>
-                    <td colspan="3"><textarea name="title" placeholder="例）マイペースで優しい柴犬の男の子"><?= es($title); ?></textarea>
+                    <td colspan="3"><textarea name="title" class="txtareamini" placeholder="例）マイペースで優しい柴犬の男の子"><?= es($title); ?></textarea>
                     </td>
                 </tr>
                 <tr class="column3">

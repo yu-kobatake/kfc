@@ -70,14 +70,14 @@ try {
         echo <<<"EOL"
         <div id="container" class="c1">
             <main>
-            <h2>{$pagetitle}</h2>
             <div class="back_btn">
-            <button onclick="location.href='animal_manage.php'" class="btn_back_mini marbtm10">戻る</button>
-        </div>
+            <button onclick="location.href='animal_manage.php'" class="btn_back_mini marbtm10">< 戻る</button>
+            </div>
+            <h2>{$pagetitle}</h2>
 
   <h3>{$row['title']}</h3>
   <div class="animal_photo_all">
-    <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
+    <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}" width="100%">
     <div class="animal_photo">
     <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
     <img src="./images/animal_photo/{$row['image_2']}" alt="{$row['kind']}">

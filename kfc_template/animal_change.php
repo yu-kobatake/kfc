@@ -127,10 +127,10 @@ try {
 
 <div id="container" class="c1">
     <main>
+        <button onclick="location.href='animal_manage.php'" class="btn_back_mini marbtm10">< 戻る</button>
+
         <h2 class="c">登録内容の変更</h2>
-        <!-- <div class="back_btn">
-            <button><a href="animal_manage.php">戻る</a></button>
-        </div> -->
+
 
         <?php
         // エラーを受け取る処理

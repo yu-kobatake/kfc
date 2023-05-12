@@ -230,9 +230,7 @@ if (count($errors) > 0) {
 
 <div id="container" class="c1">
     <main>
-        <!-- <div class="back_btn">
-            <button><a href="animal.php">戻る</a></button>
-        </div> -->
+        <button onclick="location.href='animal.php'" class="btn_back_mini marbtm10">< 戻る</button>
         <h2>犬猫情報登録確認画面</h2>
         <table class="ta1">
             <tbody>

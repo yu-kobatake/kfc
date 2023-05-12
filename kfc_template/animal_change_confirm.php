@@ -219,9 +219,7 @@ if (count($errors) > 0) {
 
 <div id="container" class="c1">
     <main>
-        <!-- <div class="back_btn">
-            <button><a href="animal_change.php">戻る</a></button>
-        </div> -->
+        <button onclick="location.href='animal_change.php'" class="btn_back_mini marbtm10">< 戻る</button>
         <h2>犬猫情報変更確認画面</h2>
         <table class="ta1 animal_post ta_fixed">
             <tbody>

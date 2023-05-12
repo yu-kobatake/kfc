@@ -107,6 +107,11 @@ a:hover {
 ---------------------------------------------------------------------------*/
 #container {
 	margin: 5% 2%;		/*上下、左右に空ける余白*/
+	/* ここからフッター下固定 */
+	display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+  min-height: 100vh;
 	/* display: flex;
 	justify-content: space-between; */
 }
@@ -1107,7 +1112,7 @@ a.btn_back_mini:hover{
 	height: 4em;
 }
 .animal_photo_all{
-	width: 80%;
+	width: 70%;
 	margin: auto;
 }
 /*3列に並べる*/

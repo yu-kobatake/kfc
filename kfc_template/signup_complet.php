@@ -91,7 +91,9 @@ else :
     <span style="color:red;">このIDはログイン時に必要</span>です。紛失されないようご注意ください。
     </p>
     <p>ログインページより、マイページへアクセスしてください。</p>
-    <p><a href="./login.php">ログインページへ</a></p>
+    <p class="p">
+      <button type="button" class="btn_one" onclick="location.href='./login.php'">ログインページへ</button>
+    </p>
     </div>
   </main>
 </div>

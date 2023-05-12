@@ -56,7 +56,7 @@ $_POST = es($_POST);
         <div class="back_btn">
             <form action="./recruit_form.php" method="get">
                 <input type="hidden" name="animal_id" value="<?php echo $animal_id ?>">
-                <button type="button" onclick="location.href='recruit_form.php'" class="btn_back_mini">
+                <button type="button" onclick="location.href='recruit_form.php'" class="btn_back_mini marbtm20">
                     < 戻る</button>
             </form>
         </div>
@@ -284,7 +284,12 @@ $_POST = es($_POST);
         <form action="recruit_complet.php" method="POST">
             <!-- token -->
             <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
-            <input type="submit" name="submit" value="この内容で申し込みする" class="btn_one">
+            <p class="c">
+              <input type="submit" name="submit" value="この内容で申し込みする" class="btn_one">
+            </p>
+            <p class="c">
+              <button type="button" class="btn_back_one" onclick="location.href='./recruit_form.php'">戻る</button>
+            </p>
         </form>
     </main>
 </div>
