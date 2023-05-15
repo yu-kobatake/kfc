@@ -181,6 +181,10 @@ exit();
             <p class="c">
                 <input type="submit" value="犬猫管理画面へ" formaction="animal_manage.php" class="btn_back_one">
             </p>
+<<<<<<< HEAD
+            <input type="hidden" name="back_1">
+=======
+>>>>>>> cbdf3be8c644234b84883b1a409e4eb4f1a0e085
         </form>
     </main>
 </div>
