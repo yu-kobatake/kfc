@@ -11,11 +11,6 @@ if (!isset($_SESSION)) {
 }
 require_once("./lib/util.php");
 
-// tokenの作成
-// $bytes = openssl_random_pseudo_bytes(16);
-// $token = bin2hex($bytes);
-// $_SESSION['token'] = $token;
-
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
 $dbName = 'shotohlcd31_kfc';
@@ -413,8 +408,6 @@ if (!empty($_POST['animal_id'])) {
         }
       }
       ?>
-            <!-- token -->
-            <!-- <input type='hidden' name='token' value='<?php echo $token; ?>'> -->
             <!-- animal_id -->
             <input type='hidden' name='animal_id' value='<?php echo $animal_id; ?>'>
             <p class="c">

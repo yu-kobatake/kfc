@@ -47,13 +47,6 @@ form{
     cursor: pointer;
     transition: 0.5s;
     border-radius: 30px;
-  /* background-color: #eee;
-  color: #555;
-  width: 100px;
-height: 35px;
-font-weight: 500;
-font-size: 150%;
-border: none; */
 }
 .back_btn button:hover{
   opacity: 0.7;
@@ -102,7 +95,7 @@ textarea::placeholder{
 	color: #fff;
 	background: #000;
 }
-/*以下、②左側のコメント*/
+/*左側のコメント*/
 .left{
   padding: 10px 0;
 }
@@ -140,11 +133,10 @@ textarea::placeholder{
 
 /* 背景色 */
 .mycomment,.left{
-  /* background-color: rgb(220, 255, 245); */
   padding-left:5%;
   padding-right: 5%;
 }
-/*以下、③右側の緑コメント*/
+/*右側の緑コメント*/
 .mycomment {
 padding: 10px 5%;
 }
@@ -196,10 +188,8 @@ background-color: #fff;
 
 .col-8{
   width: 70%;
-  /*height: 100px;*/
   margin: 20px auto;
   padding: 1.7% 3%;
-  /*padding: 0 3% 0 3%;*/
   background-color: #eee;
   border-radius: 20px;
 }
