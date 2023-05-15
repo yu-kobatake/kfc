@@ -152,13 +152,17 @@ $_SESSION['question_7'] = [];
 
         <div class="back_btn marbtm20">
             <?php
-        // $_POST['breeder']でポストされてきた場合は犬猫管理画面へ戻す
+        // 遷移前のページによって戻るボタンの遷移先を分岐する
+        $uri = rtrim($_SERVER["HTTP_REFERER"], '/');
+        $uri = substr($uri, strrpos($uri, '/') + 1);
         $send_filename = "";
-        if (!empty($_POST['breeder'])) {
+        if ($uri === "animal_change_complet.php" || $uri === "animal_complet.php" || $uri === "animal_manage.php") {
           $send_filename = "animal_manage.php";
-        } else {
+        } elseif($uri === "parent_mypage.php"){
+          $send_filename = "parent_mypage.php";
+        } else{
           $send_filename = "recruit.php";
-        }
+        }     
         ?>
             <a href="<?= $send_filename; ?>" class="btn_back_mini">
                 < 戻る</a>
@@ -270,13 +274,18 @@ $_SESSION['question_7'] = [];
     }
     ?>
                 <?php
-    // $_POST['breeder']でポストされてきた場合は犬猫管理画面へ戻す
-    $send_filename = "";
-    if (!empty($_POST['breeder'])) {
-      $send_filename = "animal_manage.php";
-    } else {
-      $send_filename = "recruit.php";
-    }
+   // 遷移前のページによって戻るボタンの遷移先を分岐する
+   $uri = rtrim($_SERVER["HTTP_REFERER"], '/');
+   $uri = substr($uri, strrpos($uri, '/') + 1);
+   $send_filename = "";
+   if ($uri === "animal_change_complet.php" || $uri === "animal_complet.php" || $uri === "animal_manage.php") {
+     $send_filename = "animal_manage.php";
+   } elseif($uri === "parent_mypage.php"){
+     $send_filename = "parent_mypage.php";
+   } else{
+     $send_filename = "recruit.php";
+   }     
+
     ?>
                 <button type="button" class="btn_back_one martop10"
                     onclick="location.href='<?= $send_filename; ?>'">戻る</button>

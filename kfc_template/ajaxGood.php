@@ -15,7 +15,6 @@ if (!empty($_SESSION['user_id'])) {
   $password = 'KFCpassword';
   $dbName = 'shotohlcd31_kfc';
   $host = 'localhost';
-  //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
 
@@ -47,9 +46,7 @@ function getGood($animal_good_id){
 }
 
 
-
-
-// postがある場合
+// POSTされてきた場合
 if(isset($_POST['animal_good_id'])){
     $animal_good_id = $_POST['animal_good_id'];
 

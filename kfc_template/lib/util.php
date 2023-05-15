@@ -29,7 +29,7 @@ function cken(array $data){
   return $result;
 }
 
-// セッションを破棄する
+// セッション削除
 function killSession(){
   // セッション変数の値を空にする
   $_SESSION = [];

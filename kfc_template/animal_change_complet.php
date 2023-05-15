@@ -1,9 +1,8 @@
 <?php
 // titleで読み込むページ名
-$pagetitle = "犬猫情報変更完了"
-?>
+$pagetitle = "犬猫情報変更完了";
+include('parts/header.php'); ?>
 
-<?php include('parts/header.php'); ?>
 <?php
 // セッション開始
 if (!isset($_SESSION)) {
@@ -63,11 +62,11 @@ if (!empty($_SESSION['animal'])) {
   $other = $_SESSION['animal']['other'];
 
 
-  /*************************************************************
- 画像の変更の有無による分岐
-   ************************************************************/
-  // ファイル名の拡張子が画像になっているかを判別する関数
-  // 拡張子を文字列としてreturn
+ 
+//  画像の変更の有無による分岐
+  
+// ファイル名の拡張子が画像になっているかを判別する関数
+// 拡張子を文字列としてreturn
   function mine_type($tmp_name)
   {
     if (strpos($tmp_name, 'jpg') !== false || strpos($tmp_name, 'jpeg') !== false) {
@@ -83,21 +82,18 @@ if (!empty($_SESSION['animal'])) {
     if (!empty(${"file" . $i})) {
       // $mineには拡張子が文字列として入る
       ${"mine" . $i} = mine_type(${"file" . $i}['type']);
-      // var_dump(${"mine".$i});
-      // var_dump(${"file".$i}['type']);
-      // DBに登録するパス名を変数に入れる
+      // DBに登録する画像の名前をimage[1,2,3]変数に入れる
       ${"image_" . $i} = "{$animal_id}_image{$i}.{${"mine" .$i}}";
-      // animal_photoフォルダに保存する際に使用する変数に入れる
+      // animal_photoフォルダに画像を保存する際に使用するimage_data[1,2,3]変数にデータを入れる
       ${"image_data" . $i} = $_SESSION['animal']["image_$i"];
 
-      
     } else {
       //画像に変更がなければ現在animal_photoフォルダに保存されている画像名を変数に入れる
       $filename1 = "./images/animal_photo/{$animal_id}_image{$i}.jpg";
       $filename2 = "./images/animal_photo/{$animal_id}_image{$i}.jpeg";
       $filename3 = "./images/animal_photo/{$animal_id}_image{$i}.png";
-      // var_dump($filename1);
 
+      //現在登録されている画像の名前をimage[1,2,3]変数に入れる
       if (file_exists($filename1)) {
         ${"image_" . $i} = "{$animal_id}_image{$i}.jpg";
       }
@@ -110,40 +106,29 @@ if (!empty($_SESSION['animal'])) {
     }
   }
 
-
   // セッションの削除
   $_SESSION['animal'] = [];
 
-  /*************************************************************
-   DB接続 基本情報
-   ************************************************************/
+
   // データベース接続
   $user = 'shotohlcd31_kfc';
   $password = 'KFCpassword';
   $dbName = 'shotohlcd31_kfc';
   $host = 'localhost';
-  //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
-  /*************************************************************
- DB接続 UPDATE animalテーブル
-   ************************************************************/
-
+// DB接続 UPDATE animalテーブル
   try {
-
+    
     $pdo = new PDO($dsn, $user, $password);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // var_dump($pdo);
     // sql文：アニマルテーブルを更新する
     $sql = "UPDATE animal SET title=?,kind=?,gender=?,age=?,area_1=?,area_2=?,area_3=?,animal_area=?,animal_character=?,other=?,image_1=?,image_2=?,image_3=? WHERE animal_id=?";
     $stm = $pdo->prepare($sql);
     $result = $stm->execute(array($title, $kind, $gender, $age, $area_1, $area_2, $area_3, $animal_area, $animal_character, $other, $image_1, $image_2, $image_3, $animal_id));
 
-    // var_dump($image_1);
-    // var_dump($image_2);
-    // var_dump($image_3);
     // 画像3枚分繰り返す
     for ($i = 1; $i <= 3; $i++) {
       // 画像の変更があった場合
@@ -152,7 +137,6 @@ if (!empty($_SESSION['animal'])) {
         $filename1 = "./images/animal_photo/{$animal_id}_image{$i}.jpg";
         $filename2 = "./images/animal_photo/{$animal_id}_image{$i}.jpeg";
         $filename3 = "./images/animal_photo/{$animal_id}_image{$i}.png";
-        // var_dump($filename1);
         // 既存の画像を削除する
         if (file_exists($filename1)) {
           unlink($filename1);
@@ -163,11 +147,11 @@ if (!empty($_SESSION['animal'])) {
         if (file_exists($filename3)) {
           unlink($filename3);
         }
-        // var_dump('./images/animal_photo/' . ${"image_".$i});
         // 新しい画像をanimal_photフォルダにアップロードする
         file_put_contents('./images/animal_photo/' . ${"image_" . $i}, ${"image_data" . $i});
       }
     }
+
     // $_SESSION['token']の削除
     $_SESSION['token'] = [];
   } catch (Exception $e) {
@@ -181,9 +165,7 @@ echo "</form>";
 exit();
 }
 }
-
 ?>
-
 
 <div id="container" class="c1">
     <main>
@@ -199,7 +181,7 @@ exit();
             <p class="c">
                 <input type="submit" value="犬猫管理画面へ" formaction="animal_manage.php" class="btn_back_one">
             </p>
-            <input type="hidden" name="breeder" value="breeder">
+            <input type="hidden" name="back_1">
         </form>
     </main>
 </div>

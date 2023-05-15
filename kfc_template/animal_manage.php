@@ -21,21 +21,16 @@ if (!empty($_SESSION['user_id'])) {
 // SESSIONの削除
 $_SESSION['animal'] = [];
 
-/*************************************************************
- DB接続 基本情報
- ************************************************************/
+//  DB接続 基本情報
   // データベース接続
   $user = 'shotohlcd31_kfc';
   $password = 'KFCpassword';
   $dbName = 'shotohlcd31_kfc';
   $host = 'localhost';
-  //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
-/*************************************************************
-DB接続 SELECT
-登録している犬猫の表示
- ************************************************************/
+// DB接続 SELECT　登録している犬猫の表示
+
 // animalテーブルへの接続
 try {
   $pdo = new PDO($dsn, $user, $password);
@@ -58,25 +53,12 @@ try {
  ?>
 <div id="container" class="c1">
     <main>
-        <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">< 戻る</button>
-        <h2>犬猫管理画面</h2>
-        <?php
+        <button onclick="location.href='breeder_mypage.php'" class="btn_back_mini marbtm10">
+            < 戻る</button>
+                <h2>犬猫管理画面</h2>
+                <?php
     // 犬猫を登録していれば表示
     if ($result_count > 0) {
-      // define('MAX','12');
-      // // 総数は$result_countに入っている
-      // $max_page = ceil($result_count / MAX);
-      // if(!isset($_GET['page_id'])){
-        //   $now = 1;
-        // }else{
-          //   $now = $_GET['page_id'];
-          // }
-          // $start_no = ($now - 1) * MAX;
-          
-          // $disp_data = array_slice($result, $start_no, MAX, true);
-          
-          
-          // 
           echo "<div class='animal list-container'>";
 
       foreach ($result as $row) {
@@ -93,29 +75,23 @@ try {
             <input type="submit" value="修正" class="btn_animal change" formaction="animal_change.php">
             <input type="submit" value="削除" class="btn_animal del" formaction="animal_delete.php">
             <input type="hidden" name="animal_id" value="{$row['animal_id']}">
-            <input type="hidden" name="breeder" value="breeder">
+            <input type="hidden" name="back_1" value="back_1">
             </form>
           </div>
         </div>
         EOL;
       }
       echo "</div>";
-      // for($i = 1; $i <= $max_page; $i++){ // 最大ページ数分リンクを作成
-      //   if ($i == $now) { // 現在表示中のページ数の場合はリンクを貼らない
-      //       echo $now. '　'; 
-      //   } else {
-      //       echo '  <a href="animal_manage.php?page_id={$i}">'.$i.'</a>'.'&nbsp;&nbsp;';
-      //   }
-      // }
+
       // 犬猫登録をしていない場合
     } else {
       echo "<p>犬猫登録されていません</p>";
     }
     
     ?>
-        <form method="POST" action="breeder_mypage.php">
-            <input type="submit" value="マイページへ戻る" class="btn_back_one">
-        </form>
+                <form method="POST" action="breeder_mypage.php">
+                    <input type="submit" value="マイページへ戻る" class="btn_back_one">
+                </form>
     </main>
 </div>
 <?php include('parts/footer.php'); ?>
