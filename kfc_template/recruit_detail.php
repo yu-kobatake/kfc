@@ -48,7 +48,6 @@ $_SESSION['question_7'] = [];
         <?php
     if (!empty($_GET['animal_id'])) {
       $animal_id = $_GET['animal_id'];
-      // var_dump($animal_id);      
     } else {
       echo "<p>無効な掲載IDです。</p>";
       echo "<a href='recruit.php'><button>前ページに戻る</button></a><br>";
@@ -115,7 +114,6 @@ $_SESSION['question_7'] = [];
         // クエリ実行
         $stm = $pdo->prepare($sql);
         $result = $stm->execute(array(':user_id' => $user_id, ':animal_id' => $animal_id));
-        // var_dump($result);
         if ($stm->rowCount()) {
           return true;
         } else {
@@ -139,7 +137,6 @@ $_SESSION['question_7'] = [];
 
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($result);
       }
     } catch (Exception $e) {
       echo '<span class ="error">エラーがありました</span><br>';
