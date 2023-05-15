@@ -18,9 +18,6 @@ require_once("./lib/util.php");
 <div id="container" class='c1' style="display:block">
     <main>
         <h2>トークルーム一覧</h2>
-        <!-- <div class="mypage_btn">
-            <a href="login.php"><button>＜マイページに戻る</button></a>
-        </div> -->
         <?php
     $current_user = get_user($_SESSION['user_id']);
     $message_relations = get_message_relations($current_user['user_id']);
@@ -51,7 +48,6 @@ require_once("./lib/util.php");
                   }
                   ?>
                             </div>
-                            <!-- <span class="bottom_message_time"><?= convert_to_fuzzy_time($bottom_message['created_at']); ?></span> -->
                         </div>
                     </a>
                 </div>

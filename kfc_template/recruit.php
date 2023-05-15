@@ -159,9 +159,8 @@ $_SESSION['question_7'] = [];
         $pdo = new PDO($dsn, $user, $password);
         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // echo "データベース{$dbName}に接続しました", "<br>";//確認用
-        //検索条件に合わせてsql文を作成
 
+        //検索条件に合わせてsql文を作成
         // 2項目(area,animal_area)
         if (!empty($area) && !empty($animal_area)) {
           $sql = "SELECT animal_id,age,animal_area,gender,age,title,image_1,image_2,image_3,kind

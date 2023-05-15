@@ -33,21 +33,6 @@ if (!cken($_POST)) {
 }
 $_POST = es($_POST);
 
-//token確認 
-// if (isset($_SESSION['token']) && isset($_POST['token'])) {
-//   if ($_SESSION['token'] !== $_POST['token']) {
-//     echo "<p>不正なアクセスです。①</p>";
-//     echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
-//     exit();
-//   } else {
-//     $token = $_POST['token'];
-//   }
-// } else {
-//   echo "<p>不正なアクセスです。②</p>";
-//   echo "<a href='recruit.php'><button>里親募集ページに戻る</button></a><br>";
-//   exit();
-// }
-
 ?>
 
 
