@@ -75,10 +75,6 @@ try {
             <input type="submit" value="修正" class="btn_animal change" formaction="animal_change.php">
             <input type="submit" value="削除" class="btn_animal del" formaction="animal_delete.php">
             <input type="hidden" name="animal_id" value="{$row['animal_id']}">
-<<<<<<< HEAD
-            <input type="hidden" name="back_1" value="back_1">
-=======
->>>>>>> cbdf3be8c644234b84883b1a409e4eb4f1a0e085
             </form>
           </div>
         </div>
