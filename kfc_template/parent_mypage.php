@@ -16,8 +16,6 @@ if (!cken($_POST)) {
     exit($err);
 }
 
-// var_dump($_SESSION);
-// var_dump($_POST);
 // エスケープ処理
 $_POST = es($_POST);
 
@@ -26,20 +24,15 @@ $errors = [];
 ?>
 
 <?php
-/*************************************************************
- DB接続 基本情報
- ************************************************************/
+// DB接続 基本情報
 // データベース接続
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
 $dbName = 'shotohlcd31_kfc';
 $host = 'localhost';
-//$host = 'sv14471.xserver.jp';
 $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
-/*************************************************************
-不正アクセスチェック
- ************************************************************/
+// 不正アクセスチェック
 
 // 未ログイン状態で（$_SESSION['user_id']がない）遷移してきた場合で、トークンチェック（POSTによる遷移かどうか）
 if (empty($_SESSION['user_id'])) {
@@ -58,13 +51,9 @@ if (empty($_SESSION['user_id'])) {
 }
 
 
-/*************************************************************
- DB接続
- ログインページからのページ遷移の場合
- ログイン時入力したIDとパスワードが
- userテーブルに登録されているかチェック
- ************************************************************/
-// ログインぺージからPOSTされてきた場合
+// ログインページからのページ遷移の場合
+// ログイン時入力したIDとパスワードがuserテーブルに登録されているかチェック
+
 if (!empty($_POST['login_send'])) {
 
     // POSTされたユーザーIDとパスワードのバリデーション
@@ -97,7 +86,6 @@ if (!empty($_POST['login_send'])) {
         $stm->execute();
         //userテーブルに該当するユーザーがいなかった時$resultにfalseが入る 
         $result = $stm->fetch(PDO::FETCH_NUM);
-        // var_dump($result);
         
         //userテーブルに該当するユーザーがいなかった場合$errorsにエラーメッセージを追加
         if (!$result[0]) {
@@ -129,14 +117,11 @@ if (!empty($_POST['login_send'])) {
 
         <div class="mypage_set">
 
-        <?php
-        /*************************************************************
-DB接続 userテーブルから会員情報を取り出して表示
-         ************************************************************/
+            <?php
+// DB接続 userテーブルから会員情報を取り出して表示
 
-        // ログイン済み（$_SESSION['user_id']がある）ユーザーがログインしてきた場合、$user_idに$_SESSION['user_id']を代入する
+        // ログイン済み（$_SESSION['user_id']がある遷移してきた場合、$user_idに$_SESSION['user_id']を代入する
         if (!empty($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
-        // var_dump($user_id);
         // DB接続
         try {
             // sql文：userテーブルから$user_idに該当するユーザー情報を取得
@@ -150,7 +135,8 @@ DB接続 userテーブルから会員情報を取り出して表示
             $stm->execute();
             $result = $stm->fetch(PDO::FETCH_ASSOC);
             // var_dump($result);
-            // $resultにはユーザー情報（レコード）が入っている
+            // $resultにはユーザー情報が入っている
+            // ・エスケープ処理
             $result = es($result);
 
 
@@ -188,42 +174,37 @@ DB接続 userテーブルから会員情報を取り出して表示
         ?>
 
 
-        <?php
-        /*************************************************************
- メッセージエリア
-         ************************************************************/
+            <?php
+//  メッセージエリア
         ?>
-        <div>
-            <h3>メッセージ</h3>
-            <!-- 新規メッセージ的なコメント未設定 -->
-            <p>犬猫についてのメッセージのやり取りを確認・送信したい場合はこちら。</p>
-            <button type="button" class="btn_one martop10" onclick="location.href='message_top.php'">メッセージ一覧へ</button>
-        </div>
+            <div>
+                <h3>メッセージ</h3>
+                <p>犬猫についてのメッセージのやり取りを確認・送信したい場合はこちら。</p>
+                <button type="button" class="btn_one martop10"
+                    onclick="location.href='message_top.php'">メッセージ一覧へ</button>
+            </div>
 
         </div><!-- mypage_set -->
 
         <?php
-        /*************************************************************
-いいね一覧
- DB接続 SELECT
-         ************************************************************/
+// いいね一覧
+//  DB接続 SELECT
 
         try {
             // goodテーブルからanimalテーブルのIDを抽出する
             $pdo = new PDO($dsn, $user, $password);
             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // sql文：goodテーブルからユーザIDが一致するレコードを取得
             $sql = "SELECT animal_id FROM good WHERE user_id = :user_id";
             $stm = $pdo->prepare($sql);
             $stm->bindValue(":user_id", $user_id, PDO::PARAM_STR);
             $stm->execute();
             // $resultにはanimal_idが入っている
             $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-            // var_dump($result);
             
             // いいね一覧表示
-            echo "<h3 class='martop50'>いいね一覧</h3>";
-            
+            echo "<h3 class='martop50'>いいね一覧</h3>";            
             if($result){
                 echo "<div class='animal list-container'>";
                 foreach($result as $good){
@@ -231,7 +212,7 @@ DB接続 userテーブルから会員情報を取り出して表示
                     $pdo = new PDO($dsn, $user, $password);
                     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    // animalテーブルから$resultのanimal_idを元に犬猫写真、名前、性別、犬種/猫種、動物がいる地域、（掲載期限）を抽出する
+                    // sql文:animalテーブルから$resultのanimal_idを元に犬猫写真、名前、性別、犬種/猫種、動物がいる地域、（掲載期限）を抽出する
                     $sql = "SELECT image_1,title,gender,age,animal_id,kind,animal_area FROM animal WHERE animal_id = :good";
                     $stm = $pdo->prepare($sql);
             $stm->bindValue(":good", $good['animal_id'], PDO::PARAM_STR);
@@ -239,13 +220,6 @@ DB接続 userテーブルから会員情報を取り出して表示
             $stm->execute();
             $result = $stm->fetchAll(PDO::FETCH_ASSOC);
             
-            // エスケープ処理
-            // $result = es($result);
-            // var_dump($result);
-            
-           
-    
-                
                     echo <<<EOL
                     <div class="list">
                     <a href="recruit_detail.php?animal_id={$result[0]['animal_id']}">
@@ -260,6 +234,7 @@ DB接続 userテーブルから会員情報を取り出して表示
                     </div>
                     </a>
                     </div>
+                    
               EOL;
                 }
                 echo "</div>";
@@ -275,19 +250,13 @@ DB接続 userテーブルから会員情報を取り出して表示
         ?>
         <?php
         
-        /*************************************************************
- 退会ページ
-         ************************************************************/
+//  退会ページ
         ?>
         <h3>退会</h3>
         <form method="POST" action="delete.php">
             <input type="submit" value="退会ページへ" class="btn_back_mini">
             <input type="hidden" name="user_id" value="<?= $user_id; ?>">
         </form>
-
-
-
-
 
     </main>
 </div>

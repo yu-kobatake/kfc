@@ -49,9 +49,8 @@ $_POST = es($_POST);
 //ログインページに戻って表示させるエラー文を入れる配列の初期化 
 $errors = [];
 
-/*************************************************************
- バリデーション
- ************************************************************/
+// バリデーション
+
 // $title タイトルのバリデーション
 $title = preg_replace('/^[　]+|[　]+$/u', "", $_POST['title']);
 if (empty($title)) {
@@ -86,13 +85,7 @@ if (
     }
 }
 
-// // 犬種/猫種のバリデーション
-// $kind = preg_replace('/^[　]+|[　]+$/u', "", $_POST["kind"]);
-// if (empty($kind)) {
-//     $errors[] = "【犬種/猫種】は必須です";
-// } else if (mb_strlen($kind) > 40) {
-//     $errors[] = "【犬種/猫種】は40文字以内で入力して下さい";
-// }
+
 
 // 犬or猫のバリデーション
 if (empty($_POST["kind"])) {
@@ -105,7 +98,6 @@ if (empty($_POST["kind"])) {
         $errors[] = "【犬or猫】に入力エラーがありました。";
     }
 }
-
 
 // 性別のバリデーション
 if (empty($_POST["gender"])) {
@@ -127,7 +119,7 @@ if (empty($age)) {
     $errors[] = "【年齢】は20文字以内で入力して下さい";
 }
 
-// 募集地域/犬猫がいる地域のバリデーション
+// 募集地域/動物がいる地域のバリデーション
 $prefList = array(
     '選択してください', '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県',
     '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
@@ -149,10 +141,6 @@ if (($_POST["area_1"] === "選択してください" || empty($_POST["area_1"]))
         }
     }
 }
-
-
-
-
 
 if (in_array($_POST['animal_area'], $prefList)) {
     if ($_POST['animal_area'] === "選択してください" || $_POST['animal_area'] === "設定しない") {
@@ -208,89 +196,74 @@ if (count($errors) > 0) {
     exit();
 }
 
-
-// var_dump($_POST);
-// var_dump($_FILES);
-// var_dump($file1);
-// var_dump($file2);
-// var_dump($file3);
-// var_dump($title);
-// var_dump($kind);
-// var_dump($gender);
-// var_dump($age);
-// var_dump($area_1);
-// var_dump($area_2);
-// var_dump($area_3);
-// var_dump($animal_area);
-// var_dump($animal_character);
-// var_dump($other);
-
 ?>
 
 
 <div id="container" class="c1">
     <main>
-        <button onclick="location.href='animal.php'" class="btn_back_mini marbtm10">< 戻る</button>
-        <h2>犬猫情報登録確認画面</h2>
-        <table class="ta1">
-            <tbody>
+        <button onclick="location.href='animal.php'" class="btn_back_mini marbtm10">
+            < 戻る</button>
+                <h2>犬猫情報登録確認画面</h2>
+                <table class="ta1">
+                    <tbody>
 
-                <tr>
-                    <th>掲載タイトル</th>
-                    <td colspan="3"><?= es($title); ?></td>
-                </tr>
-                <tr class="column3">
-                    <th>掲載画像（3枚選択）</th>
-                    <td><img src="./lib/image_1.php" width="200px"></td>
-                    <td><img src="./lib/image_2.php" width="200px"></td>
-                    <td><img src="./lib/image_3.php" width="200px"> </td>
-                </tr>
-                <tr>
-                    <th>犬or猫</th>
-                    <td colspan="3"><?= es($kind); ?></td>
-                </tr>
-                <tr>
-                    <th>性別</th>
-                    <td colspan="3"><?= es($gender); ?>
-                <tr>
-                    <th>年齢</th>
-                    <td colspan="3"><?= es($age); ?></td>
-                </tr>
+                        <tr>
+                            <th>掲載タイトル</th>
+                            <td colspan="3"><?= es($title); ?></td>
+                        </tr>
+                        <tr class="column3">
+                            <th>掲載画像（3枚選択）</th>
+                            <td><img src="./lib/image_1.php" width="200px"></td>
+                            <td><img src="./lib/image_2.php" width="200px"></td>
+                            <td><img src="./lib/image_3.php" width="200px"> </td>
+                        </tr>
+                        <tr>
+                            <th>犬or猫</th>
+                            <td colspan="3"><?= es($kind); ?></td>
+                        </tr>
+                        <tr>
+                            <th>性別</th>
+                            <td colspan="3"><?= es($gender); ?>
+                        <tr>
+                            <th>年齢</th>
+                            <td colspan="3"><?= es($age); ?></td>
+                        </tr>
 
-                <tr>
-                    <th rowspan="3">募集対象地域(3つ選択)</th>
-                    <td>募集対象地域1：<?= es($area_1); ?> </td>
-                    </td>
-                </tr>
-                <tr>
-                    <td>募集対象地域2：<?= es($area_2); ?></td>
-                </tr>
-                <tr>
-                    <td>募集対象地域3：<?= es($area_3); ?></td>
-                </tr>
-                <tr>
-                    <th>動物がいる地域</th>
-                    <td colspan="3"><?= es($animal_area); ?></td>
-                </tr>
-                <tr>
-                    <th>特徴（性格）</th>
-                    <td colspan="3"><?= es($animal_character); ?></td>
-                </tr>
-                <tr>
-                    <th>特記事項</th>
-                    <td colspan="3"><?= es($other); ?></td>
-                </tr>
-            </tbody>
-        </table>
-        <form method="POST" action="#">
-            <p class="c">
-                <input type="submit" value="この内容で登録する" name="send" formaction="animal_complet.php" class="btn_one">
-            </p>
-            <p class="c">
-                <input type="submit" value="戻る" formaction="animal.php" class="btn_back_one">
-            </p>
-            <input type="hidden" name="token" value="<?= es($token); ?>">
-            </from>
+                        <tr>
+                            <th rowspan="3">募集対象地域(3つ選択)</th>
+                            <td>募集対象地域1：<?= es($area_1); ?> </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>募集対象地域2：<?= es($area_2); ?></td>
+                        </tr>
+                        <tr>
+                            <td>募集対象地域3：<?= es($area_3); ?></td>
+                        </tr>
+                        <tr>
+                            <th>動物がいる地域</th>
+                            <td colspan="3"><?= es($animal_area); ?></td>
+                        </tr>
+                        <tr>
+                            <th>特徴（性格）</th>
+                            <td colspan="3"><?= es($animal_character); ?></td>
+                        </tr>
+                        <tr>
+                            <th>特記事項</th>
+                            <td colspan="3"><?= es($other); ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form method="POST" action="#">
+                    <p class="c">
+                        <input type="submit" value="この内容で登録する" name="send" formaction="animal_complet.php"
+                            class="btn_one">
+                    </p>
+                    <p class="c">
+                        <input type="submit" value="戻る" formaction="animal.php" class="btn_back_one">
+                    </p>
+                    <input type="hidden" name="token" value="<?= es($token); ?>">
+                    </from>
 
     </main>
 </div>

@@ -30,24 +30,18 @@ if (empty($_SESSION['animal_id']) && empty($_POST['animal_id'])) {
 } elseif (!empty($_POST['animal_id'])) {
     $animal_id = $_POST['animal_id'];
 }
-// var_dump($_SESSION);
-// var_dump($_POST);
 
-/*************************************************************
- DB接続 基本情報
- ************************************************************/
+
+// DB接続 基本情報
 // データベース接続
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
 $dbName = 'shotohlcd31_kfc';
 $host = 'localhost';
-//$host = 'sv14471.xserver.jp';
 $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
 
-/*************************************************************
- DB接続 animalテーブルから登録情報を取得
- ************************************************************/
+// DB接続 animalテーブルから登録情報を取得
 
 // DB接続
 try {
@@ -58,19 +52,13 @@ try {
     $sql = "DELETE FROM animal WHERE animal_id = $animal_id";
     $stm = $pdo->prepare($sql);
     $stm->execute();
-    //削除した行数を取得
-    $cnt = $stm->rowCount();
-    //削除した行数が1以上なら削除成功、0なら削除できる番号がないとみなす
-    // var_dump($cnt);
-    // var_dump($result);
-
 ?>
 
 <div id="container" class="c1">
     <main>
         <div class="c">
-        <?php echo "<p>掲載ID:$animal_id の登録情報を削除しました。</p>" ?>
-        <button onclick="location.href='animal_manage.php'" class="btn_one">犬猫管理画面に戻る</button>
+            <?php echo "<p>掲載ID:$animal_id の登録情報を削除しました。</p>" ?>
+            <button onclick="location.href='animal_manage.php'" class="btn_one">犬猫管理画面に戻る</button>
         </div>
     </main>
 </div>

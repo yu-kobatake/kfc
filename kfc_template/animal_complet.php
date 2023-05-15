@@ -66,21 +66,17 @@ if (!empty($_SESSION['animal'])) {
   $other = $_SESSION['animal']['other'];
 
 
-  /*************************************************************
- DB接続 基本情報
-   ************************************************************/
+// DB接続 基本情報
   // データベース接続
   $user = 'shotohlcd31_kfc';
   $password = 'KFCpassword';
   $dbName = 'shotohlcd31_kfc';
   $host = 'localhost';
-  //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
-  /*************************************************************
- DB接続 INSERT animalテーブル
- 画像以外のデータを登録
- 画像パスは仮にimage_1,image_2,image_3とする
-   ************************************************************/
+
+// DB接続 INSERT animalテーブル
+//  画像以外のデータを登録
+//  画像パスは仮にimage_1,image_2,image_3とする
 
   try {
 
@@ -118,15 +114,13 @@ if (!empty($_SESSION['animal'])) {
 
 ?>
 <?php
-  /*************************************************************
- DB接続 SELECT animal_idの取得
-   ************************************************************/
+//  DB接続 SELECT animal_idの取得
   try {
     $pdo = new PDO($dsn, $user, $password);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // animal_idの取得
-    $sql = "SELECT animal_id FROM animal WHERE title=:title and kind=:kind and gender=:gender and age=:age and area_1=:area_1 and animal_area=:animal_area";
+    $sql = "SELECT animal_id FROM animal WHERE title=:title and kind=:kind and gender=:gender and age=:age and area_1=:area_1 and animal_area=:animal_area and animal_character=:animal_character and other=:other and user_id=:user_id";
 
     $stm = $pdo->prepare($sql);
     $stm->bindValue(":title", $title, PDO::PARAM_STR);
@@ -137,11 +131,11 @@ if (!empty($_SESSION['animal'])) {
     // $stm->bindValue(":area_2",$area_2,PDO::PARAM_STR);
     // $stm->bindValue(":area_3",$area_3,PDO::PARAM_STR);
     $stm->bindValue(":animal_area", $animal_area, PDO::PARAM_STR);
-    // $stm->bindValue(":animal_character",$animal_character,PDO::PARAM_STR);
-    // $stm->bindValue(":other",$other,PDO::PARAM_STR);    
+    $stm->bindValue(":animal_character",$animal_character,PDO::PARAM_STR);
+    $stm->bindValue(":other",$other,PDO::PARAM_STR);    
+    $stm->bindValue(":user_id",$user_id,PDO::PARAM_STR);    
     $stm->execute();
     $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-    // var_dump($result);
 
     //$animal_id変数に代入
     $animal_id = $result[0]['animal_id'];
@@ -152,13 +146,9 @@ if (!empty($_SESSION['animal'])) {
     exit();
   }
   ?>
-
-
 <?php
 
-  /*************************************************************
- DB接続 INSERT　image画像パスの上書き
-   ************************************************************/
+// DB接続 INSERT　image画像パスの上書き
   // 画像拡張子の識別と設定
   function mine_type($tmp_name)
   {
@@ -169,7 +159,7 @@ if (!empty($_SESSION['animal'])) {
       return "png";
     }
   }
-  // 拡張子を抜き出す
+  // 拡張子を取り出して$mine[1,2,3]変数に入れる
   $mine1 = mine_type($file1['type']);
   $mine2 = mine_type($file2['type']);
   $mine3 = mine_type($file3['type']);
@@ -179,7 +169,6 @@ if (!empty($_SESSION['animal'])) {
   $image_2 = "{$animal_id}_image2.{$mine2}";
   $image_3 = "{$animal_id}_image3.{$mine3}";
 
-  // var_dump($image_1);
   // animal_photoフォルダに保存する際に使用する変数に入れる
   $image_data1 = $_SESSION['animal']["image_1"];
   $image_data2 = $_SESSION['animal']["image_2"];
@@ -188,15 +177,13 @@ if (!empty($_SESSION['animal'])) {
   // セッションの削除
   $_SESSION['animal'] = [];
 
-
   try {
 
     $pdo = new PDO($dsn, $user, $password);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // var_dump($pdo);
-    // sql文：アニマルテーブルのimage_,image_2,image_3に画像パスを設定
+    // sql文：アニマルテーブルのimage_,image_2,image_3に正式な画像パスを設定
     $sql = "UPDATE animal SET image_1 =:image_1,image_2 = :image_2,image_3=:image_3 WHERE animal_id = :animal_id";
 
     $stm = $pdo->prepare($sql);
@@ -223,8 +210,6 @@ if (!empty($_SESSION['animal'])) {
 
 // リロード後に確認ページに飛ぶための$animal_id設定
 $animal_id = $_SESSION['animal_id'];
-// var_dump($_SESSION['animal_id']);
-// var_dump($animal_id);
 $_SESSION['animal_id'] = [];
 
 ?>
@@ -242,7 +227,7 @@ $_SESSION['animal_id'] = [];
             <p class="c">
                 <input class="btn_back_one" type="submit" value="マイページトップへ" formaction="breeder_mypage.php">
             </p>
-            <input type="hidden" name="breeder" value="breeder">
+            <input type="hidden" name="back_1">
         </form>
     </main>
 </div>

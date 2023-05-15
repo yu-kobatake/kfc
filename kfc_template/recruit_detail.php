@@ -8,21 +8,18 @@ include('parts/header.php');
 if (!isset($_SESSION)) {
   session_start();
 }
+
+//関数ファイル読み込み 
 require_once("./lib/util.php");
-// $user = 'testuser';
-// $password = 'pw4testuser';
-// $dbName = 'shotohlcd31_kfc';
-// $host = 'localhost';
-// $dsn = "mysql:host={$host};dbname={$dbName};charset=utf8";
 
 // データベース接続
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
 $dbName = 'shotohlcd31_kfc';
 $host = 'localhost';
-//$host = 'sv14471.xserver.jp';
 $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 ?>
+
 <?php
 if (!cken($_GET)) {
   exit("不正な文字コードです。");
@@ -57,26 +54,24 @@ $_SESSION['question_7'] = [];
       echo "<a href='recruit.php'><button>前ページに戻る</button></a><br>";
       exit();
     }
-    /******************************************* 
- いいね用コード
-     *******************************************/
-    $dbPostData = ''; //投稿内容
+
+
+    //  いいね機能
+
+    // 変数の初期化
+    $dbPostData = ''; //表示している犬猫のデータ
     $dbPostGoodNum = ''; //いいねの数
     $user_id = $_SESSION['user_id'];
 
     // get送信がある場合
     if (!empty($_GET['animal_id'])) {
-      // DBから投稿データを取得
-      // $dbPostData = getPostData($animal_id);
       // DBからいいねの数を取得
       $dbPostGoodNum = count(getGood($animal_id));
-      // var_dump($dbPostGoodNum);
-      // var_dump(getGood($animal_id));
     }
 
     // いいね用関数
 
-    // anima_idについたいいねレコード 全てを取得する
+    // anima_idについたいいねレコード全てを取得する
     function getGood($animal_id)
     {
       try {
@@ -97,14 +92,13 @@ $_SESSION['question_7'] = [];
           return false;
         }
       } catch (Exception $e) {
-        error_log('エラー発生：' . $e->getMessage());
+        error_log('エラーが発生しました：' . $e->getMessage());
       }
     }
 
-    // 訪れたユーザーがいいね済みかどうか調べる関数
+    // 訪れたユーザーがいいね済みかどうか調べる
     function isGood($u_id, $p_id)
     {
-
       try {
         global $dsn;
         global $user;
@@ -128,7 +122,7 @@ $_SESSION['question_7'] = [];
           return false;
         }
       } catch (Exception $e) {
-        error_log('エラー発生:' . $e->getMessage());
+        error_log('エラーが発生しました:' . $e->getMessage());
       }
     }
 
@@ -138,8 +132,6 @@ $_SESSION['question_7'] = [];
       $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
-      // echo "データベース{$dbName}に接続しました", "<br>"; //確認用
       if (!empty($animal_id)) {
         $sql = "SELECT * FROM animal WHERE animal_id = :animal_id ";
         $stm = $pdo->prepare($sql);
@@ -157,43 +149,62 @@ $_SESSION['question_7'] = [];
     if (isset($result)) {
       $destination_user_id = $result[0]['user_id'];
     ?>
+
         <div class="back_btn marbtm20">
-            <a href="recruit.php" class="btn_back_mini">< 戻る</a>
+            <?php
+        // 遷移前のページによって戻るボタンの遷移先を分岐する
+        $uri = rtrim($_SERVER["HTTP_REFERER"], '/');
+        $uri = substr($uri, strrpos($uri, '/') + 1);
+        $send_filename = "";
+        if ($uri === "animal_change_complet.php" || $uri === "animal_complet.php" || $uri === "animal_manage.php") {
+          $send_filename = "animal_manage.php";
+        } elseif($uri === "parent_mypage.php"){
+          $send_filename = "parent_mypage.php";
+        } else{
+          $send_filename = "recruit.php";
+        }     
+        ?>
+            <a href="<?= $send_filename; ?>" class="btn_back_mini">
+                < 戻る</a>
         </div>
-        <!-- いいねの表示 -->
+
+
+
         <div class="post" data-postid="<?= es($animal_id); ?>">
-                <div>
-                    <?php
-            foreach ($result as $row) {
-              echo "<h2 class='r_title'>{$row['title']}</h2>";
-              // ログイン済みの場合のみいいねを表示させる
-              if (!empty($_SESSION['user_id'])) {
-            ?>
-                </div>
-                <div class="r">
-                <div class="btn-good <?php if (isGood($user_id, $animal_id)) { //いいねの状態文字色ピンク
-                                  echo 'active ';
-                                } else { //未いいねの状態文字色指定なし
-                                  echo '';
+            <div>
+                <?php
+          foreach ($result as $row) {
+            echo "<h2 class='r_title'>{$row['title']}</h2>";
+            
+            //いいねの表示
+            // ログイン済みの場合のみいいねを表示させる
+            if (!empty($_SESSION['user_id'])) {
+          ?>
+            </div>
+            <div class="r">
+                <div class="btn-good <?php if (isGood($user_id, $animal_id)) {
+                                  echo 'active '; //いいね
+                                } else {
+                                  echo ''; //未いいね
                                 }; ?>">
 
                     <span>いいね</span>
                     <i class=" fa-heart 
-                    <?php if (isGood($user_id, $animal_id)) { //いいねの状態ハート塗りつぶし
-                      echo 'fas active  ';
-                    } else { //未いいねの時ハート空洞
-                      echo 'far';
+                    <?php if (isGood($user_id, $animal_id)) {
+                      echo 'fas active  '; //いいね
+                    } else {
+                      echo 'far'; //未いいね
                     }; ?>"></i>
                     <span class="goodcount"><?php echo $dbPostGoodNum; ?></span>
                 </div>
-                </div>
-            
+            </div>
+
             <!-- いいねの表示終わり -->
             <?php
-              } // いいねif終了
+            } // ログイン済みの場合のみいいねを表示させる終了
 
 
-              echo <<<"EOL"
+            echo <<<"EOL"
                         
 
                         <!--全体の枠-->
@@ -249,20 +260,10 @@ $_SESSION['question_7'] = [];
                         </table>
                 </div>
                 EOL;
-            }
           }
+        }
   ?>
-            <!-- <div>
-                            <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}">
-                            <div style="display:flex">
-                                <img src="./images/animal_photo/{$row['image_1']}" alt="{$row['kind']}"
-                                    style="width: 30%;">
-                                <img src="./images/animal_photo/{$row['image_2']}" alt="{$row['kind']}"
-                                    style="width: 30%;">
-                                <img src="./images/animal_photo/{$row['image_3']}" alt="{$row['kind']}"
-                                    style="width: 30%;">
-                            </div>
-                        </div> -->
+
             <p class="c" style="color:red">※里親申し込みには会員登録が必要です。</p>
             <!-- 申込フォームへ -->
             <form action="./recruit_form.php" method="POST">
@@ -273,15 +274,21 @@ $_SESSION['question_7'] = [];
     }
     ?>
                 <?php
-    $send_filename = "";
-    if (!empty($_POST['breeder'])) {
-      $send_filename = "animal_manage.php";
-    } else {
-      $send_filename = "recruit.php";
-    }
+   // 遷移前のページによって戻るボタンの遷移先を分岐する
+   $uri = rtrim($_SERVER["HTTP_REFERER"], '/');
+   $uri = substr($uri, strrpos($uri, '/') + 1);
+   $send_filename = "";
+   if ($uri === "animal_change_complet.php" || $uri === "animal_complet.php" || $uri === "animal_manage.php") {
+     $send_filename = "animal_manage.php";
+   } elseif($uri === "parent_mypage.php"){
+     $send_filename = "parent_mypage.php";
+   } else{
+     $send_filename = "recruit.php";
+   }     
+
     ?>
-        <button type="button" class="btn_back_one martop10"
-            onclick="location.href='<?= $send_filename ;?>'">戻る</button>
+                <button type="button" class="btn_back_one martop10"
+                    onclick="location.href='<?= $send_filename; ?>'">戻る</button>
             </form>
     </main>
 </div>

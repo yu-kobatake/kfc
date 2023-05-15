@@ -1,8 +1,8 @@
 <?php
 // titleで読み込むページ名
-$pagetitle = "ログアウト"
-?>
-<?php include('parts/header.php'); ?>
+$pagetitle = "ログアウト";
+// 関数ファイルの読み込み
+include('parts/header.php'); ?>
 
 <?php
 // セッション開始
@@ -17,15 +17,15 @@ if (empty($_SESSION['user_id'])) {
   exit();
 }
 
+// セッション削除
 killSession();
-
   
 ?>
 
 <div id="container" class="c1">
     <main>
         <h2>ログアウトしました。</h2>
-        <p class="c"><button onclick="location.href='index.php'" class="btn_back_one bw_size30">トップページへ戻る</button</p>
+        <p class="c"><button onclick="location.href='index.php'" class="btn_back_one bw_size30">トップページへ戻る</button< /p>
     </main>
 </div>
 <?php include('parts/footer.php'); ?>

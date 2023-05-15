@@ -41,23 +41,18 @@ $token = bin2hex($bytes);
 $_SESSION['token'] = $token;
 
 
-/*************************************************************
- DB接続 基本情報
- ************************************************************/
+
+// DB接続 基本情報
 // データベース接続
 $user = 'shotohlcd31_kfc';
 $password = 'KFCpassword';
 $dbName = 'shotohlcd31_kfc';
 $host = 'localhost';
-//$host = 'sv14471.xserver.jp';
 $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
 
-/*************************************************************
- DB接続 animalテーブルから登録情報を取得
- ************************************************************/
+// DB接続 animalテーブルから登録情報を取得
 
-// DB接続
 try {
     $pdo = new PDO($dsn, $user, $password);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -72,7 +67,7 @@ try {
     $result = es($result);
 
     // 入力値の設定
-    // 一度入力した値がSESSIONに入っているので存在すればその値、
+    // 一度入力した値がSESSIONに入っていればその値、
     // 無ければ現時点で犬猫登録されている値を入れる
 
     $title = !empty($_SESSION['animal']['title']) ? $_SESSION['animal']['title'] : $result['title'];
@@ -127,12 +122,13 @@ try {
 
 <div id="container" class="c1">
     <main>
-        <button onclick="location.href='animal_manage.php'" class="btn_back_mini marbtm10">< 戻る</button>
+        <button onclick="location.href='animal_manage.php'" class="btn_back_mini marbtm10">
+            < 戻る</button>
 
-        <h2 class="c">登録内容の変更</h2>
+                <h2 class="c">登録内容の変更</h2>
 
 
-        <?php
+                <?php
         // エラーを受け取る処理
         if (!empty($_SESSION['animal']['error'])) {
             $errors = $_SESSION['animal']['error'];
@@ -258,11 +254,11 @@ EOL;
     }
         ?>
 
-        <!-- 画像をプレビュー表示させる -->
-        <script>
-        function preview(elem) {
-            const blobUrl = window.URL.createObjectURL(elem.files[0])
-            elem.previousElementSibling.innerHTML = `<img src=${blobUrl} width=" 30%">`
-        }
-        </script>
-        <?php include('parts/footer.php'); ?>
+                <!-- 画像をプレビュー表示させる -->
+                <script>
+                function preview(elem) {
+                    const blobUrl = window.URL.createObjectURL(elem.files[0])
+                    elem.previousElementSibling.innerHTML = `<img src=${blobUrl} width=" 30%">`
+                }
+                </script>
+                <?php include('parts/footer.php'); ?>

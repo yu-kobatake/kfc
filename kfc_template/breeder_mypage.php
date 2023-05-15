@@ -21,19 +21,13 @@ $_POST = es($_POST);
 $errors = [];
 // 動物登録・変更関係のセッション削除
 $_SESSION['animal'] = [];
-// $_SESSION = [];
-// var_dump($_POST);
-// var_dump($_SESSION);
-
 ?>
 
 <?php
 
-/*************************************************************
- 不正アクセスチェック
- ************************************************************/
+//  不正アクセスチェック
 
-// 未ログイン状態で（$_SESSION['user_id']がない）遷移してきた場合で、トークンチェック（POSTによる遷移かどうか）
+// 未ログイン状態で（$_SESSION['user_id']がない）遷移してきた場合のトークンチェック
 if (empty($_SESSION['user_id'])) {
     // トークンチェック
     if (isset($_POST['token']) && isset($_SESSION['token'])) {
@@ -48,24 +42,17 @@ if (empty($_SESSION['user_id'])) {
         exit();
     }
 }
-/*************************************************************
- DB接続 基本情報
- ************************************************************/
+//  DB接続 基本情報
   // データベース接続
   $user = 'shotohlcd31_kfc';
   $password = 'KFCpassword';
   $dbName = 'shotohlcd31_kfc';
   $host = 'localhost';
-  //$host = 'sv14471.xserver.jp';
   $dsn = "mysql:host={$host}; dbname={$dbName}; charset=utf8";
 
-/*************************************************************
-DB接続
-ログインページからのページ遷移の場合
- ログイン時入力したIDとパスワードが
- userテーブルに登録されているかチェック
- ************************************************************/
-// ログインぺージからPOSTされてきた場合
+// DB接続
+// ログインページからのページ遷移の場合
+//  ログイン時入力したIDとパスワードがuserテーブルに登録されているかチェック
 if (!empty($_POST['login_send'])) {
 
     // POSTされたユーザーIDとパスワードのバリデーション
@@ -96,7 +83,6 @@ if (!empty($_POST['login_send'])) {
         $stm->execute();
         //userテーブルに該当するユーザーがいなかった時$resultにfalseが入る 
         $result = $stm->fetch(PDO::FETCH_NUM);
-        // var_dump($result);
 
         //userテーブルに該当するユーザーがいなかった場合$errorsにエラーメッセージを追加
         if (!$result[0]) {
@@ -126,13 +112,13 @@ if (!empty($_POST['login_send'])) {
         <h2>マイページ</h2>
 
         <div class="mypage_set">
-
             <?php
-/*************************************************************
- DB接続 userテーブルから会員情報を表示
-************************************************************/
 
-        // ログイン済み（$_SESSION['user_id']がある）ユーザーがログインしてきた場合、$user_idに$_SESSION['user_id']を代入する
+
+// 会員情報の表示
+//  DB接続 userテーブルから会員情報を表示
+
+        // ログイン済み（$_SESSION['user_id']がある）ユーザーが訪れた場合、$user_idに$_SESSION['user_id']を代入する
         if (!empty($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
 
         // DB接続
@@ -147,7 +133,8 @@ if (!empty($_POST['login_send'])) {
             $stm->execute();
             $result = $stm->fetch(PDO::FETCH_ASSOC);
             // var_dump($result);
-            // $resultにはユーザー情報（レコード）が入っている
+            // $resultにはユーザー情報が入っている
+            // エスケープ処理
             $result = es($result);
 
             //  該当するユーザーの情報を表示
@@ -187,17 +174,15 @@ if (!empty($_POST['login_send'])) {
         }
         ?>
             <?php
-        /*************************************************************
- メッセージエリア
-         ************************************************************/
+
+
+//  犬猫登録・管理画面/メッセージエリア
         ?>
             <div>
                 <h3>登録ペット</h3>
                 <a href="animal.php" class="animal_mana_btn_add">犬猫新規登録</a>
                 <a href="animal_manage.php" class="animal_mana_btn_con">犬猫管理画面</a>
-
                 <h3 class="martop10">メッセージ</h3>
-                <!-- 新規メッセージ的なコメント未設定 -->
                 <p>犬猫についてのメッセージのやり取りを確認・送信したい場合はこちら。</p>
                 <button type="button" class="btn_one martop10"
                     onclick="location.href='message_top.php'">メッセージ一覧へ</button>
@@ -206,9 +191,9 @@ if (!empty($_POST['login_send'])) {
         </div><!-- mypage_set -->
 
         <?php
-        /************************************************************
-             退会
-         ************************************************************/
+
+        
+//  退会
         ?>
         <h3 class=" martop50">退会</h3>
         <form method="POST" action="delete.php">
