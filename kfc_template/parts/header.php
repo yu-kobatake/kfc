@@ -12,14 +12,14 @@ session_start();
     <link rel="stylesheet" href="css/style.css">
     <?php
 
-$uri = rtrim($_SERVER["SCRIPT_NAME"], '/');
-$uri = substr($uri, strrpos($uri, '/') + 1);
-    if($uri === "message_top.php" ||$uri === "message.php" ){
+    $uri = rtrim($_SERVER["SCRIPT_NAME"], '/');
+    $uri = substr($uri, strrpos($uri, '/') + 1);
+    if ($uri === "message_top.php" || $uri === "message.php") {
         echo '<link rel="stylesheet" href="css/message.css">';
-    } elseif($uri === "recruit_detail.php"){
-        echo '<link rel="stylesheet" href="css/recruit_detail.css">';    
-    } 
-    
+    } elseif ($uri === "recruit_detail.php") {
+        echo '<link rel="stylesheet" href="css/recruit_detail.css">';
+    }
+
     ?>
 
 </head>
@@ -33,17 +33,16 @@ $uri = substr($uri, strrpos($uri, '/') + 1);
             <li><a href="./recruit.php">里親募集</a></li>
             <li><a href="./event.php">イベント</a></li>
             <li><a href="./about.php">当サイトについて</a></li>
-            <?php if($uri === "logout.php"){
-                echo '<li><a href="./login.php">ログイン</a></li>'; 
-            } elseif(!empty($_SESSION['user_id']) ||$uri === "parent_mypage.php" || $uri === "breeder_mypage.php") {
+            <?php if ($uri === "logout.php") {
+                echo '<li><a href="./login.php">ログイン</a></li>';
+            } elseif (!empty($_SESSION['user_id']) || $uri === "parent_mypage.php" || $uri === "breeder_mypage.php") {
                 echo '<li><a href="./login.php">マイページ</a></li>';
                 echo '<li><a href="./logout.php">ログアウト</a></li>';
             } else {
-              echo '<li><a href="./login.php">ログイン</a></li>';   
-                
+                echo '<li><a href="./login.php">ログイン</a></li>';
             }
 
-?>
+            ?>
 
         </ul>
     </header>
@@ -59,17 +58,17 @@ $uri = substr($uri, strrpos($uri, '/') + 1);
             <li><a href="./recruit.php">里親募集</a></li>
             <li><a href="./event.php">イベント</a></li>
             <li><a href="./about.php">当サイトについて</a></li>
-            <?php if(!empty($_SESSION['user_id'])){
+            <?php if (!empty($_SESSION['user_id'])) {
                 echo '<li><a href="./logout.php">ログアウト</a></li>';
-            }?>
+            } ?>
         </ul>
         <ul class="submenu btn">
-            <?php if(!empty($_SESSION['user_id'])){
-            echo '<li><a href="./login.php">マイページ</a></li>';
-        } else {
-          echo '<li><a href="./login.php">ログイン</a></li>';   
-        }
-?>
+            <?php if (!empty($_SESSION['user_id'])) {
+                echo '<li><a href="./login.php">マイページ</a></li>';
+            } else {
+                echo '<li><a href="./login.php">ログイン</a></li>';
+            }
+            ?>
         </ul>
     </div>
 
