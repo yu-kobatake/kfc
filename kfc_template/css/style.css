@@ -1105,7 +1105,6 @@ a.btn_back_mini:hover{
 	width: 70%;
 }
 
-
 /* 犬猫管理関係
 ---------------------------------------------------------------------------*/
 /* 犬猫登録 */
@@ -1131,14 +1130,6 @@ a.btn_back_mini:hover{
 	margin-bottom: 0.3rem;
 }
 
-.error{
-	background: #ffeded;
-	color: red;
-	padding: 10px;
-	display: block;
-}
-
-
 /*その他
 ---------------------------------------------------------------------------*/
 .clear {clear: both;}
@@ -1162,8 +1153,13 @@ a.btn_back_mini:hover{
 .martop50{ margin-top: 50px !important; }
 .marbtm10{ margin-bottom: 10px !important; }
 .marbtm20{ margin-bottom: 20px !important; }
-
-
+/* エラー文 */
+.error{
+	background: #ffeded;
+	color: red;
+	padding: 10px;
+	display: block;
+}
 
 
 /*---------------------------------------------------------------------------
@@ -1217,11 +1213,7 @@ form.searchf div.sp_set{
 }
 
 
-
-
-
 /*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
-
 }
 
 

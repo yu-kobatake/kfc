@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+
 // titleで読み込むページ名
 $pagetitle = "新規会員登録完了";
 ?>
@@ -15,10 +17,12 @@ if(!isset($_SESSION)){
 if ($_SESSION['token2'] !== $_POST['token2']) :
   // 正しくない場合の処理
   $_SESSION['token2'] = "";
-  $notice = '※不正なアクセスのためエラー※'; // IDのお知らせエラー
+  $_POST['token2'] = "";
+  $display = '※不正なアクセスのためエラー※'; // IDのお知らせエラー
   // echo <<< EOL
-  // <p>不正なアクセスです。</p>
+  // <p class="c">アクセスエラーです。</p>
   // EOL;
+  // PHPエラーを非表示
 else :
 
   if (!empty($_POST)) {
@@ -68,7 +72,6 @@ else :
       $_SESSION['user_id'] = $userdata_id;
       $display = $userdata_id; // IDを表示する用
     }
-
 
   } catch (PDOException $e) {
     $err =  '<span class="error">エラーがありました。</span><br>';
