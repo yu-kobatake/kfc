@@ -229,7 +229,7 @@ if (count($errors) > 0) {
                             </td>
                         </tr>
                         <tr>
-                            <th>犬種/猫種</th>
+                            <th>犬or猫</th>
                             <td colspan="3"><?= es($kind); ?></td>
                         </tr>
                         <tr>
