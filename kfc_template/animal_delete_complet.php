@@ -52,6 +52,27 @@ try {
     $sql = "DELETE FROM animal WHERE animal_id = $animal_id";
     $stm = $pdo->prepare($sql);
     $stm->execute();
+
+    // animal_photoフォルダのがぞうを画像を削除する
+
+    for ($i = 1; $i <= 3; $i++) {
+        
+  
+          $filename1 = "./images/animal_photo/{$animal_id}_image{$i}.jpg";
+          $filename2 = "./images/animal_photo/{$animal_id}_image{$i}.jpeg";
+          $filename3 = "./images/animal_photo/{$animal_id}_image{$i}.png";
+          // 既存の画像を削除する
+          if (file_exists($filename1)) {
+            unlink($filename1);
+          }
+          if (file_exists($filename2)) {
+            unlink($filename2);
+          }
+          if (file_exists($filename3)) {
+            unlink($filename3);
+          }
+       
+      }
 ?>
 
 <div id="container" class="c1">
