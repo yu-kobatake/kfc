@@ -11,7 +11,6 @@ if(!isset($_SESSION)){
   session_start();
 }
 
-
 // トークン発行・登録
 $bytes = openssl_random_pseudo_bytes(16);
 $token = bin2hex($bytes);
@@ -81,7 +80,7 @@ function agreeChecked(){
         echo '</div>';
       }
       ?>
-    <form action="signup_comfirm.php" method="POST">
+    <form action="signup_comfirm.php" method="POST" class="signup_f">
       <table class="ta1">
         <tr>
           <th>里親希望 or ブリーダー※</th>

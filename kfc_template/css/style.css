@@ -986,6 +986,14 @@ a.btn_back_mini:hover{
 .text_r{
 	font-size: 13px;
 }
+/* 登録ボタン（利用規約チェック前の装飾） */
+.signup_f input:disabled,
+.signup_f input:disabled:hover{
+	color: #fff;
+  background: #ccc;
+	border: 2px solid #bbb !important;
+	cursor: not-allowed;
+}
 
 .login_area{
 	display: flex;
