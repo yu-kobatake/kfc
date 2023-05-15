@@ -75,7 +75,6 @@ try {
             <input type="submit" value="修正" class="btn_animal change" formaction="animal_change.php">
             <input type="submit" value="削除" class="btn_animal del" formaction="animal_delete.php">
             <input type="hidden" name="animal_id" value="{$row['animal_id']}">
-            <input type="hidden" name="back_1" value="back_1">
             </form>
           </div>
         </div>

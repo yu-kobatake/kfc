@@ -227,7 +227,6 @@ $_SESSION['animal_id'] = [];
             <p class="c">
                 <input class="btn_back_one" type="submit" value="マイページトップへ" formaction="breeder_mypage.php">
             </p>
-            <input type="hidden" name="back_1">
         </form>
     </main>
 </div>
