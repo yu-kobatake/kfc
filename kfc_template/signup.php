@@ -118,7 +118,7 @@ function agreeChecked(){
           <td>
             〒<input type="text" id="zip" name="zip" onKeyUp="AjaxZip3.zip2addr(this,'','address','address');" placeholder="郵便番号7桁" value="<?php echo es($zip); ?>">
             <span class="text_r">郵便番号が入力されると住所が自動表示されます。</span>
-            <input type="text" name="address" class="wl" placeholder="例）石川県金沢市●●1-1-1 イヌネコマンション101" value="<?php echo es($address); ?>">
+            <input type="text" name="address" class="martop6 wl" placeholder="例）石川県金沢市●●1-1-1 イヌネコマンション101" value="<?php echo es($address); ?>">
           </td>
         </tr>
         <tr>
