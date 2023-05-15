@@ -162,15 +162,15 @@ $_SESSION['question_7'] = [];
         </div>
         <!-- いいねの表示 -->
         <div class="post" data-postid="<?= es($animal_id); ?>">
-            <div class="recruit_ttl">
                 <div>
                     <?php
             foreach ($result as $row) {
-              echo "<h2 class='c'>{$row['title']}</h2>";
+              echo "<h2 class='r_title'>{$row['title']}</h2>";
               // ログイン済みの場合のみいいねを表示させる
               if (!empty($_SESSION['user_id'])) {
             ?>
                 </div>
+                <div class="r">
                 <div class="btn-good <?php if (isGood($user_id, $animal_id)) { //いいねの状態文字色ピンク
                                   echo 'active ';
                                 } else { //未いいねの状態文字色指定なし
@@ -186,7 +186,8 @@ $_SESSION['question_7'] = [];
                     }; ?>"></i>
                     <span class="goodcount"><?php echo $dbPostGoodNum; ?></span>
                 </div>
-            </div><!-- recruit_ttl -->
+                </div>
+            
             <!-- いいねの表示終わり -->
             <?php
               } // いいねif終了
@@ -279,8 +280,8 @@ $_SESSION['question_7'] = [];
       $send_filename = "recruit.php";
     }
     ?>
-                <button type="button" class="btn_back_one martop10"
-                    onclick="location.href='<?= $send_filename ;?>'">戻る</button>
+        <button type="button" class="btn_back_one martop10"
+            onclick="location.href='<?= $send_filename ;?>'">戻る</button>
             </form>
     </main>
 </div>
